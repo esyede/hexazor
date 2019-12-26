@@ -66,6 +66,12 @@ Route::prefix('frontend')->namespaces('frontend')->group(function () {
 });
 ```
 
+**View**
+```blade
+<p>Halo {{ $name }}</p>
+```
+
+
 **Controller:**
 ```php
 namespace App\Http\Controllers;
@@ -77,7 +83,9 @@ class Hello extends Controller
 {
 	public function index()
 	{
-		echo 'Halo dunia! Ini adalah controller pertamaku!';
+		$name = 'Budi';
+
+		View::make('welcome', compact('name'));
 	}
 }
 ```
