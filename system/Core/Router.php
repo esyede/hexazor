@@ -13,32 +13,21 @@ use System\Support\Str;
 class Router
 {
     private static $routes = [];
-
     private static $middlewares = [];
-
     private static $prefix = [];
-
     private static $baseroute = '/';
-
     private static $namespaces = '';
-
     private static $domain = '';
-
     private static $ip = '';
-
     private static $groups = [];
-
     private static $names = [];
-
     private static $grouped = 0;
-
     private static $ssl = false;
-
     protected static $baseNamespace = 'App\\Http\\Controllers\\';
 
     private static $patterns = [
-        '{all}' => '([^/]+)',
-        '{num}' => '([0-9]+)',
+        '{all}'   => '([^/]+)',
+        '{num}'   => '([0-9]+)',
         '{alpha}' => '([a-zA-Z]+)',
         '{alnum}' => '([a-zA-Z0-9_-]+)',
     ];
@@ -50,17 +39,17 @@ class Router
      */
     public static function group(Closure $callback)
     {
-        ++static::$grouped;
+        static::$grouped++;
 
         static::$groups[] = [
-            'baseroute' => static::$baseroute,
+            'baseroute'   => static::$baseroute,
             'middlewares' => static::$middlewares,
-            'namespaces' => static::$namespaces,
-            'domain' => static::$domain,
-            'ip' => static::$ip,
-            'ssl' => static::$ssl,
-            'prefix' => static::$prefix,
-            'names' => static::$names,
+            'namespaces'  => static::$namespaces,
+            'domain'      => static::$domain,
+            'ip'          => static::$ip,
+            'ssl'         => static::$ssl,
+            'prefix'      => static::$prefix,
+            'names'       => static::$names,
         ];
 
         call_user_func($callback);
@@ -78,7 +67,7 @@ class Router
             static::$names = $group['names'];
         }
 
-        --static::$grouped;
+        static::$grouped--;
 
         if (static::$grouped <= 0) {
             // reset
@@ -239,9 +228,9 @@ class Router
         }
 
         $routes = [
-            'uri' => $uri,
-            'method' => $method,
-            'pattern' => $pattern,
+            'uri'      => $uri,
+            'method'   => $method,
+            'pattern'  => $pattern,
             'callback' => $handler,
         ];
 
@@ -289,7 +278,7 @@ class Router
                 $methodCheck = static::checkMethod($route);
 
                 if ($domainCheck && $methodCheck && $ipCheck && $sslCheck) {
-                    ++$matched;
+                    $matched++;
                     array_shift($params);
                     if (isset($route['middlewares'])) {
                         foreach ($route['middlewares'] as $name => $middleware) {
@@ -297,7 +286,9 @@ class Router
                             if (class_exists($class)) {
                                 $object = new $class();
                                 if (!method_exists($object, 'handle')) {
-                                    throw new RuntimeException('Middleware handler not found: '.$class.'::handle()');
+                                    throw new RuntimeException(
+                                       'Middleware handler not found: '.$class.'::handle()'
+                                   );
                                 }
 
                                 call_user_func_array([$object, $method], []);
@@ -415,6 +406,8 @@ class Router
 
     /**
      * Tangani kondisi saat route handler tidak ditemukan.
+     *
+     * @return void
      */
     private static function pageNotFound()
     {
@@ -588,6 +581,8 @@ class Router
      * @param array           $methods
      * @param string          $pattern
      * @param string|callable $callback
+     *
+     * @return void
      */
     public static function match(array $methods, $pattern, $callback)
     {
@@ -647,7 +642,6 @@ class Router
             if (array_key_exists('name', $route) && $route['name'] == $name) {
                 $pattern = static::resolveRoutePattern($route['uri'], $params);
                 $pattern = implode('/', $pattern);
-
                 break;
             }
         }

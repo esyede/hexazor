@@ -7,15 +7,10 @@ defined('DS') or exit('No direct script access allowed.');
 class Request
 {
     protected $get;
-
     protected $post;
-
     protected $cookie;
-
     protected $files;
-
     protected $server;
-
     protected $globals;
 
     /**
@@ -28,29 +23,19 @@ class Request
 
     /**
      * Buat global variables.
+     *
+     * @return void
      */
     private function populateGlobalVariables()
     {
         foreach ($GLOBALS as $key => $value) {
             switch ($key) {
-                case '_GET':    $this->get = $value;
-
-break;
-                case '_POST':   $this->post = $value;
-
-break;
-                case '_COOKIE': $this->cookie = $value;
-
-break;
-                case '_FILES':  $this->files = $value;
-
-break;
-                case '_SERVER': $this->server = $value;
-
-break;
-                case 'GLOBALS': $this->globals = $value;
-
-break;
+                case '_GET':    $this->get = $value; break;
+                case '_POST':   $this->post = $value; break;
+                case '_COOKIE': $this->cookie = $value; break;
+                case '_FILES':  $this->files = $value; break;
+                case '_SERVER': $this->server = $value; break;
+                case 'GLOBALS': $this->globals = $value; break;
             }
         }
     }

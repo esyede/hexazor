@@ -89,13 +89,13 @@ if (!function_exists('getallheaders')) {
         $headers = [];
 
         $server = [
-            'CONTENT_TYPE' => 'Content-Type',
+            'CONTENT_TYPE'   => 'Content-Type',
             'CONTENT_LENGTH' => 'Content-Length',
-            'CONTENT_MD5' => 'Content-Md5',
+            'CONTENT_MD5'    => 'Content-Md5',
         ];
 
         foreach ($_SERVER as $key => $value) {
-            if ('HTTP_' === substr($key, 0, 5)) {
+            if (substr($key, 0, 5) === 'HTTP_') {
                 $key = substr($key, 5);
                 if (!isset($server[$key]) || !isset($_SERVER[$key])) {
                     $key = str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', $key))));
@@ -189,16 +189,13 @@ if (!function_exists('hash_pbkdf2')) {
             case 'sha224':
             case 'sha256':
                 $blockSize = 64;
-
                 break;
             case 'sha384':
             case 'sha512':
                 $blockSize = 128;
-
                 break;
             default:
                 $blockSize = $hashLength;
-
                 break;
         }
         if ($length < 1) {
@@ -214,10 +211,10 @@ if (!function_exists('hash_pbkdf2')) {
             $password = hash($algorithm, $password, true);
         }
 
-        for ($i = 1; $i <= $blocks; ++$i) {
+        for ($i = 1; $i <= $blocks; $i++) {
             $ib = $block = hash_hmac($algorithm, $salt.pack('N', $i), $password, true);
 
-            for ($j = 1; $j < $iterations; ++$j) {
+            for ($j = 1; $j < $iterations; $j++) {
                 $ib ^= ($block = hash_hmac($algorithm, $block, $password, true));
             }
 
@@ -305,7 +302,6 @@ if (!function_exists('password_hash')) {
                 $required_salt_len = 22;
                 $hash_format = sprintf('$2y$%02d$', $cost);
                 $resultLength = 60;
-
                 break;
             default:
                 $message = sprintf('password_hash(): Unknown password hashing algorithm: %s', $algo);
@@ -323,12 +319,10 @@ if (!function_exists('password_hash')) {
                 case 'double':
                 case 'string':
                     $salt = (string) $options['salt'];
-
                     break;
                 case 'object':
                     if (method_exists($options['salt'], '__tostring')) {
                         $salt = (string) $options['salt'];
-
                         break;
                     }
                     // no break, it's intended
@@ -391,7 +385,7 @@ if (!function_exists('password_hash')) {
             }
             if (!$buffer_valid || _polyfill_strlen($buffer) < $raw_salt_len) {
                 $buffer_length = _polyfill_strlen($buffer);
-                for ($i = 0; $i < $raw_salt_len; ++$i) {
+                for ($i = 0; $i < $raw_salt_len; $i++) {
                     if ($i < $buffer_length) {
                         $buffer[$i] = $buffer[$i] ^ chr(mt_rand(0, 255));
                     } else {
@@ -426,9 +420,9 @@ if (!function_exists('password_get_info')) {
     function password_get_info($hash)
     {
         $return = [
-            'algo' => 0,
+            'algo'     => 0,
             'algoName' => 'unknown',
-            'options' => [],
+            'options'  => [],
         ];
 
         if ('$2y$' == _polyfill_substr($hash, 0, 4) && 60 == _polyfill_strlen($hash)) {
@@ -460,7 +454,6 @@ if (!function_exists('password_needs_rehash')) {
                 if ($cost !== $info['options']['cost']) {
                     return true;
                 }
-
                 break;
         }
 
@@ -485,7 +478,7 @@ if (!function_exists('password_verify')) {
         }
 
         $status = 0;
-        for ($i = 0; $i < _polyfill_strlen($ret); ++$i) {
+        for ($i = 0; $i < _polyfill_strlen($ret); $i++) {
             $status |= (ord($ret[$i]) ^ ord($hash[$i]));
         }
 
@@ -507,21 +500,21 @@ if (!function_exists('ldap_escape')) {
         if (null === $_polyfillCharMaps) {
             $_polyfillCharMaps = [
                 LDAP_ESCAPE_FILTER => ['\\', '*', '(', ')', "\x00"],
-                LDAP_ESCAPE_DN => ['\\', ',', '=', '+', '<', '>', ';', '"', '#', "\r"],
+                LDAP_ESCAPE_DN     => ['\\', ',', '=', '+', '<', '>', ';', '"', '#', "\r"],
             ];
 
             $_polyfillCharMaps[0] = [];
-            for ($i = 0; $i < 256; ++$i) {
+            for ($i = 0; $i < 256; $i++) {
                 $_polyfillCharMaps[0][chr($i)] = sprintf('\\%02x', $i);
             }
 
-            for ($i = 0, $l = count($_polyfillCharMaps[LDAP_ESCAPE_FILTER]); $i < $l; ++$i) {
+            for ($i = 0, $l = count($_polyfillCharMaps[LDAP_ESCAPE_FILTER]); $i < $l; $i++) {
                 $chr = $_polyfillCharMaps[LDAP_ESCAPE_FILTER][$i];
                 unset($_polyfillCharMaps[LDAP_ESCAPE_FILTER][$i]);
                 $_polyfillCharMaps[LDAP_ESCAPE_FILTER][$chr] = $_polyfillCharMaps[0][$chr];
             }
 
-            for ($i = 0, $l = count($_polyfillCharMaps[LDAP_ESCAPE_DN]); $i < $l; ++$i) {
+            for ($i = 0, $l = count($_polyfillCharMaps[LDAP_ESCAPE_DN]); $i < $l; $i++) {
                 $chr = $_polyfillCharMaps[LDAP_ESCAPE_DN][$i];
                 unset($_polyfillCharMaps[LDAP_ESCAPE_DN][$i]);
                 $_polyfillCharMaps[LDAP_ESCAPE_DN][$chr] = $_polyfillCharMaps[0][$chr];
@@ -545,7 +538,7 @@ if (!function_exists('ldap_escape')) {
 
         $ignore = (string) $ignore;
 
-        for ($i = 0, $l = strlen($ignore); $i < $l; ++$i) {
+        for ($i = 0, $l = strlen($ignore); $i < $l; $i++) {
             unset($charMap[$ignore[$i]]);
         }
 
@@ -595,7 +588,7 @@ if (!function_exists('hash_equals')) {
 
         $result = 0;
 
-        for ($i = 0; $i < $knownLen; ++$i) {
+        for ($i = 0; $i < $knownLen; $i++) {
             $result |= ord($known_string[$i]) ^ ord($user_string[$i]);
         }
 
@@ -701,15 +694,9 @@ if (!function_exists('utf8_encode')) {
 
         for ($i = $len >> 1, $j = 0; $i < $len; ++$i, ++$j) {
             switch (true) {
-                case $s[$i] < "\x80": $s[$j] = $s[$i];
-
-break;
-                case $s[$i] < "\xC0": $s[$j] = "\xC2"; $s[++$j] = $s[$i];
-
-break;
-                default: $s[$j] = "\xC3"; $s[++$j] = chr(ord($s[$i]) - 64);
-
-break;
+                case $s[$i] < "\x80": $s[$j] = $s[$i]; break;
+                case $s[$i] < "\xC0": $s[$j] = "\xC2"; $s[++$j] = $s[$i]; break;
+                default: $s[$j] = "\xC3"; $s[++$j] = chr(ord($s[$i]) - 64); break;
             }
         }
 
@@ -729,7 +716,6 @@ if (!function_exists('utf8_decode')) {
                 case "\xD0":
                     $c = (ord($s[$i] & "\x1F") << 6) | ord($s[++$i] & "\x3F");
                     $s[$j] = $c < 256 ? chr($c) : '?';
-
                     break;
 
                 case "\xF0":
@@ -740,7 +726,6 @@ if (!function_exists('utf8_decode')) {
                 case "\xE0":
                     $s[$j] = '?';
                     $i += 2;
-
                     break;
 
                 default:
@@ -760,13 +745,13 @@ if (!function_exists('php_os_family')) {
         }
 
         $map = [
-            'Darwin' => 'Darwin',
+            'Darwin'    => 'Darwin',
             'DragonFly' => 'BSD',
-            'FreeBSD' => 'BSD',
-            'NetBSD' => 'BSD',
-            'OpenBSD' => 'BSD',
-            'Linux' => 'Linux',
-            'SunOS' => 'Solaris',
+            'FreeBSD'   => 'BSD',
+            'NetBSD'    => 'BSD',
+            'OpenBSD'   => 'BSD',
+            'Linux'     => 'Linux',
+            'SunOS'     => 'Solaris',
         ];
 
         return isset($map[PHP_OS]) ? $map[PHP_OS] : 'Unknown';
@@ -795,7 +780,6 @@ if (!function_exists('spl_object_id')) {
                 && 'o' === $frame['function'][0]
                 && in_array($frame['function'], $_obFuncs)) {
                     $frame['line'] = 0;
-
                     break;
                 }
             }

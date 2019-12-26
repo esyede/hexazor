@@ -10,7 +10,6 @@ use System\Support\Collection;
 class InspireCommand extends Command
 {
     protected $signature = 'inspire';
-
     protected $description = 'Display inspiring quotes';
 
     /**

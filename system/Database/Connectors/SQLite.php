@@ -31,7 +31,9 @@ class SQLite extends Connector
 
         if (!$storage->isDirectory($path)) {
             if (!$storage->makeDirectory($path, 0777, true)) {
-                throw new RuntimeException('Unable to create sqlite storage folder: storage'.DS.'sqlite'.DS);
+                throw new RuntimeException(
+                    'Unable to create sqlite storage folder: storage'.DS.'sqlite'.DS
+                );
             }
         }
 

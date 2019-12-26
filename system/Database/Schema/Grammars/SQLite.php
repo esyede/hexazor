@@ -27,7 +27,6 @@ class SQLite extends Grammar
         foreach ($table->commands as $key => $value) {
             if ('primary' == $value->type) {
                 $primary = $value;
-
                 break;
             }
         }

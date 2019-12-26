@@ -10,9 +10,7 @@ use System\Debugger\Interfaces\LoggerInterface;
 class FireLogger implements LoggerInterface
 {
     public $maxDepth = 3;
-
     public $maxLength = 150;
-
     private $payload = ['logs' => []];
 
     /**
@@ -32,13 +30,13 @@ class FireLogger implements LoggerInterface
         $time = number_format((microtime(true) - Debugger::$time) * 1000, 1, '.', ' ');
 
         $item = [
-            'name' => 'PHP',
-            'level' => $level,
-            'order' => count($this->payload['logs']),
-            'time' => str_pad($time, 8, '0', STR_PAD_LEFT).' ms',
+            'name'     => 'PHP',
+            'level'    => $level,
+            'order'    => count($this->payload['logs']),
+            'time'     => str_pad($time, 8, '0', STR_PAD_LEFT).' ms',
             'template' => '',
-            'message' => '',
-            'style' => 'background:#767ab6',
+            'message'  => '',
+            'style'    => 'background:#767ab6',
         ];
 
         $args = func_get_args();
@@ -81,7 +79,6 @@ class FireLogger implements LoggerInterface
                 if (isset($frame['file']) && is_file($frame['file'])) {
                     $item['pathname'] = $frame['file'];
                     $item['lineno'] = $frame['line'];
-
                     break;
                 }
             }
@@ -92,13 +89,13 @@ class FireLogger implements LoggerInterface
 
         foreach ($trace as $frame) {
             $frame += [
-                'file' => null,
-                'line' => null,
-                'class' => null,
-                'type' => null,
+                'file'     => null,
+                'line'     => null,
+                'class'    => null,
+                'type'     => null,
                 'function' => null,
-                'object' => null,
-                'args' => null,
+                'object'   => null,
+                'args'     => null,
             ];
 
             $item['exc_info'][2][] = [

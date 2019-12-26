@@ -11,7 +11,6 @@ use System\Core\Config;
 class Auth
 {
     public static $drivers = [];
-
     public static $registrar = [];
 
     /**
@@ -61,6 +60,8 @@ class Auth
      *
      * @param string   $driver
      * @param \Closure $resolver
+     *
+     * @return void
      */
     public static function extend($driver, Closure $resolver)
     {

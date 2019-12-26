@@ -15,17 +15,12 @@ use System\Support\Str;
 class Validator
 {
     public $attributes;
-
     public $errors;
 
     protected $rules = [];
-
     protected $messages = [];
-
     protected $db;
-
     protected $sizeRules = ['size', 'between', 'min', 'max'];
-
     protected $numericRules = ['numeric', 'integer'];
 
     protected static $validators = [];

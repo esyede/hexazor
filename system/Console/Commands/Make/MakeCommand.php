@@ -7,9 +7,7 @@ use System\Console\Generators\GeneralFile;
 class MakeCommand extends GeneralFile
 {
     protected $signature = 'make:command {name}';
-
     protected $description = 'Create a new console command.';
-
     protected $type = 'Command';
 
     /**
@@ -72,7 +70,7 @@ class MakeCommand extends GeneralFile
 
         $max = $length / 2;
 
-        for ($i = 1; $i <= $max; ++$i) {
+        for ($i = 1; $i <= $max; $i++) {
             $word .= $consonants[rand(0, 19)];
             $word .= $vowels[rand(0, 4)];
         }

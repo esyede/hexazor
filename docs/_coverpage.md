@@ -3,11 +3,11 @@
 
 # Hexazor
 
-> Tiny, Simple PHP Micro-framework.
+> framework PHP mungil dan sederhana :fire:
 
--   Ringan (~400Kb zip)
--   Sederhana & kaya fitur
--   Berjalan baik di shared hosting
+-   ringan (~400Kb zip)
+-   sederhana & kaya fitur
+-   berjalan baik di shared hosting
 
 [Download](https://github.com/esyede/hexazor/releases/latest)
 [Dokumentasi](/README.md#readme)

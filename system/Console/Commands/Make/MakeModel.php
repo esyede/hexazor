@@ -7,9 +7,7 @@ use System\Console\Generators\GeneralFile;
 class MakeModel extends GeneralFile
 {
     protected $signature = 'make:model {name}';
-
     protected $description = 'Create a new model class';
-
     protected $type = 'Model';
 
     /**

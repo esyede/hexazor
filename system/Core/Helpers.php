@@ -52,21 +52,11 @@ if (!function_exists('request')) {
     {
         $request = Request::getRequestMethod();
         switch ($request) {
-            case     'GET':    $request = Request::get();
-
-break;
-            case     'POST':   $request = Request::post();
-
-break;
-            case     'PUT':    $request = Request::put();
-
-break;
-            case     'PATCH':  $request = Request::patch();
-
-break;
-            case     'DELETE': $request = Request::delete();
-
-break;
+            case     'GET':    $request = Request::get(); break;
+            case     'POST':   $request = Request::post(); break;
+            case     'PUT':    $request = Request::put(); break;
+            case     'PATCH':  $request = Request::patch(); break;
+            case     'DELETE': $request = Request::delete(); break;
             default:           $request = Request::all();
         }
 
@@ -349,7 +339,7 @@ if (!function_exists('append_config')) {
 
         foreach ($array as $key => $value) {
             if (is_numeric($key)) {
-                ++$start;
+                $start++;
                 $array[$start] = Arr::pull($array, $key);
             }
         }
@@ -577,7 +567,7 @@ if (!function_exists('retry')) {
     function retry($times, callable $callback, $sleep = 0, $when = null)
     {
         $attempts = 0;
-        --$times;
+        $times--;
 
         beginning:
         $attempts++;
@@ -589,7 +579,7 @@ if (!function_exists('retry')) {
                 throw $e;
             }
 
-            --$times;
+            $times--;
 
             if ($sleep) {
                 usleep($sleep * 1000);

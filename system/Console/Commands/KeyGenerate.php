@@ -10,11 +10,12 @@ use System\Support\Str;
 class KeyGenerate extends Command
 {
     protected $signature = 'key:generate';
-
     protected $description = 'Set the application key.';
 
     /**
      * Tangani command ini.
+     *
+     * @return void
      */
     public function handle()
     {

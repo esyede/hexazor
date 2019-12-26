@@ -9,7 +9,6 @@ use System\Debugger\Interfaces\BarPanelInterface;
 class Bar
 {
     public $info = [];
-
     private $panels = [];
 
     /**
@@ -77,8 +76,8 @@ class Bar
 
             if (isset($e)) {
                 $panels[] = [
-                    'id' => "error-$idHtml",
-                    'tab' => "Error in $id",
+                    'id'    => "error-$idHtml",
+                    'tab'   => "Error in $id",
                     'panel' => '<h1>Error: '.$id.'</h1><div class="debugger-inner">'
                         .nl2br(htmlspecialchars($e, ENT_IGNORE, 'UTF-8')).'</div>',
                 ];
@@ -91,7 +90,7 @@ class Bar
 
         if ($redirect) {
             $session[] = [
-                'panels' => $panels,
+                'panels'   => $panels,
                 'liveData' => Dumper::fetchLiveData(),
             ];
 
@@ -101,8 +100,8 @@ class Bar
         $liveData = Dumper::fetchLiveData();
         foreach (array_reverse((array) $session) as $reqId => $info) {
             $panels[] = [
-                'tab' => '<span title="Previous request before redirect">previous</span>',
-                'panel' => null,
+                'tab'      => '<span title="Previous request before redirect">previous</span>',
+                'panel'    => null,
                 'previous' => true,
             ];
 

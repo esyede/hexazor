@@ -14,6 +14,8 @@ class Restful
      *
      * @param string $url
      * @param array  $data
+     *
+     * @return void
      */
     public function get($url, array $data = [])
     {
@@ -26,6 +28,8 @@ class Restful
      *
      * @param string $url
      * @param array  $data
+     *
+     * @return void
      */
     public function post($url, array $data = [])
     {
@@ -38,6 +42,8 @@ class Restful
      *
      * @param string $url
      * @param array  $data
+     *
+     * @return void
      */
     public function put($url, array $data = [])
     {
@@ -50,6 +56,8 @@ class Restful
      *
      * @param string $url
      * @param array  $data
+     *
+     * @return void
      */
     public function delete($url, array $data = [])
     {
@@ -96,6 +104,8 @@ class Restful
      *
      * @param string $param
      * @param string $alias
+     *
+     * @return void
      */
     private function validateRequiredParameter($param, $alias)
     {

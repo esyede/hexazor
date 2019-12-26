@@ -9,33 +9,20 @@ use stdClass;
 class Date
 {
     const ATOM = "Y-m-d\TH:i:sP";
-
     const COOKIE = 'l, d-M-y H:i:s T';
-
     const ISO8601 = "Y-m-d\TH:i:sO";
-
     const RFC822 = 'D, d M y H:i:s O';
-
     const RFC850 = 'l, d-M-y H:i:s T';
-
     const RFC1036 = 'D, d M y H:i:s O';
-
     const RFC1123 = 'D, d M Y H:i:s O';
-
     const RFC2822 = 'D, d M Y H:i:s O';
-
     const RFC3339 = "Y-m-d\TH:i:sP";
-
     const RSS = 'D, d M Y H:i:s O';
-
     const GENERIC = 'Y-m-d H:i:s';
 
     private $timestamp = '';
-
     private $comparisonDateTimestamp = '';
-
     private $comparisonArray = [];
-
     private $locale = 'en_EN.UTF-8';
 
     /**
@@ -827,6 +814,8 @@ class Date
 
     /**
      * Hitung perbedaan antara 2 buah tanggal.
+     *
+     * @return void
      */
     private function calculateDifference()
     {
@@ -918,17 +907,17 @@ class Date
 
         if ($result['isBefore']) {
             while ($result['d'] < 0) {
-                --$month;
+                $month--;
                 if ($month < 1) {
                     $month += 12;
-                    --$year;
+                    $year--;
                 }
 
                 $leapYear = 0 == $year % 400 || (0 != $year % 100 && 0 == $year % 4);
                 $days = $leapYear ? $daysInMonthLeap[$month] : $daysInMonth[$month];
 
                 $result['d'] += $days;
-                --$result['m'];
+                $result['m']--;
             }
         } else {
             while ($result['d'] < 0) {
@@ -936,12 +925,12 @@ class Date
                 $days = $leapYear ? $daysInMonthLeap[$month] : $daysInMonth[$month];
 
                 $result['d'] += $days;
-                --$result['m'];
+                $result['m']--;
 
-                ++$month;
+                $month++;
                 if ($month > 12) {
                     $month -= 12;
-                    ++$year;
+                    $year++;
                 }
             }
         }

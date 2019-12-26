@@ -11,7 +11,6 @@ use System\Support\Str;
 abstract class GeneralFile extends Command
 {
     protected $storage;
-
     protected $type;
 
     /**
@@ -33,6 +32,8 @@ abstract class GeneralFile extends Command
      * Jalankan proses pembuatan file.
      *
      * @param string $input
+     *
+     * @return void
      */
     public function handle($input)
     {

@@ -10,7 +10,6 @@ use System\Database\Migrations\Migrator;
 class MigrateReset extends Command
 {
     protected $signature = 'migrate:reset';
-
     protected $description = 'Rollback all database migrations';
 
     /**
@@ -23,6 +22,8 @@ class MigrateReset extends Command
 
     /**
      * Tangani command ini.
+     *
+     * @return void
      */
     public function handle()
     {

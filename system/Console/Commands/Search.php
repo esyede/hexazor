@@ -9,11 +9,12 @@ use System\Console\Command;
 class Search extends Command
 {
     protected $signature = 'search {keyword?}';
-
     protected $description = 'Search for command.';
 
     /**
      * Tangani command ini.
+     *
+     * @return void
      */
     public function handle($keyword)
     {

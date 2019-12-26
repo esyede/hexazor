@@ -9,7 +9,6 @@ use ArrayAccess;
 class Config implements ArrayAccess
 {
     protected $container = [];
-
     protected $path;
 
     protected static $instance;

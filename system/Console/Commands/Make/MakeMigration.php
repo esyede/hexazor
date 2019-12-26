@@ -9,13 +9,13 @@ use System\Console\Generators\MigrationFile;
 class MakeMigration extends MigrationFile
 {
     protected $signature = 'make:migration {name}';
-
     protected $description = 'Create a new migration file';
-
     protected $creator;
 
     /**
      * Tangani command ini.
+     *
+     * @return void
      */
     public function handle($name)
     {
@@ -36,6 +36,8 @@ class MakeMigration extends MigrationFile
      * @param string $name
      * @param string $table
      * @param bool   $create
+     *
+     * @return void
      */
     protected function writeMigration($name, $table, $create)
     {

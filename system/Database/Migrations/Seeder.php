@@ -12,6 +12,8 @@ class Seeder
 
     /**
      * Jalankan logic seeder (di-override oleh child class).
+     *
+     * @return void
      */
     public function run()
     {
@@ -22,6 +24,8 @@ class Seeder
      * Panggil kelas seeder dan panggil method 'run'-nya.
      *
      * @param string $class
+     *
+     * @return void
      */
     public function call($class)
     {

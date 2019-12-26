@@ -9,37 +9,22 @@ use System\Support\Messages;
 class Image
 {
     private $file;
-
     private $image;
-
     private $tempImage;
-
     private $width;
-
     private $height;
-
     private $newWidth;
-
     private $newHeight;
-
     private $htmlSize;
-
     private $format;
-
     private $extension;
-
     private $size;
-
     private $basename;
-
     private $dirname;
-
     private $error = '';
 
     private $cropCoordinates;
-
     private $rgb = [255, 255, 255];
-
     private $quality = 100;
 
     private $imageFormats = ['jpeg' => 2, 'jpg' => 2, 'gif' => 1, 'png' => 3];
@@ -97,6 +82,8 @@ class Image
 
     /**
      * Ekstrak info gambar.
+     *
+     * @return void
      */
     private function extractImageInfo()
     {
@@ -144,6 +131,8 @@ class Image
 
     /**
      * Ekstrak info file.
+     *
+     * @return void
      */
     private function extractFileInfo()
     {
@@ -161,6 +150,8 @@ class Image
 
     /**
      * Ekstrak mime type gambar.
+     *
+     * @return void
      */
     private function extractFileMimeType()
     {
@@ -169,8 +160,8 @@ class Image
 
         $mimeTypes = [
             'image/jpeg' => 'jpg',
-            'image/png' => 'png',
-            'image/gif' => 'gif',
+            'image/png'  => 'png',
+            'image/gif'  => 'gif',
         ];
 
         if (isset($mimeTypes[$mimeType])) {
@@ -360,6 +351,8 @@ class Image
 
     /**
      * Hitung dimensi baru (setelah cropping).
+     *
+     * @return void
      */
     private function calculateNewDimensions()
     {
@@ -373,6 +366,8 @@ class Image
 
     /**
      * Hitung presentase width dan height baru (setelah cropping).
+     *
+     * @return void
      */
     private function checkForPercentages()
     {
@@ -415,6 +410,8 @@ class Image
 
     /**
      * Helper untuk resize fill.
+     *
+     * @return void
      */
     private function fill()
     {
@@ -533,10 +530,12 @@ class Image
      *
      * @param int $w
      * @param int $h
+     *
+     * @return void
      */
     private function flipHorizontal($w, $h)
     {
-        for ($x = 0; $x < $w; ++$x) {
+        for ($x = 0; $x < $w; $x++) {
             imagecopy(
                 $this->tempImage,
                 $this->image,
@@ -555,10 +554,12 @@ class Image
      *
      * @param int $w
      * @param int $h
+     *
+     * @return void
      */
     private function flipVertical($w, $h)
     {
-        for ($y = 0; $y < $h; ++$y) {
+        for ($y = 0; $y < $h; $y++) {
             imagecopy(
                 $this->tempImage,
                 $this->image,
@@ -576,6 +577,8 @@ class Image
      * Putar gambar.
      *
      * @param int $degrees
+     *
+     * @return void
      */
     public function rotate($degrees)
     {
@@ -678,7 +681,7 @@ class Image
         }
 
         return [
-            'width' => imagefontwidth($options['size']) * strlen($text),
+            'width'  => imagefontwidth($options['size']) * strlen($text),
             'height' => imagefontheight($options['size']),
         ];
     }
@@ -697,37 +700,22 @@ class Image
     {
         switch ($y) {
             case 'top':
-            default:       $y = 0;
-
-break;
-            case 'bottom': $y = $this->height - $height;
-
-break;
+            default:       $y = 0; break;
+            case 'bottom': $y = $this->height - $height; break;
             case 'middle':
                 switch ($x) {
                     case 'left':
-                    case 'right':  $y = ($this->height / 2) - ($height / 2);
-
-break;
-                    case 'center': $y = ($this->height - $height) / 2;
-
-break;
+                    case 'right':  $y = ($this->height / 2) - ($height / 2); break;
+                    case 'center': $y = ($this->height - $height) / 2; break;
                 }
-
                 break;
         }
 
         switch ($x) {
             case 'left':
-            default:       $x = 0;
-
-break;
-            case 'center': $x = ($this->width - $width) / 2;
-
-break;
-            case 'right':  $x = $this->width - $width;
-
-break;
+            default:       $x = 0; break;
+            case 'center': $x = ($this->width - $width) / 2; break;
+            case 'right':  $x = $this->width - $width; break;
         }
 
         return [$x, $y];
@@ -738,6 +726,8 @@ break;
      *
      * @param array $dimensions
      * @param array $options
+     *
+     * @return void
      */
     private function textBackgroundColor($dimensions, array $options)
     {
@@ -865,6 +855,8 @@ break;
 
     /**
      * Tampilkan hasil rennder gambar (tanpa menyimpan).
+     *
+     * @return void
      */
     public function show()
     {
@@ -885,6 +877,8 @@ break;
      * Render gambar.
      *
      * @param string $path
+     *
+     * @return void
      */
     private function renderOutput($path = null)
     {
@@ -910,6 +904,8 @@ break;
 
     /**
      * Reset property kelas.
+     *
+     * @return void
      */
     private function reset()
     {

@@ -7,9 +7,7 @@ defined('DS') or exit('No direct script access allowed.');
 class Join
 {
     public $type;
-
     public $table;
-
     public $clauses = [];
 
     /**

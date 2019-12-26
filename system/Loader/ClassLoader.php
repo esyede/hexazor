@@ -9,23 +9,14 @@ use InvalidArgumentException;
 class ClassLoader
 {
     private $prefixLengthsPsr4 = [];
-
     private $prefixDirsPsr4 = [];
-
     private $fallbackDirsPsr4 = [];
-
     private $prefixesPsr0 = [];
-
     private $fallbackDirsPsr0 = [];
-
     private $useIncludePath = false;
-
     private $classMap = [];
-
     private $classMapAuthoritative = false;
-
     private $missingClasses = [];
-
     private $apcuPrefix;
 
     /**

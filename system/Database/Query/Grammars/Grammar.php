@@ -436,7 +436,7 @@ class Grammar extends BaseGrammar
     public function shortcut($sql, &$bindings)
     {
         if (false !== strpos($sql, '(...)')) {
-            for ($i = 0; $i < count($bindings); ++$i) {
+            for ($i = 0; $i < count($bindings); $i++) {
                 if (is_array($bindings[$i])) {
                     $parameters = $this->parameterize($bindings[$i]);
                     array_splice($bindings, $i, 1, $bindings[$i]);

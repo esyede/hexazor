@@ -57,14 +57,18 @@ if (!is_callable('random_int')) {
             /** @var int $min */
             $min = RandomCompat_intval($min);
         } catch (TypeError $ex) {
-            throw new TypeError('random_int(): $min must be an integer');
+            throw new TypeError(
+                'random_int(): $min must be an integer'
+            );
         }
 
         try {
             /** @var int $max */
             $max = RandomCompat_intval($max);
         } catch (TypeError $ex) {
-            throw new TypeError('random_int(): $max must be an integer');
+            throw new TypeError(
+                'random_int(): $max must be an integer'
+            );
         }
 
         /*
@@ -73,7 +77,9 @@ if (!is_callable('random_int')) {
          * integers along a given range.
          */
         if ($min > $max) {
-            throw new Error('Minimum value must be less than or equal to the maximum value');
+            throw new Error(
+                'Minimum value must be less than or equal to the maximum value'
+            );
         }
 
         if ($max === $min) {
@@ -129,9 +135,9 @@ if (!is_callable('random_int')) {
              */
             while ($range > 0) {
                 if (0 === $bits % 8) {
-                    ++$bytes;
+                    $bytes++;
                 }
-                ++$bits;
+                $bits++;
                 $range >>= 1;
                 /** @var int $mask */
                 $mask = $mask << 1 | 1;
@@ -152,7 +158,9 @@ if (!is_callable('random_int')) {
              * to a failure probability of 2^-128 for a working RNG
              */
             if ($attempts > 128) {
-                throw new Exception('random_int: RNG is broken - too many rejections');
+                throw new Exception(
+                    'random_int: RNG is broken - too many rejections'
+                );
             }
 
             /**
@@ -171,7 +179,7 @@ if (!is_callable('random_int')) {
              *   204631455
              */
             $val &= 0;
-            for ($i = 0; $i < $bytes; ++$i) {
+            for ($i = 0; $i < $bytes; $i++) {
                 $val |= ord($randomByteString[$i]) << ($i * 8);
             }
             /* @var int $val */
@@ -182,7 +190,7 @@ if (!is_callable('random_int')) {
             $val &= $mask;
             $val += $valueShift;
 
-            ++$attempts;
+            $attempts++;
             /*
              * If $val overflows to a floating point number,
              * ... or is larger than $max,

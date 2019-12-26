@@ -11,29 +11,18 @@ use System\Support\Str;
 abstract class Model
 {
     public $attributes = [];
-
     public $original = [];
-
     public $relationships = [];
-
     public $eagerloads = [];
-
     public $exists = false;
 
     public static $key = 'id';
-
     public static $fillable;
-
     public static $hidden = [];
-
     public static $timestamps = true;
-
     public static $table;
-
     public static $connection;
-
     public static $sequence;
-
     public static $perpage = 20;
 
     /**
@@ -60,7 +49,6 @@ abstract class Model
         foreach ($attributes as $key => $value) {
             if ($raw) {
                 $this->setAttribute($key, $value);
-
                 continue;
             }
 

@@ -9,13 +9,9 @@ use System\Debugger\Interfaces\LoggerInterface;
 class Logger implements LoggerInterface
 {
     public $directory;
-
     public $email;
-
     public $fromEmail;
-
     public $emailSnooze = '2 days';
-
     public $mailer;
 
     private $blueScreen;
@@ -41,7 +37,9 @@ class Logger implements LoggerInterface
         if (!$this->directory) {
             throw new \LogicException('Directory is not specified.');
         } elseif (!is_dir($this->directory)) {
-            throw new \RuntimeException("Directory '{$this->directory}' is not found or is not directory.");
+            throw new \RuntimeException(
+                "Directory '{$this->directory}' is not found or is not directory."
+            );
         }
 
         $exceptionFile = $message instanceof \Exception
@@ -53,7 +51,9 @@ class Logger implements LoggerInterface
         $file = $this->directory.DS.strtolower($level ?: self::INFO).'.log';
 
         if (!@file_put_contents($file, $line.PHP_EOL, FILE_APPEND | LOCK_EX)) {
-            throw new \RuntimeException("Unable to write to log file '{$file}'. Is this directory writable?");
+            throw new \RuntimeException(
+                "Unable to write to log file '{$file}'. Is this directory writable?"
+            );
         }
 
         if ($exceptionFile) {
@@ -181,7 +181,7 @@ class Logger implements LoggerInterface
                     'Content-Transfer-Encoding: 8bit',
                 ])."\n",
                 'subject' => "PHP: An error occurred on the server $host",
-                'body' => $this->formatMessage($message)."\n\nsource: ".Helpers::getSource(),
+                'body'    => $this->formatMessage($message)."\n\nsource: ".Helpers::getSource(),
             ]
         );
 

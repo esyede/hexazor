@@ -9,11 +9,8 @@ use Exception;
 class Response
 {
     protected $sent = false;
-
     protected $status = 200;
-
     protected $headers = [];
-
     protected $body;
 
     public static $codes = [
@@ -257,6 +254,8 @@ class Response
 
     /**
      * Kirim HTTP response.
+     *
+     * @return void
      */
     public function send()
     {

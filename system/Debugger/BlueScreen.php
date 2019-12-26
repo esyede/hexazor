@@ -7,9 +7,7 @@ defined('DS') or exit('No direct script access allowed.');
 class BlueScreen
 {
     public $info = [];
-
     private $panels = [];
-
     public $colapsePath = [];
 
     public function __construct()
@@ -151,10 +149,9 @@ class BlueScreen
         while (--$i >= 1) {
             if (preg_match('#.*(</?span[^>]*>)#', $source[$i], $m)) {
                 if ('</span>' !== $m[1]) {
-                    ++$spans;
+                    $spans++;
                     $out .= $m[1];
                 }
-
                 break;
             }
         }

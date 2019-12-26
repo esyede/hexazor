@@ -7,25 +7,16 @@ defined('DS') or exit('No direct script access allowed.');
 class Curl
 {
     private $ch = null;
-
     private $error = '';
 
     protected $followRedirects = true;
-
     protected $options = [];
-
     protected $headers = [];
-
     protected $referrer = null;
-
     protected $useCookie = false;
-
     protected $cookieFile = '';
-
     protected $userAgent = '';
-
     protected $responseBody = '';
-
     protected $responseHeader = [];
 
     /**
@@ -49,6 +40,8 @@ class Curl
      *
      * @param string $url
      * @param array  $params
+     *
+     * @return void
      */
     public function head($url, array $params = [])
     {
@@ -60,6 +53,8 @@ class Curl
      *
      * @param string $url
      * @param array  $params
+     *
+     * @return void
      */
     public function get($url, array $params = [])
     {
@@ -76,6 +71,8 @@ class Curl
      *
      * @param string $url
      * @param array  $params
+     *
+     * @return void
      */
     public function post($url, array $params = [])
     {
@@ -87,6 +84,8 @@ class Curl
      *
      * @param string $url
      * @param array  $params
+     *
+     * @return void
      */
     public function put($url, array $params = [])
     {
@@ -98,6 +97,8 @@ class Curl
      *
      * @param string $url
      * @param array  $params
+     *
+     * @return void
      */
     public function delete($url, array $params = [])
     {
@@ -192,6 +193,8 @@ class Curl
      * @param string $method
      * @param string $url
      * @param array  $params
+     *
+     * @return void
      */
     private function request($method, $url, array $params = [])
     {
@@ -241,15 +244,12 @@ class Curl
         switch (strtoupper($method)) {
             case 'HEAD':
                 curl_setopt($this->ch, CURLOPT_NOBODY, true);
-
                 break;
             case 'GET':
                 curl_setopt($this->ch, CURLOPT_HTTPGET, true);
-
                 break;
             case 'POST':
                 curl_setopt($this->ch, CURLOPT_POST, true);
-
                 break;
             default:
                 curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, $method);
@@ -298,6 +298,8 @@ class Curl
      * Ambil response hasil request.
      *
      * @param string $response
+     *
+     * @return void
      */
     private function getResponse($response)
     {

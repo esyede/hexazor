@@ -12,31 +12,18 @@ use System\Support\Str;
 class Query
 {
     public $connection;
-
     public $grammar;
-
     public $selects;
-
     public $aggregate;
-
     public $distinct = false;
-
     public $from;
-
     public $joins;
-
     public $wheres;
-
     public $groupings;
-
     public $havings;
-
     public $orderings;
-
     public $limit;
-
     public $offset;
-
     public $bindings = [];
 
     /**
@@ -144,9 +131,9 @@ class Query
     public function rawWhere($where, $bindings = [], $connector = 'AND')
     {
         $this->wheres[] = [
-            'type' => 'whereRaw',
+            'type'      => 'whereRaw',
             'connector' => $connector,
-            'sql' => $where,
+            'sql'       => $where,
         ];
 
         $this->bindings = array_merge($this->bindings, $bindings);
@@ -438,7 +425,7 @@ class Query
         foreach ($segments as $segment) {
             if ('And' != $segment && 'Or' != $segment) {
                 $this->where(strtolower($segment), '=', $parameters[$index], $connector);
-                ++$index;
+                $index++;
             } else {
                 $connector = strtoupper($segment);
             }

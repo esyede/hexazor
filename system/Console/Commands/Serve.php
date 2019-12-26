@@ -9,11 +9,12 @@ use System\Console\Command;
 class Serve extends Command
 {
     protected $signature = 'serve {port?}';
-
     protected $description = 'Run the hexazor development server.';
 
     /**
      * Tangani command ini.
+     *
+     * @return void
      */
     public function handle($port = 8000)
     {

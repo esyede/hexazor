@@ -7,7 +7,7 @@
 <h1 align="center"> Hexazor</h1>
 <p align="center">
 	<img src="https://img.shields.io/github/v/release/esyede/hexazor?include_prereleases" alt="Release"/>
-	<img src="https://github.styleci.io/repos/228780700/shield" alt="StyleCI"/>
+	<img src="https://github.styleci.io/repos/230306506/shield" alt="StyleCI"/>
 	<img src="https://img.shields.io/github/languages/top/esyede/hexazor" alt="Lang"/>
 	<img src="http://img.shields.io/:license-mit-blue.svg?style=flat-square" alt="MIT"/>
 	<img src="https://img.shields.io/github/languages/code-size/esyede/hexazor" alt="Code"/>
