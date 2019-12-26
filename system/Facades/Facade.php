@@ -4,7 +4,6 @@ namespace System\Facades;
 
 defined('DS') or exit('No direct script access allowed.');
 
-use Exception;
 use RuntimeException;
 
 abstract class Facade
