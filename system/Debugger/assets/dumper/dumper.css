@@ -1,0 +1,69 @@
+/* toggle */
+.debugger-collapsed {
+	display: none;
+}
+
+.debugger-toggle.debugger-collapsed {
+	display: inline;
+}
+
+.debugger-toggle {
+	cursor: pointer;
+}
+
+.debugger-toggle:after {
+	content: " ▼";
+	opacity: .4;
+}
+
+.debugger-toggle.debugger-collapsed:after {
+	content: " ►";
+}
+
+
+/* dump */
+pre.debugger-dump {
+	text-align: left;
+	color: #444;
+	background: white;
+}
+
+pre.debugger-dump div {
+	padding-left: 3ex;
+}
+
+pre.debugger-dump div div {
+	border-left: 1px solid rgba(0, 0, 0, .1);
+	margin-left: .5ex;
+}
+
+.debugger-dump-array,
+.debugger-dump-object {
+	color: #C22;
+}
+
+.debugger-dump-string {
+	color: #35D;
+}
+
+.debugger-dump-number {
+	color: #090;
+}
+
+.debugger-dump-null,
+.debugger-dump-bool {
+	color: #850;
+}
+
+.debugger-dump-visibility,
+.debugger-dump-hash {
+	font-size: 85%; color: #999;
+}
+
+.debugger-dump-indent {
+	display: none;
+}
+
+span[data-debugger-href] {
+	border-bottom: 1px dotted rgba(0, 0, 0, .2);
+}

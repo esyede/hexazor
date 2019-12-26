@@ -1,0 +1,15 @@
+<?php
+
+namespace DummyNamespace;
+
+defined('DS') or exit('No direct script access allowed.');
+
+use App\Http\Controllers\Controller;
+use Request;
+use Response;
+use View;
+
+class DummyClass extends Controller
+{
+    //
+}

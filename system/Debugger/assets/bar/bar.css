@@ -1,0 +1,329 @@
+/* common styles */
+#debugger-debug {
+	display: none;
+	direction: ltr;
+}
+
+body#debugger-debug {
+	margin: 5px 5px 0;
+	display: block;
+}
+
+body #debugger-debug {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+#debugger-debug * {
+	font: inherit;
+	color: inherit;
+	background: transparent;
+	margin: 0;
+	padding: 0;
+	border: none;
+	text-align: inherit;
+	list-style: inherit;
+	opacity: 1;
+	border-radius: 0;
+	box-shadow: none;
+	text-shadow: none;
+}
+
+#debugger-debug *:before
+#debugger-debug *:after {
+	all: unset;
+}
+
+#debugger-debug b,
+#debugger-debug strong {
+	font-weight: bold;
+}
+
+#debugger-debug i,
+#debugger-debug em {
+	font-style: italic;
+}
+
+#debugger-debug a {
+	color: #125EAE;
+	text-decoration: none;
+}
+
+#debugger-debug .debugger-panel a {
+	color: #125EAE;
+	text-decoration: none;
+}
+
+#debugger-debug a:hover,
+#debugger-debug a:active,
+#debugger-debug a:focus {
+	background-color: #125EAE;
+	color: white;
+}
+
+#debugger-debug .debugger-panel h2,
+#debugger-debug .debugger-panel h3,
+#debugger-debug .debugger-panel p {
+	margin: .4em 0;
+}
+
+#debugger-debug .debugger-panel table {
+	border-collapse: collapse;
+	background: #ffffff;
+}
+
+#debugger-debug .debugger-panel tr:nth-child(2n) td {
+	background: #ffffff;
+}
+
+#debugger-debug .debugger-panel td,
+#debugger-debug .debugger-panel th {
+	border: 1px solid #eeeeee;
+	padding: 2px 5px;
+	vertical-align: top;
+	text-align: left;
+}
+
+#debugger-debug .debugger-panel th {
+	background: #ffffff;
+	color: #655E5E;
+	font-size: 90%;
+	font-weight: bold;
+}
+
+#debugger-debug .debugger-panel pre,
+#debugger-debug .debugger-panel code {
+	font: 9pt/1.5 Consolas, monospace;
+}
+
+#debugger-debug table .debugger-right {
+	text-align: right;
+}
+
+#debugger-debug svg {
+	display: inline;
+}
+
+
+/* bar */
+#debugger-debug-bar {
+	font: normal normal 13px/1.55 Tahoma, sans-serif;
+	color: #333;
+	border: 1px solid #eeeeee;
+	background: #fafbfc
+	background-size: 1em;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+
+	min-width: 50px;
+	white-space: nowrap;
+
+	z-index: 30000;
+	opacity: .9;
+	transition: opacity 0.2s;
+
+	border-radius: 3px;
+	box-shadow: 1px 1px 10px rgba(0, 0, 0, .15);
+}
+
+#debugger-debug-bar:hover {
+	opacity: 1;
+	transition: opacity 0.1s;
+}
+
+#debugger-debug-bar ul {
+	list-style: none none;
+	clear: left;
+}
+
+#debugger-debug-bar li {
+	float: left;
+}
+
+#debugger-debug-bar ul.debugger-previous li {
+	opacity: .6;
+	background: #F5F3EE;
+}
+
+#debugger-debug-bar ul.debugger-previous li:first-child {
+	width: 4.1em;
+	text-align: right;
+}
+
+#debugger-debug-bar img {
+	vertical-align: bottom;
+	position: relative;
+	top: -2px;
+}
+
+#debugger-debug-bar svg {
+	vertical-align: bottom;
+	width: 1.23em;
+	height: 1.55em;
+}
+
+#debugger-debug-bar .debugger-label {
+	margin-left: .2em;
+}
+
+#debugger-debug-bar li > a,
+#debugger-debug-bar li > span {
+	color: #000;
+	display: block;
+	padding: 0 .4em;
+}
+
+#debugger-debug-bar li > a:hover {
+	color: #000000;
+	background: #dddddd;
+}
+
+#debugger-debug-logo {
+	cursor: move;
+}
+
+#debugger-debug-logo svg {
+	width: 3.4em;
+	margin: 0 .2em 0 .5em;
+}
+
+
+/* panels */
+#debugger-debug .debugger-panel {
+	font: normal normal 12px/1.5 sans-serif;
+	background: white;
+	color: #333;
+	text-align: left;
+	z-index: 20001;
+}
+
+#debugger-debug h1 {
+	font: normal normal 23px/1.4 Tahoma, sans-serif;
+	color: #575753;
+	margin: -5px -5px 5px;
+	padding: 0 25px 5px 5px;
+	max-width: 700px;
+	word-wrap: break-word;
+}
+
+#debugger-debug .debugger-mode-peek .debugger-inner,
+#debugger-debug .debugger-mode-float .debugger-inner {
+	max-width: 700px;
+	max-height: 500px;
+	overflow: auto;
+}
+
+#debugger-debug .debugger-panel .debugger-icons {
+	display: none;
+}
+
+#debugger-debug .debugger-mode-peek,
+#debugger-debug .debugger-mode-float {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	padding: 10px;
+	min-width: 150px;
+	min-height: 50px;
+	border-radius: 5px;
+	box-shadow: 1px 1px 20px rgba(102, 102, 102, 0.36);
+	border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#debugger-debug .debugger-mode-peek {
+	display: none;
+}
+
+#debugger-debug .debugger-mode-peek h1 {
+	cursor: move;
+}
+
+#debugger-debug .debugger-mode-float {
+	opacity: .95;
+	transition: opacity 0.2s;
+}
+
+#debugger-debug .debugger-focused {
+	opacity: 1;
+	transition: opacity 0.1s;
+}
+
+#debugger-debug .debugger-mode-float h1 {
+	cursor: move;
+}
+
+#debugger-debug .debugger-mode-float .debugger-icons {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 5px;
+	font-size: 18px;
+}
+
+#debugger-debug .debugger-icons a {
+	color: #575753;
+}
+
+#debugger-debug .debugger-icons a:hover {
+	color: white;
+}
+
+
+/* dump */
+#debugger-debug pre.debugger-dump div {
+	padding-left: 3ex;
+}
+
+#debugger-debug pre.debugger-dump div div {
+	border-left: 1px solid rgba(0, 0, 0, .1);
+	margin-left: .5ex;
+}
+
+#debugger-debug pre.debugger-dump {
+	background: #ffffff;
+	padding: .4em .7em;
+	border: 1px solid #eeeeee;
+	overflow: auto;
+}
+
+#debugger-debug table pre.debugger-dump {
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+
+#debugger-debug .debugger-dump-array,
+#debugger-debug .debugger-dump-object {
+	color: #C22;
+}
+
+#debugger-debug .debugger-dump-string {
+	color: #35D;
+}
+
+#debugger-debug .debugger-dump-number {
+	color: #090;
+}
+
+#debugger-debug .debugger-dump-null,
+#debugger-debug .debugger-dump-bool {
+	color: #850;
+}
+
+#debugger-debug .debugger-dump-visibility,
+#debugger-debug .debugger-dump-hash {
+	font-size: 85%; color: #999;
+}
+
+#debugger-debug .debugger-dump-indent {
+	display: none;
+}
+
+
+@media print {
+	#debugger-debug * {
+		display: none;
+	}
+}

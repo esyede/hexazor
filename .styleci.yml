@@ -1,0 +1,29 @@
+preset: symfony
+risky: true
+finder:
+  exclude:
+    - storage
+    - assets
+    - docs
+    - vendor
+    - modules
+    - node_modules
+    - .phpintel
+    - .idea
+    - .github
+  name: "*.php"
+  not-name:
+    - '*.blade.php'
+    - '*.vc.php'
+    - '.htaccess'
+    - '*.htaccess'
+    - 'robots.txt'
+    - '_ide_helper.php'
+    - '*.vc.php'
+    - '*.cache'
+    - '*.sqlite'
+    - '*.conf'
+    - '*.ini'
+    - '*.log'
+    - '.editorconfig'
+    - '.gitignore'

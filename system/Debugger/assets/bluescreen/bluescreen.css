@@ -1,0 +1,317 @@
+html {
+	overflow-y: scroll;
+}
+
+#debugger-bs {
+	font: 9pt/1.5 Verdana, sans-serif;
+	background: #ffffff;
+	color: #333;
+	position: absolute;
+	z-index: 20000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	text-align: left;
+}
+
+#debugger-bs * {
+	font: inherit;
+	color: inherit;
+	background: transparent;
+	border: none;
+	margin: 0;
+	padding: 0;
+	text-align: inherit;
+	text-indent: 0;
+}
+
+#debugger-bs *:before,
+#debugger-bs *:after {
+	all: unset;
+}
+
+#debugger-bs b {
+	font-weight: bold;
+}
+
+#debugger-bs i {
+	font-style: italic;
+}
+
+#debugger-bs a {
+	text-decoration: none;
+	color: #1976d2;
+	padding: 2px 4px;
+	margin: -2px -4px;
+}
+
+#debugger-bs a:hover,
+#debugger-bs a:active,
+#debugger-bs a:focus {
+	color: #283593;
+}
+
+#debugger-bs-toggle {
+	position: absolute;
+	right: .5em;
+	top: .5em;
+	text-decoration: none;
+	background: #3484d2;
+	color: white !important;
+	padding: 3px;
+}
+
+#debugger-bs-error {
+	background: #3484d2;
+	color: white;
+	font: 13pt/1.5 Verdana, sans-serif !important;
+}
+
+#debugger-bs-error a {
+	color: white !important;
+	opacity: 0;
+	font-size: .7em;
+}
+
+#debugger-bs-error:hover a {
+	opacity: .6;
+}
+
+#debugger-bs-error a:hover {
+	opacity: 1;
+}
+
+#debugger-bs-ie-warning {
+	background: #000000;
+	margin: 1em;
+	padding: .5em;
+	text-align: center;
+}
+
+#debugger-bs h1 {
+	font-size: 15pt;
+	font-weight: normal;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, .3);
+	margin: .7em 0;
+}
+
+#debugger-bs h2 {
+	font: 14pt/1.5 sans-serif !important;
+	margin: .6em 0;
+}
+
+#debugger-bs h3 {
+	font: bold 10pt/1.5 Verdana, sans-serif !important;
+	margin: 1em 0;
+	padding: 0;
+}
+
+#debugger-bs p,
+#debugger-bs pre {
+	margin: .8em 0
+}
+
+#debugger-bs pre,
+#debugger-bs code,
+#debugger-bs table {
+	font: 9pt/1.5 Consolas, monospace !important;
+}
+
+#debugger-bs pre,
+#debugger-bs table {
+	background: #ffffff;
+	padding: .4em .7em;
+	border: 1px solid #fafbfc;
+	overflow: auto;
+}
+
+#debugger-bs table pre {
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+
+#debugger-bs table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#debugger-bs td,
+#debugger-bs th {
+	vertical-align: top;
+	text-align: left;
+	padding: 2px 6px;
+	border: 1px solid #eeeeee;
+}
+
+#debugger-bs th {
+	font-weight: bold;
+}
+
+#debugger-bs tr > :first-child {
+	width: 20%;
+}
+
+#debugger-bs tr:nth-child(2n),
+#debugger-bs tr:nth-child(2n) pre {
+	background-color: #ffffff;
+}
+
+#debugger-bs ol {
+	margin: 1em 0;
+	padding-left: 2.5em;
+}
+
+#debugger-bs ul {
+	font: 7pt/1.5 Verdana, sans-serif !important;
+	padding: 2em 4em;
+	margin: 1em 0 0;
+	color: #777;
+	background: #fafbfc;
+	border-top: 1px solid #eeeeee;
+}
+
+#debugger-bs-logo a {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 100px;
+	height: 50px;
+	opacity: .6;
+	padding: 0;
+	margin: 0;
+}
+
+#debugger-bs-logo a:hover,
+#debugger-bs-logo a:active,
+#debugger-bs-logo a:focus {
+	opacity: 1;
+	transition: opacity 0.1s;
+}
+
+
+#debugger-bs div.panel {
+	padding: 1px 25px;
+}
+
+#debugger-bs div.inner {
+	background: #fafbfc;
+	padding: .1em 1em 1em;
+	border-radius: 8px;
+}
+
+#debugger-bs .outer {
+	overflow: auto;
+}
+
+
+/* source code */
+#debugger-bs pre.php div {
+	min-width: 100%;
+	float: left;
+	white-space: pre;
+}
+
+#debugger-bs .highlight {
+	background: #d73a49;
+	color: #ffffff;
+	font-weight: bold;
+	font-style: normal;
+	display: block;
+	padding: 0 .4em;
+	margin: 0 -.4em;
+}
+
+#debugger-bs .line {
+	color: #cccccc;
+	font-weight: normal;
+	font-style: normal;
+}
+
+#debugger-bs pre:hover span[title] {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#debugger-bs a[href^=editor\:] {
+	color: inherit;
+	border-bottom: 1px dotted rgba(0, 0, 0, .3);
+}
+
+#debugger-bs span[data-debugger-href] {
+	border-bottom: 1px dotted rgba(0, 0, 0, .3);
+}
+
+
+/* toggle */
+html.debugger-js #debugger-bs .debugger-collapsed {
+	display: none;
+}
+
+html.debugger-js #debugger-bs .debugger-toggle.debugger-collapsed {
+	display: inline;
+}
+
+#debugger-bs .debugger-toggle {
+	cursor: pointer;
+}
+
+#debugger-bs .debugger-toggle:after {
+	content: " ▼";
+	opacity: .4;
+}
+
+#debugger-bs .debugger-toggle.debugger-collapsed:after {
+	content: " ►";
+	opacity: .4;
+}
+
+
+/* dump */
+#debugger-bs .debugger-dump-array,
+#debugger-bs .debugger-dump-object {
+	color: #C22;
+}
+
+#debugger-bs .debugger-dump-string {
+	color: #35D;
+}
+
+#debugger-bs .debugger-dump-number {
+	color: #090;
+}
+
+#debugger-bs .debugger-dump-null,
+#debugger-bs .debugger-dump-bool {
+	color: #850;
+}
+
+#debugger-bs .debugger-dump-visibility,
+#debugger-bs .debugger-dump-hash {
+	font-size: 85%;
+	color: #998;
+}
+
+#debugger-bs .debugger-dump-indent {
+	display: none;
+}
+
+#debugger-bs pre.debugger-dump div {
+	padding-left: 3ex;
+}
+
+#debugger-bs pre.debugger-dump div div {
+	border-left: 1px solid rgba(0, 0, 0, .1);
+	margin-left: .5ex;
+}
+
+#debugger-bs .caused {
+	float: right;
+	padding: .3em .6em;
+	background: #df8075;
+	border-radius: 0 0 0 8px;
+	white-space: nowrap;
+}
+
+#debugger-bs .caused a {
+	color: white;
+}

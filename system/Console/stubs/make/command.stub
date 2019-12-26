@@ -1,0 +1,23 @@
+<?php
+
+namespace DummyNamespace;
+
+defined('DS') or exit('No direct script access allowed.');
+
+use System\Console\Command;
+
+class DummyClass extends Command
+{
+    protected $signature = 'CommandSignature';
+    protected $description = 'Ini adalah deskripsi dari CommandSignature command.';
+
+    /**
+     * Handle command ini.
+     * 
+     * @return string
+     */
+    public function handle()
+    {
+        return $this->plain('Hai! terimakasih telah memanggilku, namaku CommandSignature');
+    }
+}

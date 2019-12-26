@@ -1,0 +1,24 @@
+# File konfigurasi webserver apache
+# http://httpd.apache.org/docs/2.2/mod/quickreference.html
+
+# Catatan: file ".htaccess" adalah overhead untuk setiap request.
+# Kode ini seharusnya ditempatkan di config Apache anda jika memungkinkan.
+# http://httpd.apache.org/docs/2.2/howto/htaccess.html
+
+# Menghidupkan apache rewrite engine, ini diperlukan untuk aturan dan fitur berikut:
+# "+FollowSymLinks" harus diaktifkan agar symlink bisa bekerja
+# "-MultiViews" harus diaktifkan untuk mencegah directory browsing.
+
+<IfModule mod_rewrite.c>
+    Options +FollowSymLinks
+    Options -MultiViews
+    RewriteEngine On
+    
+    # cegah akses ke file - file framework
+    RewriteRule ^(app|config|system|database) - [F]
+    RewriteRule ^(routes|storage|resources|vendor) - [F]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>

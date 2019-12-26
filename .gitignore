@@ -1,0 +1,12 @@
+vendor
+.phpintel
+.github
+node_modules
+modules
+vendor
+*.lock
+*.cache
+*.sqlite
+*.vc.php
+*.log
+storage/system/*

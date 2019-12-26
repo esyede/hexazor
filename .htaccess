@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    Options +FollowSymLinks
+    Options -MultiViews
+    RewriteEngine On
+    
+    # cegah akses ke file - file framework
+    RewriteRule ^(app|config|system|database) - [F]
+    RewriteRule ^(routes|storage|resources|vendor) - [F]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
