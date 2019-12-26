@@ -11,6 +11,7 @@ use System\Core\Config;
 class Connection
 {
     public $pdo;
+
     public $config;
 
     protected $grammar;
@@ -161,7 +162,7 @@ class Connection
         $sql = $this->grammar()->shortcut($sql, $bindings);
         $datetime = $this->grammar()->datetime;
 
-        for ($i = 0; $i < $bindingsCount; $i++) {
+        for ($i = 0; $i < $bindingsCount; ++$i) {
             if ($bindings[$i] instanceof \DateTime) {
                 $bindings[$i] = $bindings[$i]->format($datetime);
             }

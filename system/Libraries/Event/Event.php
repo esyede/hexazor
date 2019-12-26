@@ -13,7 +13,9 @@ use System\Core\Config;
 class Event
 {
     private $action = 'handle';
+
     private $params = [];
+
     private $listeners = null;
 
     /**

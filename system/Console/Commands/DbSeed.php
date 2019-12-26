@@ -9,12 +9,11 @@ use System\Console\Command;
 class DbSeed extends Command
 {
     protected $signature = 'db:seed';
+
     protected $description = 'Seed the database with records.';
 
     /**
      * Tangani command ini.
-     *
-     * @return void
      */
     public function handle()
     {
@@ -55,8 +54,6 @@ class DbSeed extends Command
 
     /**
      * Konfirmasi untu melnjutkan operasi.
-     *
-     * @return void
      */
     protected function confirmToProceed()
     {

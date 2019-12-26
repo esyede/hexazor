@@ -14,12 +14,11 @@ use System\Support\Str;
 class RouteList extends Command
 {
     protected $signature = 'route:list';
+
     protected $description = 'List defined routes.';
 
     /**
      * Tangani command ini.
-     *
-     * @return void
      */
     public function handle()
     {

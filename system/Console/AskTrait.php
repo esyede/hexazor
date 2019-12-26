@@ -43,9 +43,9 @@ trait AskTrait
     {
         $availableAnswers = [
             'yes' => true,
-            'no'  => false,
-            'y'   => true,
-            'n'   => false,
+            'no' => false,
+            'y' => true,
+            'n' => false,
         ];
 
         $result = null;

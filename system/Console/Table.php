@@ -7,15 +7,21 @@ defined('DS') or exit('No direct script access allowed.');
 class Table
 {
     const HEADER_INDEX = -1;
+
     const HR = 'HR';
 
     protected $data = [];
+
     protected $border = true;
+
     protected $allBorders = false;
+
     protected $padding = 1;
+
     protected $indent = 0;
 
     private $rowIndex = -1;
+
     private $columnWidths = [];
 
     /**
@@ -59,7 +65,7 @@ class Table
      */
     public function addRow(array $data = null)
     {
-        $this->rowIndex++;
+        ++$this->rowIndex;
 
         if (is_array($data)) {
             foreach ($data as $col => $content) {
@@ -149,7 +155,7 @@ class Table
      */
     public function addBorderLine()
     {
-        $this->rowIndex++;
+        ++$this->rowIndex;
         $this->data[$this->rowIndex] = self::HR;
 
         return $this;
@@ -226,7 +232,7 @@ class Table
             return $output;
         }
 
-        for ($column = 0; $column < $columnCount; $column++) {
+        for ($column = 0; $column < $columnCount; ++$column) {
             $output .= $this->getCellOutput($column);
         }
 

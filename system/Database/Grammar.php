@@ -7,6 +7,7 @@ defined('DS') or exit('No direct script access allowed.');
 abstract class Grammar
 {
     protected $wrapper = '"%s"';
+
     protected $connection;
 
     /**

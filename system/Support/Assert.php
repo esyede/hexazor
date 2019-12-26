@@ -1742,8 +1742,6 @@ class Assert
      * Throw InvalidArgumentException.
      *
      * @param string $message
-     *
-     * @return void
      */
     protected static function reportInvalidArgument($message)
     {

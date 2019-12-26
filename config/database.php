@@ -76,39 +76,39 @@ return [
 
     'connections' => [
         'mysql' => [
-            'driver'   => 'mysql',
-            'host'     => '127.0.0.1',
+            'driver' => 'mysql',
+            'host' => '127.0.0.1',
             'database' => 'database',
             'username' => 'root',
             'password' => '',
-            'charset'  => 'utf8',
-            'prefix'   => '',
+            'charset' => 'utf8',
+            'prefix' => '',
         ],
 
         'sqlite' => [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => 'application',
-            'prefix'   => '',
+            'prefix' => '',
         ],
 
         'pgsql' => [
-            'driver'   => 'pgsql',
-            'host'     => '127.0.0.1',
+            'driver' => 'pgsql',
+            'host' => '127.0.0.1',
             'database' => 'database',
             'username' => 'root',
             'password' => '',
-            'charset'  => 'utf8',
-            'prefix'   => '',
-            'schema'   => 'public',
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'public',
         ],
 
         'sqlsrv' => [
-            'driver'   => 'sqlsrv',
-            'host'     => '127.0.0.1',
+            'driver' => 'sqlsrv',
+            'host' => '127.0.0.1',
             'database' => 'database',
             'username' => 'root',
             'password' => '',
-            'prefix'   => '',
+            'prefix' => '',
         ],
     ],
 ];

@@ -4,13 +4,14 @@ namespace System\Facades;
 
 defined('DS') or exit('No direct script access allowed.');
 
-use Exception;
 use RuntimeException;
 
 abstract class Facade
 {
     protected static $applications;
+
     protected static $reselovedInstance = [];
+
     protected static $createdInstances = [];
 
     protected static function resolveInstance($facadeName)

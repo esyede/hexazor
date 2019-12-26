@@ -12,6 +12,7 @@ use System\Support\Str;
 class MigrationFile extends Command
 {
     protected $storage;
+
     protected $postCreate = [];
 
     /**
@@ -119,8 +120,6 @@ class MigrationFile extends Command
 
     /**
      * Jalankan hook setelah file migrasi dibuat.
-     *
-     * @return void
      */
     protected function firePostCreateHooks()
     {
@@ -133,8 +132,6 @@ class MigrationFile extends Command
      * Daftarkan hook yang akan dijalankan setelah aksi create.
      *
      * @param \Closure $callback
-     *
-     * @return void
      */
     public function afterCreate(Closure $callback)
     {

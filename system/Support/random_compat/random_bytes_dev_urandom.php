@@ -66,10 +66,7 @@ if (!is_callable('random_bytes')) {
              */
             if (DIRECTORY_SEPARATOR === '/') {
                 if (!is_readable('/dev/urandom')) {
-                    throw new Exception(
-                        'Environment misconfiguration: '.
-                        '/dev/urandom cannot be read.'
-                    );
+                    throw new Exception('Environment misconfiguration: '.'/dev/urandom cannot be read.');
                 }
                 /**
                  * We use /dev/urandom if it is a char device.
@@ -109,15 +106,11 @@ if (!is_callable('random_bytes')) {
             /** @var int $bytes */
             $bytes = RandomCompat_intval($bytes);
         } catch (TypeError $ex) {
-            throw new TypeError(
-                'random_bytes(): $bytes must be an integer'
-            );
+            throw new TypeError('random_bytes(): $bytes must be an integer');
         }
 
         if ($bytes < 1) {
-            throw new Error(
-                'Length must be greater than 0'
-            );
+            throw new Error('Length must be greater than 0');
         }
 
         /**
@@ -154,6 +147,7 @@ if (!is_callable('random_bytes')) {
                      * @var string|bool
                      */
                     $buf = false;
+
                     break;
                 }
                 /*
@@ -183,8 +177,6 @@ if (!is_callable('random_bytes')) {
         /*
          * If we reach here, PHP has failed us.
          */
-        throw new Exception(
-            'Error reading from source device'
-        );
+        throw new Exception('Error reading from source device');
     }
 }

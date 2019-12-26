@@ -94,8 +94,6 @@ class Magic
      * Unset atribut secara dinamis.
      *
      * @param string $key
-     *
-     * @return void
      */
     public function __unset($key)
     {

@@ -10,7 +10,9 @@ use System\Database\Migrations\Migrator;
 class Migrate extends Command
 {
     protected $signature = 'migrate';
+
     protected $description = 'Run the database migrations';
+
     protected $migrator;
 
     /**
@@ -23,8 +25,6 @@ class Migrate extends Command
 
     /**
      * Tangani command ini.
-     *
-     * @return void
      */
     public function handle()
     {
@@ -50,8 +50,6 @@ class Migrate extends Command
 
     /**
      * Siapkan (install) tabel repository jika belum ada.
-     *
-     * @return void
      */
     protected function prepareDatabase()
     {

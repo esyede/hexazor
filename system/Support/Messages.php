@@ -7,6 +7,7 @@ defined('DS') or exit('No direct script access allowed.');
 class Messages
 {
     public $messages;
+
     public $format = ':message';
 
     /**
@@ -61,8 +62,6 @@ class Messages
      * Set format default untuk output pesan.
      *
      * @param string $format
-     *
-     * @return void
      */
     public function format($format = ':message')
     {

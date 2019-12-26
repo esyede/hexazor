@@ -9,6 +9,7 @@ class Pivot extends Model
     public static $timestamps = true;
 
     protected $pivotTable;
+
     protected $pivotConnection;
 
     /**

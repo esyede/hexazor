@@ -10,8 +10,11 @@ use System\Support\Str;
 class Query
 {
     public $model;
+
     public $table;
+
     public $eagerloads = [];
+
     public $passthru = [
         'lists', 'only', 'insert', 'insertGetId',
         'update', 'increment', 'delete', 'decrement',

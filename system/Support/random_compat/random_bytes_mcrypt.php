@@ -44,15 +44,11 @@ if (!is_callable('random_bytes')) {
             /** @var int $bytes */
             $bytes = RandomCompat_intval($bytes);
         } catch (TypeError $ex) {
-            throw new TypeError(
-                'random_bytes(): $bytes must be an integer'
-            );
+            throw new TypeError('random_bytes(): $bytes must be an integer');
         }
 
         if ($bytes < 1) {
-            throw new Error(
-                'Length must be greater than 0'
-            );
+            throw new Error('Length must be greater than 0');
         }
 
         /** @var string|bool $buf */
@@ -71,8 +67,6 @@ if (!is_callable('random_bytes')) {
         /*
          * If we reach here, PHP has failed us.
          */
-        throw new Exception(
-            'Could not gather sufficient random data'
-        );
+        throw new Exception('Could not gather sufficient random data');
     }
 }

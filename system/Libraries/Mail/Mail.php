@@ -10,29 +10,47 @@ use System\Core\Config;
 class Mail
 {
     const CRLF = "\r\n";
+
     const TLS = 'tcp';
+
     const SSL = 'ssl';
+
     const OK = 250;
 
     protected $config;
+
     protected $socket;
 
     protected $subject;
+
     protected $recipients = [];
+
     protected $cc = [];
+
     protected $bcc = [];
+
     protected $sender = [];
+
     protected $replyTo = [];
+
     protected $attachments = [];
+
     protected $protocol = null;
+
     protected $port = null;
+
     protected $messageText = null;
+
     protected $messageHtml = null;
 
     protected $isHtml = false;
+
     protected $usingTLS = false;
+
     protected $logs = [];
+
     protected $charset = 'UTF-8';
+
     protected $headers = [];
 
     /**

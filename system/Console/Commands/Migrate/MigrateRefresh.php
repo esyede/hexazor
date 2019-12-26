@@ -10,12 +10,11 @@ use System\Support\Str;
 class MigrateRefresh extends Command
 {
     protected $signature = 'migrate:refresh';
+
     protected $description = 'Reset and re-run all migrations';
 
     /**
      * Tangani command ini.
-     *
-     * @return void
      */
     public function handle()
     {
@@ -44,8 +43,6 @@ class MigrateRefresh extends Command
 
     /**
      * Panggil command 'db:seed'.
-     *
-     * @return void
      */
     // protected function runSeeder()
     // {
