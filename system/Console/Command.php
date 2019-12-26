@@ -9,7 +9,9 @@ use Exception;
 abstract class Command
 {
     protected $console;
+
     protected $signature;
+
     protected $description;
 
     /**

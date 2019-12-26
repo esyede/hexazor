@@ -10,12 +10,11 @@ use System\Database\Migrations\Migrator;
 class MigrateInstall extends Command
 {
     protected $signature = 'migrate:install';
+
     protected $description = 'Install migration repository table';
 
     /**
      * Tangani command ini.
-     *
-     * @return void
      */
     public function handle()
     {

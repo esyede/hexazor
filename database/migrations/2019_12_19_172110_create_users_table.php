@@ -16,8 +16,6 @@ class CreateUsersTable extends Migration
 
     /**
      * Jalankan proses migrasi.
-     *
-     * @return void
      */
     public function up()
     {
@@ -33,8 +31,6 @@ class CreateUsersTable extends Migration
 
     /**
      * Balikkan proses migrasi.
-     *
-     * @return void
      */
     public function down()
     {

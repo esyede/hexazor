@@ -8,8 +8,6 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Panggil seluruh daftar seeder database.
-     *
-     * @return void
      */
     public function run()
     {

@@ -10,12 +10,11 @@ use System\Database\Migrations\Migrator;
 class MigrateRollback extends Command
 {
     protected $signature = 'migrate:rollback';
+
     protected $description = 'Rollback the last database migration';
 
     /**
      * Tangani command ini.
-     *
-     * @return void
      */
     public function handle()
     {

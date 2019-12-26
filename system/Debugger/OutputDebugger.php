@@ -59,8 +59,8 @@ class OutputDebugger
             $stack = [];
             foreach (array_slice($item[3], 1) as $t) {
                 $t += [
-                    'class'    => '',
-                    'type'     => '',
+                    'class' => '',
+                    'type' => '',
                     'function' => '',
                 ];
 

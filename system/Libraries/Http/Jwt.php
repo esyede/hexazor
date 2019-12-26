@@ -9,7 +9,9 @@ use Exception;
 class Jwt
 {
     private $exp = 60;
+
     private $leeway = 0;
+
     private $algorithms = [
         'HS256' => 'SHA256',
         'HS512' => 'SHA512',

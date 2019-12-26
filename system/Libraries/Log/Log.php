@@ -12,8 +12,6 @@ class Log
      * Buat emergency log.
      *
      * @param string $message
-     *
-     * @return void
      */
     public static function emergency($message)
     {
@@ -24,8 +22,6 @@ class Log
      * Buat alert log.
      *
      * @param string $message
-     *
-     * @return void
      */
     public static function alert($message)
     {
@@ -36,8 +32,6 @@ class Log
      * Buat critical log.
      *
      * @param string $message
-     *
-     * @return void
      */
     public static function critical($message)
     {
@@ -48,8 +42,6 @@ class Log
      * Buat error log.
      *
      * @param string $message
-     *
-     * @return void
      */
     public static function error($message)
     {
@@ -60,8 +52,6 @@ class Log
      * Buat warning log.
      *
      * @param string $message
-     *
-     * @return void
      */
     public static function warning($message)
     {
@@ -72,8 +62,6 @@ class Log
      * Buat notice log.
      *
      * @param string $message
-     *
-     * @return void
      */
     public static function notice($message)
     {
@@ -84,8 +72,6 @@ class Log
      * Buat info log.
      *
      * @param string $message
-     *
-     * @return void
      */
     public static function info($message)
     {
@@ -96,8 +82,6 @@ class Log
      * Buat debug log.
      *
      * @param string $message
-     *
-     * @return void
      */
     public static function debug($message)
     {
@@ -106,8 +90,6 @@ class Log
 
     /**
      * Bersihkan folder log.
-     *
-     * @return void
      */
     public static function clear()
     {
@@ -127,8 +109,6 @@ class Log
      *
      * @param string $level
      * @param string $message
-     *
-     * @return void
      */
     protected static function write($level, $message)
     {

@@ -11,7 +11,9 @@ use System\Support\Str;
 class Migrator
 {
     protected $repos;
+
     protected $storage;
+
     protected $notes = [];
 
     public function __construct()

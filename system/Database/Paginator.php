@@ -10,13 +10,19 @@ use System\Facades\Request;
 class Paginator
 {
     public $results;
+
     public $page;
+
     public $last;
+
     public $total;
+
     public $perpage;
 
     protected $appends;
+
     protected $appendage;
+
     protected $dots = '<li class="dots disabled"><a href="#">...</a></li>';
 
     /**
@@ -223,7 +229,7 @@ class Paginator
     {
         $pages = [];
 
-        for ($page = $start; $page <= $end; $page++) {
+        for ($page = $start; $page <= $end; ++$page) {
             if ($this->page == $page) {
                 $pages[] = '<li class="active"><a href="#">'.$page.'</a></li>'.PHP_EOL;
             } else {

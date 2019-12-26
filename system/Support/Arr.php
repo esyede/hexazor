@@ -270,8 +270,6 @@ class Arr
      *
      * @param array        $array
      * @param array|string $keys
-     *
-     * @return void
      */
     public static function forget(&$array, $keys)
     {
@@ -492,9 +490,7 @@ class Arr
         $count = count($array);
 
         if ($requested > $count) {
-            throw new InvalidArgumentException(
-                "You requested {$requested} items, but there are only {$count} items available."
-            );
+            throw new InvalidArgumentException("You requested {$requested} items, but there are only {$count} items available.");
         }
 
         if (is_null($number)) {

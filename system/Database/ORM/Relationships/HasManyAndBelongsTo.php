@@ -11,7 +11,9 @@ use System\Database\ORM\Pivot;
 class HasManyAndBelongsTo extends Relationship
 {
     protected $joining;
+
     protected $other;
+
     protected $with = ['id'];
 
     /**
@@ -173,7 +175,7 @@ class HasManyAndBelongsTo extends Relationship
     {
         return [
             $this->foreignKey() => $this->base->getKey(),
-            $this->otherKey()   => $id,
+            $this->otherKey() => $id,
         ];
     }
 

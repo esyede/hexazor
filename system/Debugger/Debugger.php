@@ -9,46 +9,71 @@ use System\Debugger\Interfaces\LoggerInterface;
 class Debugger
 {
     const DEVELOPMENT = false;
+
     const PRODUCTION = true;
+
     const DETECT = null;
+
     const COOKIE_SECRET = 'debugger-debug';
 
     public static $productionMode = self::DETECT;
+
     public static $showBar = true;
 
     private static $enabled = false;
+
     private static $reserved;
+
     private static $obLevel;
 
     public static $strictMode = false;
+
     public static $scream = false;
+
     public static $onFatalError = [];
 
     public static $maxDepth = 10;
+
     public static $maxLen = 300;
+
     public static $showLocation = false;
 
     public static $logFolder;
+
     public static $logSeverity = 0;
+
     public static $email;
 
     const DEBUG = LoggerInterface::DEBUG;
+
     const INFO = LoggerInterface::INFO;
+
     const WARNING = LoggerInterface::WARNING;
+
     const ERROR = LoggerInterface::ERROR;
+
     const EXCEPTION = LoggerInterface::EXCEPTION;
+
     const CRITICAL = LoggerInterface::CRITICAL;
 
     public static $time;
+
     public static $source;
+
     public static $editor = null;
+
     public static $browser;
+
     public static $errorTemplate;
 
     private static $cpuUsage;
+
     private static $blueScreen;
+
     private static $bar;
+
     private static $logger;
+
     private static $fireLogger;
 
     final public function __construct()
@@ -133,14 +158,7 @@ class Debugger
         if (self::$productionMode || PHP_SAPI === 'cli') {
             return;
         } elseif (headers_sent($file, $line) || ob_get_length()) {
-            throw new \Exception(
-                __METHOD__.'() called after some output has been sent. '.
-                    (
-                        $file
-                        ? "Output started at $file:$line."
-                        : 'Try using OutputDebugger class to find where output started.'
-                    )
-            );
+            throw new \Exception(__METHOD__.'() called after some output has been sent. '.($file ? "Output started at $file:$line." : 'Try using OutputDebugger class to find where output started.'));
         } elseif (self::$enabled && PHP_SESSION_ACTIVE !== session_status()) {
             ini_set('session.use_cookies', '1');
             ini_set('session.use_only_cookies', '1');
@@ -494,14 +512,14 @@ class Debugger
             ob_start(function () {
             });
             Dumper::dump($var, [
-                Dumper::DEPTH    => self::$maxDepth,
+                Dumper::DEPTH => self::$maxDepth,
                 Dumper::TRUNCATE => self::$maxLen,
             ]);
 
             return ob_get_clean();
         } elseif (!self::$productionMode) {
             Dumper::dump($var, [
-                Dumper::DEPTH    => self::$maxDepth,
+                Dumper::DEPTH => self::$maxDepth,
                 Dumper::TRUNCATE => self::$maxLen,
                 Dumper::LOCATION => self::$showLocation,
             ]);
@@ -548,8 +566,8 @@ class Debugger
 
             $panel->data[] = [
                 'title' => $title,
-                'dump'  => Dumper::toHtml($var, (array) $options + [
-                    Dumper::DEPTH    => self::$maxDepth,
+                'dump' => Dumper::toHtml($var, (array) $options + [
+                    Dumper::DEPTH => self::$maxDepth,
                     Dumper::TRUNCATE => self::$maxLen,
                     Dumper::LOCATION => self::$showLocation
                         ?: Dumper::LOCATION_CLASS | Dumper::LOCATION_SOURCE,

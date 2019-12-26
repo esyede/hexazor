@@ -11,6 +11,7 @@ class Env
     public $files = [];
 
     protected $lastFile;
+
     protected $overloader = false;
 
     private static $loader;
@@ -19,8 +20,6 @@ class Env
      * Muat file .env.
      *
      * @param string $file
-     *
-     * @return void
      */
     public static function load($file = '.env')
     {
@@ -32,8 +31,6 @@ class Env
      *
      * @param string $key
      * @param mixed  $val
-     *
-     * @return void
      */
     public static function put($key, $val)
     {
@@ -77,8 +74,6 @@ class Env
      * Timpa data env.
      *
      * @param string $file
-     *
-     * @return void
      */
     public static function overload($file = '.env')
     {
@@ -104,8 +99,6 @@ class Env
      * Load konten env file.
      *
      * @param string $file
-     *
-     * @return void
      */
     protected function innerLoad($file)
     {

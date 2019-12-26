@@ -7,7 +7,9 @@ defined('DS') or exit('No direct script access allowed.');
 class Event
 {
     public static $events = [];
+
     public static $queued = [];
+
     public static $flushers = [];
 
     public static function has($event)

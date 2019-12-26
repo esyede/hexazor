@@ -13,43 +13,50 @@ class Console
     use AskTrait;
 
     protected static $stty;
+
     protected static $shell;
 
     protected $filename;
+
     protected $command;
+
     protected $arguments = [];
+
     protected $options = [];
+
     protected $optionsAlias = [];
+
     protected $commands = [];
+
     protected $resolvedOptions = [];
 
     protected $foregrounds = [
-        'black'        => '0;30',
-        'dark_gray'    => '1;30',
-        'blue'         => '0;34',
-        'light_blue'   => '1;34',
-        'green'        => '0;32',
-        'light_green'  => '1;32',
-        'cyan'         => '0;36',
-        'light_cyan'   => '1;36',
-        'red'          => '0;31',
-        'light_red'    => '1;31',
-        'purple'       => '0;35',
+        'black' => '0;30',
+        'dark_gray' => '1;30',
+        'blue' => '0;34',
+        'light_blue' => '1;34',
+        'green' => '0;32',
+        'light_green' => '1;32',
+        'cyan' => '0;36',
+        'light_cyan' => '1;36',
+        'red' => '0;31',
+        'light_red' => '1;31',
+        'purple' => '0;35',
         'light_purple' => '1;35',
-        'brown'        => '0;33',
-        'yellow'       => '1;33',
-        'light_gray'   => '0;37',
-        'white'        => '1;37',
+        'brown' => '0;33',
+        'yellow' => '1;33',
+        'light_gray' => '0;37',
+        'white' => '1;37',
     ];
 
     protected $backgrounds = [
-        'black'      => '40',
-        'red'        => '41',
-        'green'      => '42',
-        'yellow'     => '43',
-        'blue'       => '44',
-        'magenta'    => '45',
-        'cyan'       => '46',
+        'black' => '40',
+        'red' => '41',
+        'green' => '42',
+        'yellow' => '43',
+        'blue' => '44',
+        'magenta' => '45',
+        'cyan' => '46',
         'light_gray' => '47',
     ];
 
@@ -126,10 +133,10 @@ class Console
         $command->defineApp($this);
 
         $this->commands[$name] = [
-            'handler'     => [$command, 'handle'],
+            'handler' => [$command, 'handle'],
             'description' => $command->getDescription(),
-            'args'        => $args,
-            'options'     => $options,
+            'args' => $args,
+            'options' => $options,
         ];
     }
 
@@ -145,10 +152,10 @@ class Console
         list($name, $args, $options) = $this->parseCommand($signature);
 
         $this->commands[$name] = [
-            'handler'     => $handler,
+            'handler' => $handler,
             'description' => $description,
-            'args'        => $args,
-            'options'     => $options,
+            'args' => $args,
+            'options' => $options,
         ];
     }
 
@@ -490,9 +497,9 @@ class Console
                 }
 
                 $args[$argName] = [
-                    'is_array'    => !empty($matchArgs['arr'][$i]),
+                    'is_array' => !empty($matchArgs['arr'][$i]),
                     'is_optional' => (!empty($matchArgs['optional'][$i]) || !empty($default)),
-                    'default'     => $default ?: null,
+                    'default' => $default ?: null,
                     'description' => $description,
                 ];
             }
@@ -511,9 +518,9 @@ class Console
 
                 $options[$optName] = [
                     'is_valuable' => !empty($matchOptions['valuable'][$i]),
-                    'default'     => $default ?: null,
+                    'default' => $default ?: null,
                     'description' => $description,
-                    'alias'       => $matchOptions['alias'][$i] ?: null,
+                    'alias' => $matchOptions['alias'][$i] ?: null,
                 ];
             }
         }
@@ -614,6 +621,7 @@ class Console
             foreach ($shells as $shell) {
                 if ('OK' === rtrim(shell_exec(sprintf($test, $shell)))) {
                     self::$shell = $shell;
+
                     break;
                 }
             }
@@ -829,8 +837,6 @@ class Console
 
     /**
      * Auto-discover command yang dibuat oleh user.
-     *
-     * @return void
      */
     public function resolveUserCommands()
     {

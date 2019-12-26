@@ -12,6 +12,7 @@ use System\Support\Str;
 abstract class Driver
 {
     public $user;
+
     public $token;
 
     /**

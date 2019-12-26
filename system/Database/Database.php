@@ -11,6 +11,7 @@ use System\Core\Config;
 class Database
 {
     public static $connections = [];
+
     public static $registrar = [];
 
     private static $defaultQueryGrammar = '\System\Database\Query\Grammars\Grammar';

@@ -16,8 +16,6 @@ class Html
      *
      * @param string   $name
      * @param \Closure $callback
-     *
-     * @return void
      */
     public static function extend($name, Closure $callback)
     {
@@ -290,8 +288,12 @@ class Html
         $safe = '';
         foreach (str_split($value) as $letter) {
             switch (rand(1, 3)) {
-                case 1: $safe .= '&#'.ord($letter).';'; break;
-                case 2: $safe .= '&#x'.dechex(ord($letter)).';'; break;
+                case 1: $safe .= '&#'.ord($letter).';';
+
+break;
+                case 2: $safe .= '&#x'.dechex(ord($letter)).';';
+
+break;
                 case 3: $safe .= $letter;
             }
         }

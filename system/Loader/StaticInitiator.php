@@ -23,7 +23,7 @@ class StaticInitiator
 
             $loader->prefixDirsPsr4 = [
                 'System\\' => [ROOT_PATH.'system'],
-                'App\\'    => [ROOT_PATH.'app'],
+                'App\\' => [ROOT_PATH.'app'],
             ];
         }, null, __NAMESPACE__.'\\ClassLoader');
     }

@@ -7,44 +7,53 @@ defined('DS') or exit('No direct script access allowed.');
 class Dumper
 {
     const DEPTH = 'depth';
+
     const TRUNCATE = 'truncate';
+
     const COLLAPSE = 'collapse';
+
     const COLLAPSE_COUNT = 'collapsecount';
+
     const LOCATION = 'location';
+
     const OBJECT_EXPORTERS = 'exporters';
+
     const LIVE = 'live';
 
     const LOCATION_SOURCE = 1;
+
     const LOCATION_LINK = 2;
+
     const LOCATION_CLASS = 4;
 
     public static $terminalColors = [
-        'bool'       => '1;33',
-        'null'       => '1;33',
-        'number'     => '1;32',
-        'string'     => '1;36',
-        'array'      => '1;31',
-        'key'        => '1;37',
-        'object'     => '1;31',
+        'bool' => '1;33',
+        'null' => '1;33',
+        'number' => '1;32',
+        'string' => '1;36',
+        'array' => '1;31',
+        'key' => '1;37',
+        'object' => '1;31',
         'visibility' => '1;30',
-        'resource'   => '1;37',
-        'indent'     => '1;30',
+        'resource' => '1;37',
+        'indent' => '1;30',
     ];
 
     public static $resources = [
-        'stream'         => 'stream_get_meta_data',
+        'stream' => 'stream_get_meta_data',
         'stream-context' => 'stream_context_get_options',
-        'curl'           => 'curl_getinfo',
+        'curl' => 'curl_getinfo',
     ];
 
     public static $objectExporters = [
-        'Closure'                => '\System\Debugger\Dumper::exportClosure',
-        'SplFileInfo'            => '\System\Debugger\Dumper::exportSplFileInfo',
-        'SplObjectStorage'       => '\System\Debugger\Dumper::exportSplObjectStorage',
+        'Closure' => '\System\Debugger\Dumper::exportClosure',
+        'SplFileInfo' => '\System\Debugger\Dumper::exportSplFileInfo',
+        'SplObjectStorage' => '\System\Debugger\Dumper::exportSplObjectStorage',
         '__PHP_Incomplete_Class' => '\System\Debugger\Dumper::exportPhpIncompleteClass',
     ];
 
     public static $livePrefix;
+
     private static $liveStorage = [];
 
     /**
@@ -78,10 +87,10 @@ class Dumper
     public static function toHtml($var, array $options = null)
     {
         $options = (array) $options + [
-            self::DEPTH            => 4,
-            self::TRUNCATE         => 150,
-            self::COLLAPSE         => 14,
-            self::COLLAPSE_COUNT   => 7,
+            self::DEPTH => 4,
+            self::TRUNCATE => 150,
+            self::COLLAPSE => 14,
+            self::COLLAPSE_COUNT => 7,
             self::OBJECT_EXPORTERS => null,
         ];
 
@@ -437,16 +446,16 @@ class Dumper
             static $counter = 1;
 
             $obj = $obj ?: [
-                'id'     => self::$livePrefix.'0'.$counter++,
-                'name'   => Helpers::getClass($var),
+                'id' => self::$livePrefix.'0'.$counter++,
+                'name' => Helpers::getClass($var),
                 'editor' => empty($editor)
                     ? null
                     : [
                         'file' => $rc->getFileName(),
                         'line' => $rc->getStartLine(),
-                        'url'  => $editor,
+                        'url' => $editor,
                     ],
-                'level'  => $level,
+                'level' => $level,
                 'object' => $var,
             ];
 
@@ -477,7 +486,7 @@ class Dumper
             if (!$obj) {
                 $type = get_resource_type($var);
                 $obj = [
-                    'id'   => self::$livePrefix.(int) $var,
+                    'id' => self::$livePrefix.(int) $var,
                     'name' => $type.' resource',
                 ];
 
@@ -558,9 +567,9 @@ class Dumper
         }
 
         return [
-            'file'       => $rc->getFileName(),
-            'line'       => $rc->getStartLine(),
-            'variables'  => $rc->getStaticVariables(),
+            'file' => $rc->getFileName(),
+            'line' => $rc->getStartLine(),
+            'variables' => $rc->getStaticVariables(),
             'parameters' => implode(', ', $res),
         ];
     }
@@ -576,7 +585,7 @@ class Dumper
         foreach (clone $obj as $item) {
             $res[] = [
                 'object' => $item,
-                'data'   => $obj[$item],
+                'data' => $obj[$item],
             ];
         }
 
@@ -587,9 +596,9 @@ class Dumper
     {
         $info = [
             'className' => null,
-            'private'   => [],
+            'private' => [],
             'protected' => [],
-            'public'    => [],
+            'public' => [],
         ];
 
         foreach ((array) $obj as $name => $value) {
@@ -612,6 +621,7 @@ class Dumper
         foreach (debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS) as $item) {
             if (isset($item['class']) && __CLASS__ === $item['class']) {
                 $location = $item;
+
                 continue;
             } elseif (isset($item['function'])) {
                 try {
@@ -621,6 +631,7 @@ class Dumper
                     if ($reflection->isInternal()
                     || preg_match('#\s@debuggerSkipLocation\s#', $reflection->getDocComment())) {
                         $location = $item;
+
                         continue;
                     }
                 } catch (\ReflectionException $e) {

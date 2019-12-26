@@ -12,12 +12,12 @@ return [
     |
     */
 
-    'just_now'    => 'just now',
+    'just_now' => 'just now',
     'seconds_ago' => '%s second(s) ago',
     'minutes_ago' => '%s minute(s) ago',
-    'hours_ago'   => '%s hour(s) ago',
-    'days_ago'    => '%s day(s) ago',
-    'weeks_ago'   => '%s week(s) ago',
-    'months_ago'  => '%s month(s) ago',
-    'years_ago'   => '%s year(s) ago',
+    'hours_ago' => '%s hour(s) ago',
+    'days_ago' => '%s day(s) ago',
+    'weeks_ago' => '%s week(s) ago',
+    'months_ago' => '%s month(s) ago',
+    'years_ago' => '%s year(s) ago',
 ];

@@ -181,8 +181,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
      * Hapus item dari collection berdasarkan key.
      *
      * @param mixed $key
-     *
-     * @return void
      */
     public function forget($key)
     {
@@ -379,8 +377,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
      * Taruh item ke bagian awal collection.
      *
      * @param mixed $value
-     *
-     * @return void
      */
     public function prepend($value)
     {
@@ -391,8 +387,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
      * Taruh item ke bagian akhir collection.
      *
      * @param mixed $value
-     *
-     * @return void
      */
     public function push($value)
     {
@@ -417,8 +411,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
      *
      * @param mixed $key
      * @param mixed $value
-     *
-     * @return void
      */
     public function put($key, $value)
     {
@@ -799,8 +791,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
      *
      * @param mixed $key
      * @param mixed $value
-     *
-     * @return void
      */
     public function offsetSet($key, $value)
     {
@@ -816,8 +806,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
      *
      * @param mixed $key
      * @param mixed $value
-     *
-     * @return void
      */
     public function offsetUnset($key)
     {

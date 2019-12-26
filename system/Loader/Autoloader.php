@@ -58,7 +58,7 @@ class Autoloader
         } else {
             $mappings = [
                 'System\\' => [ROOT_PATH.'system'],
-                'App\\'    => [ROOT_PATH.'app'],
+                'App\\' => [ROOT_PATH.'app'],
             ];
 
             foreach ($mappings as $namespace => $path) {

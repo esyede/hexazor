@@ -65,9 +65,7 @@ if (!is_callable('RandomCompat_intval')) {
         if (is_int($number)) {
             return (int) $number;
         } elseif (!$fail_open) {
-            throw new TypeError(
-                'Expected an integer.'
-            );
+            throw new TypeError('Expected an integer.');
         }
 
         return $number;

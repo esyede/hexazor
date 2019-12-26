@@ -11,17 +11,25 @@ use System\Facades\Storage;
 class View
 {
     protected $fileExtension = null;
+
     protected $viewDirectory = null;
+
     protected $cacheDirectory = null;
+
     protected $echoFormat = null;
+
     protected $extensions = [];
+
     protected $templates = [];
 
     protected static $directives = [];
 
     protected $blocks = [];
+
     protected $blockStacks = [];
+
     protected $emptyCounter = 0;
+
     protected $firstCaseSwitch = true;
 
     /**
@@ -512,7 +520,7 @@ class View
      */
     protected function compileForelse($value)
     {
-        $this->emptyCounter++;
+        ++$this->emptyCounter;
 
         return "<?php \$__empty_{$this->emptyCounter} = true; ".
             "foreach{$value}: ".
@@ -527,7 +535,7 @@ class View
     protected function compileEmpty()
     {
         $string = "<?php endforeach; if (\$__empty_{$this->emptyCounter}): ?>";
-        $this->emptyCounter--;
+        --$this->emptyCounter;
 
         return $string;
     }

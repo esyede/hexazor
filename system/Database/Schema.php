@@ -194,22 +194,27 @@ class Schema
             case 'mysql':
                 $query = 'select * from information_schema.tables '.
                     "where table_schema = {$db} and table_name = {$table}";
+
                 break;
 
             case 'pgsql':
                 $query = "select * from information_schema.tables where table_name = {$table}";
+
                 break;
 
             case 'sqlite':
                 $query = "select * from sqlite_master where type = 'table' and name = {$table}";
+
                 break;
 
             case 'sqlsrv':
                 $query = "select * from sysobjects where type = 'U' and name = {$table}";
+
                 break;
 
             default:
                 throw new Exception("Schema operations not supported for [$driver] driver.");
+
                 break;
         }
 
@@ -239,11 +244,13 @@ class Schema
             case 'mysql':
                 $query = 'select column_name from information_schema.columns '.
                     "where table_schema = {$db} and column_name = {$column}";
+
                 break;
 
             case 'pgsql':
                 $query = 'select column_name from information_schema.columns '.
                     "where table_name = {$table} and column_name = {$column}";
+
                 break;
 
             case 'sqlite':
@@ -263,16 +270,19 @@ class Schema
                     // Return false saja, sembunyikan exception.
                     return false;
                 }
+
                 break;
 
             case 'sqlsrv':
                 $query = 'select col.name from sys.columns as col '.
                     'join sys.objects as obj on col.object_id = obj.object_id '.
                     "where obj.type = 'U' and obj.name = {$table} and col.name = {$column}";
+
                 break;
 
             default:
                 throw new Exception("Schema operations not supported for [$driver] driver.");
+
                 break;
         }
 
@@ -292,12 +302,19 @@ class Schema
         $driver = Database::connection()->driver();
 
         switch ($driver) {
-            case 'mysql':  $query = 'SET FOREIGN_KEY_CHECKS=1;'; break;
-            case 'pqsql':  $query = 'SET CONSTRAINTS ALL IMMEDIATE;'; break;
-            case 'sqlite': $query = 'PRAGMA foreign_keys = ON;'; break;
+            case 'mysql':  $query = 'SET FOREIGN_KEY_CHECKS=1;';
+
+break;
+            case 'pqsql':  $query = 'SET CONSTRAINTS ALL IMMEDIATE;';
+
+break;
+            case 'sqlite': $query = 'PRAGMA foreign_keys = ON;';
+
+break;
             case 'sqlsrv':
                 $query = 'EXEC sp_msforeachtable @command1="print \'{$table}\'", '.
                     '@command2="ALTER TABLE {$table} WITH CHECK CHECK CONSTRAINT all";';
+
                 break;
             default: throw new Exception("Schema operations not supported for [$driver] driver.");
         }
@@ -322,11 +339,18 @@ class Schema
         $driver = Database::connection()->driver();
 
         switch ($driver) {
-            case 'mysql':  $query = 'SET FOREIGN_KEY_CHECKS=0;'; break;
-            case 'pqsql':  $query = 'SET CONSTRAINTS ALL DEFERRED;'; break;
-            case 'sqlite': $query = 'PRAGMA foreign_keys = OFF;'; break;
+            case 'mysql':  $query = 'SET FOREIGN_KEY_CHECKS=0;';
+
+break;
+            case 'pqsql':  $query = 'SET CONSTRAINTS ALL DEFERRED;';
+
+break;
+            case 'sqlite': $query = 'PRAGMA foreign_keys = OFF;';
+
+break;
             case 'sqlsrv':
                 $query = 'EXEC sp_msforeachtable "ALTER TABLE {$table} NOCHECK CONSTRAINT all";';
+
                 break;
             default: throw new Exception("Schema operations not supported for [$driver] driver.");
         }

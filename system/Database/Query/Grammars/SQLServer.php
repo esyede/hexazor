@@ -9,6 +9,7 @@ use System\Database\Query;
 class SQLServer extends Grammar
 {
     protected $wrapper = '[%s]';
+
     public $datetime = 'Y-m-d H:i:s.000';
 
     /**

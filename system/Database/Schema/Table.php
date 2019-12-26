@@ -9,9 +9,13 @@ use System\Support\Magic;
 class Table
 {
     public $name;
+
     public $connection;
+
     public $engine;
+
     public $columns = [];
+
     public $commands = [];
 
     /**

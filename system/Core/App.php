@@ -76,8 +76,6 @@ class App
 
     /**
      * Setel ulang timezone: terapkan config user.
-     *
-     * @return void
      */
     private function reconfigureTimezone()
     {
