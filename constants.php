@@ -3,7 +3,7 @@
 // misc.
 defined('FRAMEWORK_START') or define('FRAMEWORK_START', microtime(true));
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-defined('VERSION') or define('VERSION', '0.9.0');
+defined('VERSION') or define('VERSION', '0.9.1');
 
 // paths
 defined('ROOT_PATH') or define('ROOT_PATH', realpath(__DIR__).DS);
