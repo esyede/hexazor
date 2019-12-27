@@ -8,18 +8,11 @@ use System\Database\Schema;
 class CreateUsersTable extends Migration
 {
     /**
-     * Nama tabel target migrasi (ubah sesuai kebutuhan).
-     *
-     * @var string
-     */
-    protected static $targetTable = 'users';
-
-    /**
      * Jalankan proses migrasi.
      */
     public function up()
     {
-        Schema::create(static::$targetTable, function ($table) {
+        Schema::create('users', function ($table) {
             $table->increments('id');
             $table->string('email')->unique();
             $table->string('password');
@@ -34,6 +27,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(static::$targetTable);
+        Schema::dropIfExists('users');
     }
 }
