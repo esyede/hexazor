@@ -68,6 +68,8 @@ Route::prefix('frontend')->namespaces('frontend')->group(function () {
 
 **View**
 ```blade
+// welcome.blade.php
+
 <p>Halo {{ $name }}</p>
 ```
 
@@ -77,7 +79,7 @@ Route::prefix('frontend')->namespaces('frontend')->group(function () {
 namespace App\Http\Controllers;
 
 use App\Http\Controller;
-
+use View;
 
 class Hello extends Controller
 {
@@ -92,13 +94,12 @@ class Hello extends Controller
 
 **Model:**
 ```php
-$user = User::where('email', '=', $email)->first();
+$user = User::first();
 
-$user = User::whereEmail($email)->first();
-
-$users = User::whereIn('id', [1, 2, 3])->orWhere('email', '=', $email)->get();
-
-$users = User::orderBy('votes', 'desc')->take(10)->get();
+$users = User::whereIn('id', [1, 2, 3])
+	->orWhere('email', '=', $email)
+	->take(10)
+	->get();
 ```
 
 ## Dokumentasi
