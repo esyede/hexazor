@@ -68,7 +68,7 @@ Route::prefix('frontend')->namespaces('frontend')->group(function () {
 
 **View**
 ```blade
-// welcome.blade.php
+{{-- welcome.blade.php --}}
 
 <p>Halo {{ $name }}</p>
 ```
