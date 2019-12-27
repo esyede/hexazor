@@ -220,6 +220,7 @@ class Request
      */
     public function put($key = null, $default = null, $filter = true)
     {
+        $_PUT = [];
         parse_str(file_get_contents('php://input'), $_PUT);
 
         if (is_null($key)) {
@@ -252,6 +253,7 @@ class Request
      */
     public function patch($key = null, $default = null, $filter = true)
     {
+        $_PATCH = [];
         parse_str(file_get_contents('php://input'), $_PATCH);
 
         if (is_null($key)) {
@@ -284,6 +286,7 @@ class Request
      */
     public function delete($key = null, $default = null, $filter = true)
     {
+        $_DELETE = [];
         parse_str(file_get_contents('php://input'), $_DELETE);
 
         if (is_null($key)) {

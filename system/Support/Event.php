@@ -67,7 +67,7 @@ class Event
 
     public static function fire($events, array $parameters = [], $halt = false)
     {
-        $events = (array) $events;
+        $events = Arr::wrap($events);
         $responses = [];
 
         foreach ($events as $event) {
