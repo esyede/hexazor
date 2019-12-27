@@ -25,7 +25,9 @@
 
 ## Apa itu Hexazor?
 
-Hexazor adalah framework PHP yang kuat yang menekankan fleksibilitas dan ekspresif. Pengguna yang baru menggunakan Hexazor akan menikmati kemudahan pengembangan yang sama dengan yang ditemukan dalam kerangka kerja PHP yang paling populer saat ini. Pengguna yang lebih berpengalaman akan mendapatkan kesempatan untuk memodulasi kode mereka dengan cara yang elegan. Fleksibilitas Hexazor akan memungkinkan organisasi Anda memperbarui dan membentuk aplikasi dari waktu ke waktu sesuai kebutuhan dan ekspresifitasnya akan memungkinkan Anda dan tim Anda untuk mengembangkan kode yang ringkas dan mudah dibaca.
+Hexazor adalah framework PHP yang kuat yang menekankan fleksibilitas dan ekspresif. Pengguna yang baru menggunakan Hexazor akan menikmati kemudahan pengembangan yang sama dengan yang ditemukan dalam kerangka kerja PHP yang paling populer saat ini.
+
+Pengguna yang lebih berpengalaman akan mendapatkan kesempatan untuk memodulasi kode mereka dengan cara yang elegan. Fleksibilitas Hexazor akan memungkinkan organisasi Anda memperbarui dan membentuk aplikasi dari waktu ke waktu sesuai kebutuhan dan ekspresifitasnya akan memungkinkan Anda dan tim Anda untuk mengembangkan kode yang ringkas dan mudah dibaca.
 
 
 ## Ikhtisar Fitur
