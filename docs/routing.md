@@ -1,10 +1,11 @@
 # Routing
 
+
 ## Daftar Isi
 
 -   [Dasar - Dasar Routing](#dasar-dasar-routing)
 -   [Closure Routing](#closure-routing)
--   [Tipe Routing](#tipe-routing)
+-   [Tipe Method Routing](#tipe-method-routing)
 -   [Controller Routing](#controller-routing)
 -   [Parameter Dalam Routing](#parameter-dalam-routing)
 -   [Route Grouping](#route-grouping)
@@ -15,13 +16,15 @@
 -   [SSL Enforcement](#ssl-enforcement)
 -   [Route Naming](#route-naming)
 
+
 ## Dasar - Dasar Routing
 
-Di Hexazor, pendefinisian rute sangatlah sederhana dan fleksibel. Seluruh definisi rute disimpan dalam file `app/Configs/routes.php`. Silahkan buka file tersebut agar Anda mendapat gambaran bagaimana pendefinisian rute di Hexazor dilakukan.
+Di Hexazor, pendefinisian rute sangatlah sederhana dan fleksibel. Seluruh definisi rute disimpan dalam file `routes/web.php`. Silahkan buka file tersebut agar Anda mendapat gambaran bagaimana pendefinisian rute di Hexazor dilakukan.
+
 
 ## Closure Routing
 
-Di Hexazor, operasi closure routing dilakukan dengan memanggil method rute sesuai dengan request method yang diinginkan, lalu mengoper URI dan Callback function kedalamnya:
+Di Hexazor, operasi closure routing dilakukan dengan memanggil method rute sesuai dengan request method yang diinginkan, lalu mengoper URI dan Closure kedalamnya:
 
 ```php
 Route::get('/', function () {
@@ -29,9 +32,10 @@ Route::get('/', function () {
 });
 ```
 
-## Tipe Routing
 
-Rute dikonfigurasikan mengikuti HTTP request methods:
+## Tipe Method Routing
+
+Rute dikonfigurasikan mengikuti penamaan HTTP request method:
 
 ```php
 Route::get($uri, $callback);
@@ -46,26 +50,30 @@ Route::head($uri, $callback);
 Jika Anda perlu mendefinisikan rute menggunakan lebih dari satu request method, gunakan method `match()` seperti berikut:
 
 ```php
-Route::match(['GET', 'POST'], '/profil', function () {
+Route::match(['GET', 'POST'], '/profile', function () {
 	// code
 });
 ```
 
+
 ## Controller Routing
 
-Anda juga bisa menggunakan controller class sebagai callback untuk menangani rute:
+Anda juga bisa menggunakan controller sebagai callback untuk menangani rute:
 
 ```php
 Route::get('/profil', 'Users@profile');
 ```
 
+
 ## Parameter Dalam Routing
 
-Ketika mendefinisikan rute, Anda boleh mengirim parameter ke callback function ataupun controller method. Gunakan method `where()` jika Anda ingin mem-filter datanya menggunakan regular expression:
+Ketika mendefinisikan rute, Anda juga boleh mengirim parameter ke closure ataupun controller method Anda. Gunakan method `where()` jika Anda ingin mem-filter datanya menggunakan regular expression:
 
 ```php
 Route::get('/user/{name}', function ($name) {
-	echo 'Nama Kamu: '.$name;
+	
+	echo 'Halo, '.$name;
+
 })->where(['name' => '([A-Za-z]+)'])
 
 
@@ -75,27 +83,29 @@ Route::get('/blog/{title}', 'Blog@post')->where(['title' => '([A-Za-z]+)']);
 Route::get('/blog/{postId}', 'Blog@post')->where(['postId' => '(\d+)']);
 
 
-Route::get('/blog/{categoryId}/post/{postId}', function ($categoryId, $postId) {
-	echo 'ID Kategori: #'.$categoryId.', ID Post: #'.$postId;
-})->where(['categoryId' => '(\d+)', 'postId' => '(\d+)']);
-
+Route::get('/blog/{categoryId}/detail/{postId}', 'Blog@post')
+	->where([
+		'categoryId' => '(\d+)',
+		'postId' => '(\d+)',
+	]);
 ```
 
-Anda juga dapat mengakap parameternya didalam method controller:
+Lalu Anda tinggal mengakap parameternya dari dalam method controller:
 
 ```php
 class Blog extends Controller
 {
-	public function index($categoryId, $postId)
+	public function post($categoryId, $postId)
 	{
 		echo 'ID Kategori: #'.$categoryId.', ID Post: #'.$postId;
 	}
 }
 ```
 
+
 ## Route Grouping
 
-Anda juga dapat mengelompokkan rute - rute kedalam sebuah grup. Ini dilakukan agar Anda tidak perlu mengulang - ulang penulisan rute untuk menangani url dengan prefix yang sama:
+Anda juga dapat mengelompokkan rute kedalam sebuah grup. Ini dilakukan agar Anda tidak perlu mengulang - ulang penulisan rute untuk menangani url dengan prefix yang sama:
 
 ```php
 Route::prefix('frontend')->group(function () {
@@ -121,13 +131,14 @@ Route::prefix('frontend')->namespaces('frontend')->group(function () {
 	Route::get('/blog', 'Blog@posts');
 });
 
-// site.com/backend/...   -->  App\Http\Controllers\Backend\... dengan middleware 'auth'
-Route::prefix('backend')->namespaces('backend')->middleware(['auth'])->group(function () {
+// site.com/backend/...   -->  App\Http\Controllers\Backend\... dengan middleware 'auth' dan 'verified'
+Route::prefix('backend')->namespaces('backend')->middleware(['auth', 'verified'])->group(function () {
 	Route::get('/', 'Dashboard@index');
 	Route::get('/dashboard', 'Dashboard@index');
 	Route::get('/posts', 'Posts@index');
 });
 ```
+
 
 ## Route Namespacing
 
@@ -146,7 +157,8 @@ Route::namespaces('frontend')->get('/dashboard', 'Dashboard@index');
 ```
 
 > [!NOTE]
-> Nama methodnya adalah `namespaces()` ya!
+> Nama methodnya adalah `namespaces()` ya! dibuat plural karena PHP 5.4 keyword `namespace` tidak bisa dipakai untuk nama method.
+
 
 ## Route Middleware
 
@@ -172,6 +184,7 @@ Middleware juga dapat dipanggil tanpa grouping:
 Route::middleware(['auth'])->get('/dashboard', 'Dashboard@index');
 ```
 
+
 ## Domain Routing
 
 Anda boleh membatasi akses domain saat routing. Halaman yang ditargetkan oleh rute ini hanya akan dijalankan jika berada di bawah domain yang ditentukan, jika sebaliknya, halaman 404 akan ditampilkan.
@@ -182,6 +195,7 @@ Route::domain('api.site.com')->namespaces('api')->group(function () {
 	Route::get('/login', 'Auth@login'); // http://api.site.com/login
 });
 ```
+
 
 ## IP Address Routing
 
@@ -194,7 +208,6 @@ Route::ip('192.168.123.123')->namespaces('api')->group(function () {
 });
 
 Route::ip(['192.168.123.123', '192.168.123.456'])->namespaces('api')->group(function () {
-
 	// http://192.168.123.123/ atau, http://192.168.123.456/
 	Route::get('/', 'Home@index');
 
@@ -202,6 +215,7 @@ Route::ip(['192.168.123.123', '192.168.123.456'])->namespaces('api')->group(func
 	Route::get('/login', 'Auth@login');
 });
 ```
+
 
 ## SSL Enforcement
 
@@ -213,6 +227,7 @@ Route::ssl()->namespaces('api')->group(function () {
 	Route::get('/login', 'Auth@login'); // https://api.site.com/login
 });
 ```
+
 
 ## Route Naming
 

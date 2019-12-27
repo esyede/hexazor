@@ -1,10 +1,12 @@
 # Instalasi Dan Konfigurasi
 
+
 ## Daftar Isi
 
 - [Kebutuhan Sistem](#kebutuhan-sistem)
 - [Instalasi](#instalasi)
 - [Konfigurasi Server](#konfigurasi-server)
+
 
 ### Kebutuhan Sistem
 
@@ -29,13 +31,14 @@ Tentu saja, semua kebutuhan diatas sudah dipenuhi oleh webserver stack standar y
 - [Laragon](https://laragon.org/)
 - Dan lain - lain.
 
-Bahkan, Anda juga dapat menginstall PHP dan semua ekstensi yang dibutuhkan diatas melalui terminal, lalu gunakan perintah berikut untuk mengakses Hexazor melalui webserver bawaan PHP:
+Bahkan, jika Anda pengguna Linux, Anda juga dapat menginstall PHP dan semua ekstensi yang dibutuhkan diatas melalui terminal, lalu gunakan perintah berikut untuk mengakses Hexazor melalui webserver bawaan:
 
 ```bash
 php hexazor serve
 ```
 
 Intinya, pilihan ada ditangan Anda. Gunakan webserver stack apapun yang cocok dengan Anda.
+
 
 ### Instalasi
 
@@ -44,11 +47,12 @@ Langkah - langkah instalasi Hexazor sangatlah mudah:
 1. [Unduh](https://github.com/esyede/single-blade/releases/latest) Hexazor versi yang terbaru
 2. Ekstrak berkas unduhan tersebut ke webserver Anda
 3. Ubah nama file `sample.htaccess` menjadi `.htaccess` (jika Anda belum punya file .htaccess)
-4. **Selesai!**. Silahkan buka lewat web browser.
+4. Selesai. Silahkan buka lewat web browser.
+
 
 ### Konfigurasi Server
 
-Secara default, dalam setiap paket instalasi Hexazor sudah disertakan 2 buah file konfigurasi server, yaitu file _.htaccess_ yang berisi konfigurasi URL rewrite untuk Apache webserver, dan satu file lain bernama _sample.htaccess_ yang merupakan salinan dari file .htaccess tadi.
+Secara umum, dalam setiap paket instalasi Hexazor sudah disertakan 2 buah file konfigurasi server, yaitu file _.htaccess_ yang berisi konfigurasi URL rewrite untuk Apache webserver, dan satu file lain bernama _sample.htaccess_ yang merupakan salinan dari file .htaccess tadi.
 
 Jika Anda tidak memiliki file tersebut, silahkan buat sebuah file di root webserver Anda dengan nama _.htaccess_ lalu salin kode berikut kedalamnya:
 
@@ -59,7 +63,8 @@ Jika Anda tidak memiliki file tersebut, silahkan buat sebuah file di root webser
   RewriteEngine On
 
   # cegah akses ke file - file framework
-  RewriteRule ^(app|config|database|resources|routes|storage|system|vendor) - [F]
+  RewriteRule ^(app|config|system|database) - [F]
+  RewriteRule ^(routes|storage|resources|vendor) - [F]
 
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
@@ -75,11 +80,11 @@ Options -MultiViews
 RewriteEngine on
 
 # cegah akses ke file - file framework
-RewriteRule ^(app|config|database|resources|routes|storage|system|vendor) - [F]
+RewriteRule ^(app|config|system|database) - [F]
+RewriteRule ^(routes|storage|resources|vendor) - [F]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-
 RewriteRule . index.php [L]
 ```
 

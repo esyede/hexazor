@@ -1,5 +1,6 @@
 # Controller
 
+
 ## Daftar Isi
 
 -   [Pengetahuan Dasar](#pengetahuan-dasar)
@@ -11,6 +12,7 @@
 -   [Memanggil Model](#memanggil-model)
 -   [Memanggil Library](#memanggil-library)
 
+
 ## Pengetahuan Dasar
 
 Controller adalah kelas yang menangani request pengunjung di aplikasi Anda. Alih-alih mendefinisikan semua logika penanganan request Anda sebagai Closure dalam file _routes.php_, Anda mungkin ingin mengatur perilaku ini menggunakan kelas Controller. Controller dapat mengelompokkan logika penanganan request terkait ke dalam satu kelas.
@@ -18,6 +20,7 @@ Controller adalah kelas yang menangani request pengunjung di aplikasi Anda. Alih
 Hexazor mengikuti aturan [PSR-4](https://www.php-fig.org/psr/psr-4/) untuk melakukan autoloading, dengan begitu Anda dapat meletakkan controller dimanapun yang Anda mau. Meskipun begitu, kami sangat menyarankan agar controller disimpan di folder `app/Controllers` agar struktur folder Anda tetap rapi dan teratur.
 
 Secara default, Hexazor menyertakan 2 buah controller didalam untuk Anda, yaitu sebuah controller bernama `Controller` yang difungsikan sebagai controller induk, dan satu lagi `Home` controller untuk menjalankan halaman pembuka. Bukalah file tersebut agar mendapat sedikit gambaran tentang cara penulisan controller di Hexazor.
+
 
 ## Aturan Penulisan Controller
 
@@ -28,12 +31,13 @@ Hexazor menerapkan beberapa aturan dasar untuk penulisan controller:
 -   Nama controller harus ditulis menggunakan pola StudlyCase.
 -   Satu file controller hanya boleh diisi dengan satu kelas.
 
+
 ## Membuat Controller
 
 Sekarang, mari kita coba membuat controller pertama kita:
 
 ```php
-// disimpan di: app/Controllers/Hello.php
+// disimpan di: app/Http/Controllers/Hello.php
 
 namespace App\Http\Controllers;
 
@@ -58,16 +62,17 @@ Route::get('/hello', 'Hello@index');
 > [!TIP]
 > Untuk mempermudah pembuatan controller, Anda juga dapat memanfaatkan perintah `make:controller` di dalam [hexazor console](/console/make.md#make-controller).
 
+
 ## Parameter Controller
 
-Anda juga boleh mengirim parameter ke method di kelas controller:
+Anda juga boleh mengirim parameter ke method controller:
 
 ```php
 class Hello extends Controller
 {
 	public function user($userId)
 	{
-		echo 'Hai! user id kamu adalah: #'.$userId;
+		echo 'Hai! ID kamu adalah: #'.$userId;
 	}
 }
 ```
@@ -78,12 +83,13 @@ Dan untuk pendaftaran rutenya menjadi seperti ini:
 Route::get('/user/(\d+)', 'Hello@user');
 ```
 
+
 ## Meletakkan Controller Dalam Subfolder
 
-Anda juga boleh meletakkan file controller kedalam subfolder. Pada contoh dibawah ini, kita akan coba membuat sebuah controller bernama `Dashboard` di dalam subfolder `app/Controllers/Backend/`:
+Anda boleh menaruh controller kedalam subfolder, ini berguna ketika jumlah controller Anda sudah terlalu banyak dan perlu di organisasi ulang.
 
 ```php
-// disimpan di: app/Controllers/Backend/Dashboard.php
+// disimpan di: app/Http/Controllers/Backend/Dashboard.php
 
 namespace App\Http\Controllers\Backend;
 
@@ -94,7 +100,7 @@ class Dashboard extends Controller
 {
 	public function index()
 	{
-		echo 'Pesan ini datang dari file app/Controllers/Backend/Dashboard.php';
+		echo 'selamat datang di backend dasboard';
 	}
 }
 ```
@@ -110,37 +116,40 @@ Route::namespaces('backend')->group(function () {
 });
 ```
 
+
 ## Memanggil Middleware
 
-Selain mendefinisikan middleware melalui file _routes.php_, Anda juga bisa memanggil middleware melalui controller:
+Selain mendefinisikan middleware melalui file _routes/web.php_, Anda juga bisa memanggil middleware melalui controller:
 
 ```php
 $this->middleware('auth');
 ```
 
 > [!NOTE]
-> Command konsol `hexazor route:list` tidak akan menampilkan middleware yang didaftarkan melalui cara ini.
+> Command `hexazor route:list` tidak akan menampilkan middleware yang didaftarkan melalui cara ini.
+
 
 ## Memanggil Model
 
-Anda juga dapat memanggil model dari controller. Cara pemanggilannya cukup menggunakan keyword `use`, seperti halnya memanggil kelas biasa di php:
+Anda juga dapat memanggil model dari controller. Cara pemanggilannya cukup menggunakan keyword `use`, seperti halnya mengimpor kelas biasa di php:
 
 ```php
-use App\Models\User;
+use App\User;
 
 
-// User::all()
+User::all()
 ```
+
 
 ## Memanggil Library
 
-Sedangkan untuk memanggil library, Anda cukup memanggil nama kelasnya saja, tanpa perlu menulis namespacenya secara lengkap:
+Sedangkan untuk memanggil library, Anda cukup memanggil nama kelasnya saja, tanpa perlu menulis namespacenya secara lengkap. Pada contoh dibawah ini, kita memanggil library Date yang berada di `System\Libraries\Date\Date`.
 
 ```php
 use Date;
 
 
-// Date::now();
+Date::now();
 ```
 
-Mudah bukan? Cara ini dimungkinkan karena Hexazor menerapkan mekanisme [Facades](/facades/index.md) untuk autoloading library.
+Mudah bukan? Cara ini dimungkinkan karena Hexazor menerapkan pola desain [Facade](/facade/index.md) untuk pemanggilan librarinya.
