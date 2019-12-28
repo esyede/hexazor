@@ -1,7 +1,7 @@
 <?php
 /**
  * Random_* Compatibility Library
- * for using the new PHP 7 random_* API in PHP 5 projects
+ * for using the new PHP 7 random_* API in PHP 5 projects.
  *
  * The MIT License (MIT)
  *
@@ -25,7 +25,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 if (!defined('RANDOM_COMPAT_READ_BUFFER')) {
     define('RANDOM_COMPAT_READ_BUFFER', 8);
 }
@@ -33,9 +32,10 @@ if (!defined('RANDOM_COMPAT_READ_BUFFER')) {
 if (!is_callable('random_bytes')) {
     /**
      * Unless open_basedir is enabled, use /dev/urandom for
-     * random numbers in accordance with best practices
+     * random numbers in accordance with best practices.
      *
      * Why we use /dev/urandom and not /dev/random
+     *
      * @ref https://www.2uo.de/myths-about-urandom
      * @ref http://sockpuppet.org/blog/2014/02/25/safely-generate-random-numbers
      *
@@ -50,11 +50,11 @@ if (!is_callable('random_bytes')) {
         /** @var resource $fp */
         static $fp = null;
 
-        /**
+        /*
          * This block should only be run once
          */
         if (empty($fp)) {
-            /**
+            /*
              * We don't want to ever read C:\dev\random, only /dev/urandom on
              * Unix-like operating systems. While we guard against this
              * condition in random.php, it doesn't hurt to be defensive in depth
@@ -67,13 +67,13 @@ if (!is_callable('random_bytes')) {
             if (DIRECTORY_SEPARATOR === '/') {
                 if (!is_readable('/dev/urandom')) {
                     throw new Exception(
-                        'Environment misconfiguration: ' .
+                        'Environment misconfiguration: '.
                         '/dev/urandom cannot be read.'
                     );
                 }
                 /**
                  * We use /dev/urandom if it is a char device.
-                 * We never fall back to /dev/random
+                 * We never fall back to /dev/random.
                  */
                 /** @var resource|bool $fp */
                 $fp = fopen('/dev/urandom', 'rb');
@@ -88,7 +88,7 @@ if (!is_callable('random_bytes')) {
             }
 
             if (is_resource($fp)) {
-                /**
+                /*
                  * stream_set_read_buffer() does not exist in HHVM
                  *
                  * If we don't set the stream's read buffer to 0, PHP will
@@ -121,7 +121,7 @@ if (!is_callable('random_bytes')) {
         }
 
         /**
-         * This if() block only runs if we managed to open a file handle
+         * This if() block only runs if we managed to open a file handle.
          *
          * It does not belong in an else {} block, because the above
          * if (empty($fp)) line is logic that should only be run once per
@@ -138,7 +138,7 @@ if (!is_callable('random_bytes')) {
              */
             $buf = '';
 
-            /**
+            /*
              * We use fread() in a loop to protect against partial reads
              */
             do {
@@ -149,18 +149,18 @@ if (!is_callable('random_bytes')) {
                 if (!is_string($read)) {
                     /**
                      * We cannot safely read from the file. Exit the
-                     * do-while loop and trigger the exception condition
+                     * do-while loop and trigger the exception condition.
                      *
                      * @var string|bool
                      */
                     $buf = false;
                     break;
                 }
-                /**
+                /*
                  * Decrease the number of bytes returned from remaining
                  */
                 $remaining -= RandomCompat_strlen($read);
-                /**
+                /*
                  * @var string $buf
                  */
                 $buf .= $read;
@@ -168,11 +168,12 @@ if (!is_callable('random_bytes')) {
 
             /**
              * Is our result valid?
-             * @var string|bool $buf
+             *
+             * @var string|bool
              */
             if (is_string($buf)) {
                 if (RandomCompat_strlen($buf) === $bytes) {
-                    /**
+                    /*
                      * Return our random entropy buffer here:
                      */
                     return $buf;
@@ -180,7 +181,7 @@ if (!is_callable('random_bytes')) {
             }
         }
 
-        /**
+        /*
          * If we reach here, PHP has failed us.
          */
         throw new Exception(
