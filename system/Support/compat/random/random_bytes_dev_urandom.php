@@ -166,7 +166,7 @@ if (!is_callable('random_bytes')) {
                 $buf .= $read;
             } while ($remaining > 0);
 
-            /**
+            /*
              * Is our result valid?
              *
              * @var string|bool
