@@ -2,6 +2,7 @@ preset: recommended
 risky: false
 finder:
   exclude:
+    - system/Support/compat
     - storage
     - assets
     - docs
