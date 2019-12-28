@@ -3,7 +3,7 @@
 if (!is_callable('random_int')) {
     /**
      * Random_* Compatibility Library
-     * for using the new PHP 7 random_* API in PHP 5 projects.
+     * for using the new PHP 7 random_* API in PHP 5 projects
      *
      * The MIT License (MIT)
      *
@@ -29,7 +29,7 @@ if (!is_callable('random_int')) {
      */
 
     /**
-     * Fetch a random integer between $min and $max inclusive.
+     * Fetch a random integer between $min and $max inclusive
      *
      * @param int $min
      * @param int $max
@@ -40,7 +40,7 @@ if (!is_callable('random_int')) {
      */
     function random_int($min, $max)
     {
-        /*
+        /**
          * Type and input logic checks
          *
          * If you pass it a float in the range (~PHP_INT_MAX, PHP_INT_MAX)
@@ -68,7 +68,7 @@ if (!is_callable('random_int')) {
             );
         }
 
-        /*
+        /**
          * Now that we've verified our weak typing system has given us an integer,
          * let's validate the logic then we can move forward with generating random
          * integers along a given range.
@@ -84,7 +84,7 @@ if (!is_callable('random_int')) {
         }
 
         /**
-         * Initialize variables to 0.
+         * Initialize variables to 0
          *
          * We want to store:
          * $bytes => the number of random bytes we need
@@ -103,18 +103,18 @@ if (!is_callable('random_int')) {
          * overflow, however, if $max - $min > PHP_INT_MAX. PHP will cast it to
          * a float and we will lose some precision.
          *
-         * @var int|float
+         * @var int|float $range
          */
         $range = $max - $min;
 
-        /*
+        /**
          * Test for integer overflow:
          */
         if (!is_int($range)) {
 
             /**
              * Still safely calculate wider ranges.
-             * Provided by @CodesInChaos, @oittaa.
+             * Provided by @CodesInChaos, @oittaa
              *
              * @ref https://gist.github.com/CodesInChaos/03f9ea0b58e8b2b8d435
              *
@@ -126,17 +126,18 @@ if (!is_callable('random_int')) {
             $bytes = PHP_INT_SIZE;
             /** @var int $mask */
             $mask = ~0;
+
         } else {
 
             /**
              * $bits is effectively ceil(log($range, 2)) without dealing with
-             * type juggling.
+             * type juggling
              */
             while ($range > 0) {
                 if ($bits % 8 === 0) {
-                    $bytes++;
+                    ++$bytes;
                 }
-                $bits++;
+                ++$bits;
                 $range >>= 1;
                 /** @var int $mask */
                 $mask = $mask << 1 | 1;
@@ -146,13 +147,13 @@ if (!is_callable('random_int')) {
 
         /** @var int $val */
         $val = 0;
-        /*
+        /**
          * Now that we have our parameters set up, let's begin generating
          * random integers until one falls between $min and $max
          */
-        /* @psalm-suppress RedundantCondition */
+        /** @psalm-suppress RedundantCondition */
         do {
-            /*
+            /**
              * The rejection probability is at most 0.5, so this corresponds
              * to a failure probability of 2^-128 for a working RNG
              */
@@ -163,11 +164,11 @@ if (!is_callable('random_int')) {
             }
 
             /**
-             * Let's grab the necessary number of random bytes.
+             * Let's grab the necessary number of random bytes
              */
             $randomByteString = random_bytes($bytes);
 
-            /*
+            /**
              * Let's turn $randomByteString into an integer
              *
              * This uses bitwise operators (<< and |) to build an integer
@@ -178,19 +179,19 @@ if (!is_callable('random_int')) {
              *   204631455
              */
             $val &= 0;
-            for ($i = 0; $i < $bytes; $i++) {
+            for ($i = 0; $i < $bytes; ++$i) {
                 $val |= ord($randomByteString[$i]) << ($i * 8);
             }
-            /* @var int $val */
+            /** @var int $val */
 
-            /*
+            /**
              * Apply mask
              */
             $val &= $mask;
             $val += $valueShift;
 
-            $attempts++;
-            /*
+            ++$attempts;
+            /**
              * If $val overflows to a floating point number,
              * ... or is larger than $max,
              * ... or smaller than $min,
