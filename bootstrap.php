@@ -8,7 +8,7 @@ ini_get('date.timezone') or date_default_timezone_set('UTC');
 require __DIR__.'/system/Core/Config.php';
 require __DIR__.'/system/Support/polyfill.php';
 require __DIR__.'/system/Debugger/autoload.php';
-require __DIR__.'/system/Core/Helpers.php';
+require __DIR__.'/system/Support/helpers.php';
 require __DIR__.'/system/Loader/Autoloader.php';
 
 use System\Core\Config;
