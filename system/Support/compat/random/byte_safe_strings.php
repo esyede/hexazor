@@ -1,7 +1,7 @@
 <?php
 /**
  * Random_* Compatibility Library
- * for using the new PHP 7 random_* API in PHP 5 projects
+ * for using the new PHP 7 random_* API in PHP 5 projects.
  *
  * The MIT License (MIT)
  *
@@ -25,7 +25,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 if (!is_callable('RandomCompat_strlen')) {
     if (
         defined('MB_OVERLOAD_STRING')
@@ -33,7 +32,7 @@ if (!is_callable('RandomCompat_strlen')) {
         ((int) ini_get('mbstring.func_overload')) & MB_OVERLOAD_STRING
     ) {
         /**
-         * strlen() implementation that isn't brittle to mbstring.func_overload
+         * strlen() implementation that isn't brittle to mbstring.func_overload.
          *
          * This version uses mb_strlen() in '8bit' mode to treat strings as raw
          * binary rather than UTF-8, ISO-8859-1, etc
@@ -54,10 +53,9 @@ if (!is_callable('RandomCompat_strlen')) {
 
             return (int) mb_strlen($binary_string, '8bit');
         }
-
     } else {
         /**
-         * strlen() implementation that isn't brittle to mbstring.func_overload
+         * strlen() implementation that isn't brittle to mbstring.func_overload.
          *
          * This version just used the default strlen()
          *
@@ -74,27 +72,27 @@ if (!is_callable('RandomCompat_strlen')) {
                     'RandomCompat_strlen() expects a string'
                 );
             }
+
             return (int) strlen($binary_string);
         }
     }
 }
 
 if (!is_callable('RandomCompat_substr')) {
-
     if (
         defined('MB_OVERLOAD_STRING')
             &&
         ((int) ini_get('mbstring.func_overload')) & MB_OVERLOAD_STRING
     ) {
         /**
-         * substr() implementation that isn't brittle to mbstring.func_overload
+         * substr() implementation that isn't brittle to mbstring.func_overload.
          *
          * This version uses mb_substr() in '8bit' mode to treat strings as raw
          * binary rather than UTF-8, ISO-8859-1, etc
          *
-         * @param string $binary_string
-         * @param int $start
-         * @param int|null $length (optional)
+         * @param string   $binary_string
+         * @param int      $start
+         * @param int|null $length        (optional)
          *
          * @throws TypeError
          *
@@ -142,17 +140,16 @@ if (!is_callable('RandomCompat_substr')) {
                 '8bit'
             );
         }
-
     } else {
 
         /**
-         * substr() implementation that isn't brittle to mbstring.func_overload
+         * substr() implementation that isn't brittle to mbstring.func_overload.
          *
          * This version just uses the default substr()
          *
-         * @param string $binary_string
-         * @param int $start
-         * @param int|null $length (optional)
+         * @param string   $binary_string
+         * @param int      $start
+         * @param int|null $length        (optional)
          *
          * @throws TypeError
          *
@@ -180,7 +177,7 @@ if (!is_callable('RandomCompat_substr')) {
                 }
 
                 return (string) substr(
-                    (string )$binary_string,
+                    (string) $binary_string,
                     (int) $start,
                     (int) $length
                 );
