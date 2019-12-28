@@ -669,7 +669,7 @@ if (!function_exists('error_clear_last')) {
 }
 
 // Library random compat (random_bytes dan random_int)
-require_once dirname(__DIR__).'/Support/random_compat/random.php';
+require_once dirname(__DIR__).'/Support/compat/random/random.php';
 
 // ---------------------------------------------------------------------
 // PHP 7.1+
