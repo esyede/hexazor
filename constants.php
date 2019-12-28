@@ -13,7 +13,6 @@ defined('STORAGE_PATH') or define('STORAGE_PATH', ROOT_PATH.'storage'.DS);
 defined('DATABASE_PATH') or define('DATABASE_PATH', ROOT_PATH.'database'.DS);
 defined('RESOURCES_PATH') or define('RESOURCES_PATH', ROOT_PATH.'resources'.DS);
 defined('CONTROLLER_PATH') or define('CONTROLLER_PATH', APP_PATH.'Controllers'.DS);
-defined('MODEL_PATH') or define('MODEL_PATH', APP_PATH.'Models'.DS);
 defined('VIEW_PATH') or define('VIEW_PATH', RESOURCES_PATH.'views'.DS);
 defined('UPLOADS_PATH') or define('UPLOADS_PATH', STORAGE_PATH.'app'.DS.'uploads'.DS);
 
