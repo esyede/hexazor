@@ -48,8 +48,19 @@ class Hash
         return password_verify($value, $hashed);
     }
 
+    /**
+     * Cek kekuatan hash berdasarkan cost yang diberikan.
+     *
+     * @param string $hashed
+     * @param array  $options
+     *
+     * @return bool
+     */
     public function needsRehash($hashed, array $options = [])
     {
+        // skip deprecation warning di PHP 7.0.0+
+        unset($options['salt']);
+
         if (!isset($options['cost'])) {
             $options['cost'] = PASSWORD_BCRYPT_DEFAULT_COST;
         }

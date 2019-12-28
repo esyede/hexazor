@@ -256,8 +256,6 @@ if (!function_exists('_polyfill_substr')) {
 if (!function_exists('password_hash')) {
     function password_hash($password, $algo, array $options = [])
     {
-        unset($options['salt']);
-
         if (!function_exists('crypt')) {
             trigger_error('Crypt must be loaded for password_hash to function', E_USER_WARNING);
 
