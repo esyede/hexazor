@@ -1,5 +1,6 @@
 # Konfigurasi Database
 
+
 ## Daftar Isi
 
 -   [Memulai Dengan SQLite](#memulai-dengan-sqlite)
@@ -14,16 +15,18 @@ Secara default, Hexazor mendukung sistem database berikut:
 -   SQLite
 -   SQL Server
 
-Seluruh opsi konfigurasi database ditaruh di dalam file `app/Configs/database.php`. Silahkan buka file tersebut agar Anda mendapat sedikit gambaran tentang konfigurasi database di Hexazor.
+Seluruh opsi konfigurasi database ditaruh di dalam file `config/database.php`. Silahkan buka file tersebut agar Anda mendapat sedikit gambaran tentang konfigurasi database di Hexazor.
+
 
 ## Memulai Dengan SQLite
 
-[SQLite](http://sqlite.org) adalah salah satu sistem database yang bagus, konfigurasinya pun tidak terlalu ribet. Pada keadaan default, Hexazor dikonfigurasikan untuk menggunakan SQLite. Benar, tujuannya agar Anda bisa langsung mencoba Hexazor tanpa harus setting sana - sini, cukup letakkan file database SQLite bernama `application.sqlite` kedalam folder `storage/databases/sqlite` dan Anda sudah siap untuk memulai eksperimen menggunakan database.
+[SQLite](http://sqlite.org) adalah salah satu sistem database yang bagus, konfigurasinya pun tidak terlalu ribet. Pada keadaan default, Hexazor dikonfigurasikan untuk menggunakan SQLite. Benar, tujuannya agar Anda bisa langsung mencoba Hexazor tanpa harus ribet setting sana - sini, cukup letakkan file database SQLite bernama `application.sqlite` kedalam folder `database/sqlite/` dan Anda sudah siap untuk memulai eksperimen menggunakan database.
 
-Tentu saja, Anda boleh menamainya dengan nama selain "application", untuk melakukannya, cukup ubah opsi konfigurasi di file `app/Configs/database.php`:
+Tentu saja, Anda boleh menamainya dengan nama selain "application", untuk melakukannya, cukup ubah opsi konfigurasi di file `config/database.php`:
 
 ```php
-'driver'   => 'sqlite',
+'driver' => 'sqlite',
+//...
 'database' => 'application',
 ```
 
@@ -32,16 +35,18 @@ Tentu saja, Anda boleh menamainya dengan nama selain "application", untuk melaku
 
 Jika aplikasi Anda menerima kurang dari 100.000 kunjungan per hari, SQLite cukup mampu untuk menanganinya. Tapi jika sebaliknya, silahkan gunakan MySQL atau PostgreSQL saja.
 
+
 ## Menggunakan Database Lain
 
-Jika Anda menggunakan MySQL, SQL Server, atau PostgreSQL, Anda perlu mengubah opsi konfigurasi pada `app/Configs/database.php`. Di dalam file tersebut, Anda dapat menemukan sampel konfigurasi untuk tiap - tiap sistem database. Cukup ubah sesuai kebutuhan Anda dan jangan lupa untuk mengubah nama koneksi defaultnya.
+Jika Anda menggunakan MySQL, SQL Server, atau PostgreSQL, Anda perlu mengubah opsi konfigurasi di file `config/database.php` tadi. Di dalam file tersebut, Anda dapat menemukan sampel konfigurasi untuk tiap - tiap sistem database. Cukup ubah sesuai kebutuhan Anda dan jangan lupa untuk mengubah nama koneksi defaultnya.
+
 
 ## Mengubah Nama Koneksi Default
 
-Seperti yang telah Anda perhatikan, setiap koneksi database yang diatur dalam file `app/Configs/database.php` memiliki nama koneksi. Secara default, ada empat nama koneksi yang didefinisikan: `sqlite`, `mysql`, `sqlsrv`, dan `pgsql`. Anda bebas mengubah nama koneksi ini. Koneksi default dapat diatur melalui opsi "default":
+Seperti yang telah Anda perhatikan, setiap koneksi database yang diatur dalam file `config/database.php` memiliki nama koneksi. Secara default, ada empat nama koneksi yang didefinisikan: `sqlite`, `mysql`, `sqlsrv`, dan `pgsql`. Anda bebas mengubah nama koneksi ini. Koneksi default dapat diatur melalui opsi "default":
 
 ```php
-'default'         => 'sqlite',
+'default' => 'sqlite',
 ```
 
 Koneksi default inilah yang akan selalu digunakan oleh [Query Builder](/database/query-builder.md). Jika Anda perlu mengubah koneksi default saat request berlangsung, silahkan gunakan method `Config::set()`:

@@ -17,30 +17,34 @@
 -   [Update Data](#update-data)
 -   [Delete Data](#delete-data)
 
+
 ## Pengetahuan Dasar
 
-Query Builder adalah interface yang tersedia untuk membangun kueri SQL dan bekerja dengan database Anda. Semua statement disiapkan menggunakan [prepared satatement](https://www.php.net/manual/en/pdo.prepare.php) sehingga otomatis terlindung dari serangan SQL Injection.
+Query Builder adalah kelas yang tersedia untuk membangun kueri SQL dan bekerja dengan database Anda. Semua perintah disiapkan menggunakan [prepared satatement](https://www.php.net/manual/en/pdo.prepare.php) sehingga otomatis terlindung dari serangan SQL Injection.
 
-Anda bisa memulai query builder menggunakan method `table()` pada facade DB. Cukup sebutkan nama tabel yang ingin Anda operasikan:
+Anda bisa memulai query builder dengan memanggil method `table()` pada facade `DB`. Cukup sebutkan nama tabel yang ingin dioperasikan:
 
 ```php
+// use DB;
+
 $query = DB::table('users');
 ```
 
-Sekarang anda memiliki akses query builder untuk tabel "users". Dengan query builder, Anda bisa melakukan select, insert, update, atau delete data dari tabel.
+Sekarang anda memiliki akses query builder untuk tabel "users". Dengan query builder, Anda bisa melakukan operasi - opreasi umum seperti select, insert, update, atau delete data dari tabel.
+
 
 ## Mengambil Data
 
-#### Select semua data dari database:
+#### Select semua data dari tabel:
 
 ```php
 $users = DB::table('users')->get();
 ```
 
-> [!NOTE]
-> Method `get()` me-return **array** berisi sekumpulan **object** dengan property sesuai dengan kolom di tabel Anda.
+> [!TIP]
+> Method `get()` mereturn **array berisi sekumpulan object** dengan properti sesuai dengan kolom di tabel Anda.
 
-#### Select hanya satu data dari database:
+#### Select hanya satu data dari tabel:
 
 ```php
 $user = DB::table('users')->first();
@@ -52,10 +56,10 @@ $user = DB::table('users')->first();
 $user = DB::table('users')->find($id);
 ```
 
-> [!NOTE]
+> [!TIP]
 > Jika tidak ada data yang ditemukan, method `first()` akan mereturn **NULL**. Sedangkan method `get()` method akan mereturn **array kosong**.
 
-#### Select satu kolom dari database:
+#### Select satu kolom dari tabel:
 
 ```php
 $email = DB::table('users')->where('id', '=', 1)->only('email');
@@ -67,7 +71,7 @@ $email = DB::table('users')->where('id', '=', 1)->only('email');
 $user = DB::table('users')->get(['id', 'email as user_email']);
 ```
 
-#### Select data berdasarkan kolom - kolom yang diberikan:
+#### Select data berdasarkan list kolom yang diberikan:
 
 ```php
 $users = DB::table('users')->take(10)->lists('email', 'id');
@@ -82,6 +86,7 @@ $users = DB::table('users')->take(10)->lists('email', 'id');
 $user = DB::table('users')->distinct()->get();
 ```
 
+
 ## Membangun Klausa Where
 
 ### where dan orWhere
@@ -95,7 +100,7 @@ return DB::table('users')
 	->first();
 ```
 
-Tentu saja, Anda boleh menggunakan operator lain selain operator "sama dengan":
+Tentu saja, Tidak hanya operator "sama dengan", Anda juga boleh menggunakan operator lain:
 
 ```php
 return DB::table('users')
@@ -104,7 +109,8 @@ return DB::table('users')
 	->first();
 ```
 
-Seperti yang bisa Anda bayangkan, secara default method `where()` akan ditambahkan ke query menggunakan kondisi `AND`, sedangkan method `orWhere()` akan menggunakan kondisi `OR`.
+Seperti yang bisa Anda bayangkan, secara default method `where()` akan ditambahkan ke susunan query menggunakan kondisi `AND`, sedangkan method `orWhere()` akan menggunakan kondisi `OR`.
+
 
 ### whereIn, whereNotIn, orWhereIn, dan orWhereNotIn
 
@@ -126,6 +132,7 @@ DB::table('users')
 	->get();
 ```
 
+
 ### whereNull, whereNotNull, orWhereNull, dan orWhereNotNull
 
 Kelompok method `whereNull()` membuat pengecekan nilai NULL menjadi sangat mudah:
@@ -146,9 +153,10 @@ return DB::table('users')
 	->get();
 ```
 
+
 ### whereBetween, whereNotBetween, orWhereBetween, dan orWhereNotBetween
 
-Kelompok method `whereBetween()` membuat pengecekan `BETWEEN` antara nilai minimal dan maksimal menjadi sangat mudah:
+Kelompok method `whereBetween()` membuat pengecekan `BETWEEN` antara rentang nilai menjadi sangat mudah:
 
 ```php
 return DB::table('users')->whereBetween($column, $min, $max)->get();
@@ -167,6 +175,7 @@ return DB::table('users')
 	->orWhereNotBetween('updated_at', '2016-10-21', '2019-01-01')
 	->get();
 ```
+
 
 ## Where Bersarang
 
@@ -190,9 +199,10 @@ Contoh diatas akan menghasilkan query sebagai berikut:
 SELECT * FROM "users" WHERE "id" = ? OR ("age" > ? AND "votes" > ?)
 ```
 
+
 ## Where Dinamis
 
-Method where dinamis dapat meningkatkan kemudahan dalam membaca kodingan Anda. Andapun bisa dengan mudah melakukannya:
+Method where dinamis dapat meningkatkan kemudahan dalam membaca kodingan Anda. Anda pun bisa dengan mudah melakukannya:
 
 ```php
 $user = DB::table('users')->whereEmail('budi@gmail.com')->first();
@@ -201,6 +211,7 @@ $user = DB::table('users')->whereEmailAndPassword('budi@gmail.com', Hash::make('
 
 $user = DB::table('users')->whereIdOrName(1, 'Budi');
 ```
+
 
 ## Join Tabel
 
@@ -214,7 +225,7 @@ DB::table('users')
 
 Dimana nama tabel yang ingin Anda join dioper ke parameter pertama. Sedangkan 3 parameter setelahnya digunakan untuk menambahkan klausa `ON` pada query join.
 
-Setelah bisa menggunakan method `join()`, Anda otomatis mampu menggunakan method `leftJoin()` karena urutan parameternya sama saja:
+Setelah bisa menggunakan method `join()`, Anda otomatis mampu menggunakan method `leftJoin()` karena urutan parameternya sama persis:
 
 ```php
 DB::table('users')
@@ -235,9 +246,10 @@ DB::table('users')
 	->get(['users.email', 'phone.number']);
 ```
 
+
 ## Ordering Data
 
-Anda dapat dengan mudah melakukan ordering / mengurutkan data hasil query menggunakan method `orderBy()`. Cukup sebutkan nama kolom di parameter pertama dan tipe pengurutannya (`desc` atau `asc`) ke parameter kedua:
+Anda dapat dengan mudah melakukan ordering / mengurutkan data hasil query menggunakan method `orderBy()`. Cukup taruh nama kolom di parameter pertama dan tipe pengurutannya (`desc` atau `asc`) ke parameter kedua:
 
 ```php
 return DB::table('users')->orderBy('email', 'desc')->get();
@@ -252,13 +264,15 @@ return DB::table('users')
 	->get();
 ```
 
+
 ## Grouping Data
 
-Anda dapat dengan mudah melakukan grouping / pengelompokan data hasil query menggunakan method `groupBy()`:
+Anda dapat dengan mudah melakukan grouping / pengelompokan data menggunakan method `groupBy()`:
 
 ```php
 return DB::table('users')->groupBy('email')->get();
 ```
+
 
 ## Skip & Take
 
@@ -274,9 +288,10 @@ Sedangkan untuk mengatur `OFFSET`, silahkan gunakan method `skip()`:
 return DB::table('users')->skip(10)->get();
 ```
 
+
 ## Agregasi
 
-Perlu mengambil nilai `MIN`, `MAX`, `AVG`, `SUM`, atau `COUNT`? Cukup oper nama kolomnya ke query:
+Perlu mengambil nilai `MIN`, `MAX`, `AVG`, `SUM`, atau `COUNT`? Cukup oper nama kolomnya:
 
 ```php
 $min = DB::table('users')->min('age');
@@ -296,9 +311,10 @@ Tentu saja, Anda juga bisa membatasi querynya terlebih dahulu menggunakan klausa
 $count = DB::table('users')->where('id', '>', 10)->count();
 ```
 
+
 ## Ekspresi SQL Mentah
 
-Terkadang Anda mungkin perlu mengatur nilai kolom ke fungsi native SQL seperti `NOW()`. Tetapi, secara default, Query Builder akan secara otomatis meng-quote dan meng-escape value yang Anda oper padanya menggunakan parameter binding. Hal ini dilakukan untuk pencegahan sql injection. Untuk mem-bypass fitur ini, gunakan metode `raw()`, seperti ini:
+Terkadang Anda mungkin perlu menginsert nilai kolom menggunakan fungsi native SQL seperti `NOW()`. Tetapi, secara default, Query Builder akan secara otomatis meng-quote dan meng-escape value yang Anda oper padanya menggunakan parameter binding (untuk pencegahan sql injection). Untuk mem-bypass fitur ini, gunakan metode `raw()`, seperti ini:
 
 ```php
 DB::table('users')->update(['updated_at' => DB::raw('NOW()')]);
@@ -321,6 +337,7 @@ DB::table('users')->increment('votes');
 DB::table('users')->decrement('votes');
 ```
 
+
 #### Manual Escape
 
 Seperti yang sudah dijelaskan diatas, penggunaan `DB::raw()` sangatlah rentan terhadap serangan SQL Injection, oleh karena itu, disediakan method bantuan untuk meng-escape value pada potongan query mentah Anda:
@@ -330,6 +347,7 @@ Seperti yang sudah dijelaskan diatas, penggunaan `DB::raw()` sangatlah rentan te
 
 return DB::raw('SELECT * FROM users WHERE name='.DB::escape($name))->get();
 ```
+
 
 ## Insert Data
 
@@ -348,6 +366,7 @@ $id = DB::table('users')->insertGetId(['email' => 'budi@gmail.com']);
 > [!WARNING]
 > Method `insertGetId()` mewajibkan kolom auto-increment Anda bernama `id`.
 
+
 ## Update Data
 
 Untuk mengupdate data, cukup oper array asosiatif ke method `update()` seperti berikut:
@@ -361,7 +380,7 @@ $data = [
 $affected = DB::table('users')->update($data);
 ```
 
-Tentu saja, jika Anda hanya ingin meng-update beberapa kolom saja, Anda bisa menambahkan klausa WHERE sebelum memanggil method update():
+Tentu saja, jika Anda hanya ingin mengupdate beberapa kolom saja, Anda bisa menambahkan klausa WHERE sebelum memanggil method update():
 
 ```php
 $data = [
@@ -373,6 +392,7 @@ $affected = DB::table('users')
 	->where('id', '=', 1)
 	->update($data);
 ```
+
 
 ## Delete Data
 
