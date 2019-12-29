@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^5.3.3 || ^7.0",
+        "php": "^5.4.0 || ^7.0",
         "ext-mbstring": "*",
         "ext-openssl": "*"
     },
@@ -27,5 +27,10 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts": {
+        "post-autoload-dump": [
+            "@php hexazor key:generate"
+        ]
+    }
 }
