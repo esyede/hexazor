@@ -1,7 +1,4 @@
 <?php
-$rules = [
-    '@Symfony' => true,
-];
 
 $excludeFolders = [
     'storage',
@@ -16,7 +13,7 @@ $excludeFolders = [
 ];
 
 return PhpCsFixer\Config::create()
-    ->setRules($rules)
+    ->setRules([])
     ->setFinder(
         PhpCsFixer\Finder::create()
         ->in(__DIR__)
