@@ -22,6 +22,7 @@ before_script:
 
 install:
   - travis_retry composer update --no-interaction --prefer-dist --no-suggest
+  - php hexazor key:generate
 
 script:
 - vendor/bin/phpunit tests/
