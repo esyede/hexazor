@@ -18,7 +18,7 @@ class Config implements ArrayAccess
      */
     public function __construct()
     {
-        $this->path = ROOT_PATH.'config';
+        $this->path = BASE_PATH.'config';
 
         if (!static::$instance) {
             static::$instance = $this;
@@ -35,7 +35,7 @@ class Config implements ArrayAccess
         if (!static::$instance) {
             static::$instance = new self();
         } else {
-            static::$instance->path = ROOT_PATH.'config';
+            static::$instance->path = BASE_PATH.'config';
             static::$instance->container = [];
         }
 

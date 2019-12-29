@@ -16,7 +16,7 @@ class Session
      */
     public function __construct()
     {
-        $this->config = Config::get('sessions');
+        $this->config = Config::get('session');
 
         if (true === $this->config['cookie_httponly']) {
             ini_set('session.cookie_httponly', 1);

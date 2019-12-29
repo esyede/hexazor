@@ -88,11 +88,12 @@ class Schema
      * Drop tabel dari skema (cek dulu apakah tabelnya ada di skema).
      *
      * @param string $table
+     * @param string $connection
      */
-    public static function dropIfExists($table)
+    public static function dropIfExists($table, $connection = null)
     {
-        if (static::hasTable($table)) {
-            static::drop($table);
+        if (static::hasTable($table, $connection)) {
+            static::drop($table, $connection);
         }
     }
 
@@ -179,9 +180,13 @@ class Schema
      *
      * @return bool
      */
-    public static function hasTable($table)
+    public static function hasTable($table, $connection = null)
     {
         $driver = Database::connection()->driver();
+
+        if (filled($connection) && is_string($connection)) {
+            $driver = $connection;
+        }
 
         $db = Config::get("database.connections.{$driver}.database");
         $db = Database::escape($db);

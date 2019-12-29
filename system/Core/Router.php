@@ -9,6 +9,7 @@ use RuntimeException;
 use System\Facades\Response;
 use System\Facades\View;
 use System\Support\Str;
+use App\Http\Kernel as AppHttpKernel;
 
 class Router
 {
@@ -104,7 +105,7 @@ class Router
     public static function middleware($names)
     {
         $names = (array) $names;
-        $locals = Config::get('middlewares.locals', []);
+        $locals = AppHttpKernel::$localMiddlewareGroups;
 
         foreach ($names as $name) {
             if (!isset($locals[$name])) {
@@ -234,7 +235,7 @@ class Router
             'callback' => $handler,
         ];
 
-        $global = Config::get('middlewares.globals', []);
+        $global = AppHttpKernel::$globalMiddlewareGroups;
         if (!empty($global)) {
             foreach ($global as $name => $class) {
                 static::addMiddleware($name, $class);
@@ -305,7 +306,7 @@ class Router
                         if (class_exists($controller)) {
                             call_user_func_array([new $controller(), $method], array_values($params));
                         } else {
-                            static::pageNotFound();
+                            static::showPageNotFound();
                         }
                     }
 
@@ -315,7 +316,7 @@ class Router
         }
 
         if (0 === $matched) {
-            static::pageNotFound();
+            static::showPageNotFound();
         }
     }
 
@@ -409,7 +410,7 @@ class Router
      *
      * @return void
      */
-    private static function pageNotFound()
+    private static function showPageNotFound()
     {
         $content = '404 Page Not Found!';
         if (View::exists('errors.notfound')) {

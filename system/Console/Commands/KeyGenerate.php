@@ -20,7 +20,7 @@ class KeyGenerate extends Command
     public function handle()
     {
         $appkey = Str::random(32);
-        $path = root_path('config/app.php');
+        $path = base_path('config/app.php');
         $pattern = "/('application_key')\h*=>\h*\'\s?\'?.*/i";
         $subject = file_get_contents($path);
         $replacement = "'application_key' => '{$appkey}',";

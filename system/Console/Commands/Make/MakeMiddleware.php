@@ -29,6 +29,6 @@ class MakeMiddleware extends GeneralFile
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\\Http\\Middlewares';
+        return $rootNamespace.'\\Http\\Middleware';
     }
 }

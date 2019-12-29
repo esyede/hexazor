@@ -25,7 +25,7 @@ class RouteList extends Command
     {
         $routes = [];
 
-        Import::file('routes/web.php');
+        $this->getRouteDefinitions();
         $routes = Router::getRoutes();
 
         $table = new Table();
@@ -83,5 +83,15 @@ class RouteList extends Command
         $this->plain('*) Middlewares that called from inside controller classes will not be listed.');
         $this->newline();
         $this->quit();
+    }
+
+    /**
+     * Ambil semua routes yang telah didefinisikan oleh user.
+     *
+     * @return mixed
+     */
+    private function getRouteDefinitions()
+    {
+        return require_once base_path('routes/web.php');
     }
 }

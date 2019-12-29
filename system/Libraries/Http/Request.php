@@ -784,7 +784,7 @@ class Request
     public function trimData($data = null)
     {
         if (is_null($data)) {
-            return;
+            return null;
         }
 
         if (is_array($data)) {

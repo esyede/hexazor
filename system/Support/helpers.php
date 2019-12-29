@@ -40,13 +40,6 @@ if (!function_exists('config')) {
     }
 }
 
-if (!function_exists('import_helper')) {
-    function import_helper($name)
-    {
-        Import::helper($nme);
-    }
-}
-
 if (!function_exists('request')) {
     function request($params = null)
     {
@@ -137,7 +130,16 @@ if (!function_exists('lang')) {
     {
         $keys = explode('.', $params);
         $file = $keys[0];
-        $lang = Import::language($file);
+
+        $file = strtolower($file);
+        $default = Config::get('app.default_language');
+        $path = resources_path('lang/'.$default.'/'.$file.'.php');
+
+        if (!is_file($path)) {
+            throw new RuntimeException('Language file not found: '.$path);
+        }
+
+        $lang = require_once $path;
 
         array_shift($keys);
 
@@ -152,12 +154,12 @@ if (!function_exists('lang')) {
 // ---------------------------------------------------------------------
 // Path
 // ---------------------------------------------------------------------
-if (!function_exists('root_path')) {
-    function root_path($path = null)
+if (!function_exists('base_path')) {
+    function base_path($path = null)
     {
         $path = str_replace(['/', '\\'], [DS, DS], ltrim(ltrim($path, '/'), '\\'));
 
-        return ROOT_PATH.$path;
+        return BASE_PATH.$path;
     }
 }
 

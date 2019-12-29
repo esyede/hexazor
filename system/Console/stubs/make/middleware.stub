@@ -7,7 +7,7 @@ defined('DS') or exit('No direct script access allowed.');
 class DummyClass
 {
     /**
-     * Cegat request yang datang.
+     * Tangani request yang datang.
      * 
      * @return mixed
      */

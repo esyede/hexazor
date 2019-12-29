@@ -1,18 +1,17 @@
 <?php
 
+namespace App\Http;
+
 defined('DS') or exit('No direct script access allowed.');
 
-return [
-    /*
-    |--------------------------------------------------------------------------
-    | Facades
-    |--------------------------------------------------------------------------
-    |
-    | Facades.
-    |
-    */
-
-    'facades' => [
+class Services
+{
+	/**
+	 * Facades.
+	 *
+	 * @var array
+	 */
+    public static $facades = [
         'Auth'      => 'System\Facades\Auth',
         'Cache'     => 'System\Facades\Cache',
         'Cookie'    => 'System\Facades\Cookie',
@@ -26,7 +25,6 @@ return [
         'Form'      => 'System\Facades\Form',
         'Hash'      => 'System\Facades\Hash',
         'Html'      => 'System\Facades\Html',
-        'Import'    => 'System\Facades\Import',
         'Image'     => 'System\Facades\Image',
         'Jwt'       => 'System\Facades\Jwt',
         'Log'       => 'System\Facades\Log',
@@ -39,19 +37,15 @@ return [
         'Validator' => 'System\Facades\Validator',
         'View'      => 'System\Facades\View',
 
-        // User's Facades goes here..
-    ],
+        // ...
+    ];
 
-    /*
-    |--------------------------------------------------------------------------
-    | Service Provider
-    |--------------------------------------------------------------------------
-    |
-    | Services.
-    |
-    */
-
-    'providers' => [
+    /**
+	 * Providers.
+	 *
+	 * @var array
+	 */
+    public static $providers = [
         'Auth'      => 'System\Libraries\Auth\Auth',
         'Cache'     => 'System\Libraries\Cache\Cache',
         'Config'    => 'System\Core\Config',
@@ -66,7 +60,6 @@ return [
         'Hash'      => 'System\Libraries\Hash\Hash',
         'Html'      => 'System\Libraries\Html\Html',
         'Image'     => 'System\Libraries\Image\Image',
-        'Import'    => 'System\Core\Import',
         'Jwt'       => 'System\Libraries\Http\Jwt',
         'Log'       => 'System\Libraries\Log\Log',
         'Mail'      => 'System\Libraries\Mail\Mail',
@@ -78,6 +71,6 @@ return [
         'Validator' => 'System\Libraries\Http\Validator',
         'View'      => 'System\Libraries\View\View',
 
-        // User's Libraries goes here..
-    ],
-];
+        // ...
+    ];
+}

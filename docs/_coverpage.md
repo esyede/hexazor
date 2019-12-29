@@ -3,7 +3,7 @@
 
 # Hexazor
 
-> framework PHP mungil dan sederhana :fire:
+> framework PHP mungil dan sederhana
 
 -   ringan (~400Kb zip)
 -   sederhana & kaya fitur

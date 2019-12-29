@@ -57,8 +57,8 @@ class Autoloader
             call_user_func(\System\Loader\StaticInitiator::init($loader));
         } else {
             $mappings = [
-                'System\\' => [ROOT_PATH.'system'],
-                'App\\'    => [ROOT_PATH.'app'],
+                'System\\' => [BASE_PATH.'system'],
+                'App\\'    => [BASE_PATH.'app'],
             ];
 
             foreach ($mappings as $namespace => $path) {

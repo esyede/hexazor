@@ -4,12 +4,14 @@ namespace System\Core;
 
 defined('DS') or exit('No direct script access allowed.');
 
+use App\Http\Kernel as AppHttpKernel;
+use App\Http\Services as AppServices;
 use System\Debugger\Debugger;
 use System\Facades\Facade;
 use System\Libraries\Http\Response;
 use System\Support\Str;
 
-class App
+class Application
 {
     /**
      * Constructor.
@@ -21,10 +23,10 @@ class App
         $this->reconfigureDebugger();
 
         $this->initApplications();
-        $this->initComposer();
+        $this->includeComposerAutoloaderIfExists();
+        $this->callAppHttpKernelBoot();
 
-        Import::file('routes/web.php');
-        Router::run();
+        $this->dispatchUserDefinedRoutes();
     }
 
     /**
@@ -32,13 +34,15 @@ class App
      */
     private function initApplications()
     {
-        $services = Import::config('services');
-        Facade::setFacadeApplication($services);
+        $facades = AppServices::$facades;
+        $providers = AppServices::$providers;
 
-        foreach ($services['facades'] as $key => $value) {
+        Facade::setFacadeApplication(compact('facades', 'providers'));
+
+        foreach ($facades as $facadeName => $facadeClass) {
             // gunakan bantuan class_alias untuk autoload facades (parameter ke-3)
             // ref: https://www.php.net/manual/en/function.class-alias.php
-            class_alias($value, $key, true);
+            class_alias($facadeClass, $facadeName, true);
         }
     }
 
@@ -47,12 +51,43 @@ class App
      *
      * @return bool
      */
-    private function initComposer()
+    private function includeComposerAutoloaderIfExists()
     {
-        $path = root_path('vendor/autoload.php');
+        $path = base_path('vendor/autoload.php');
         if (is_file($path) && true == Config::get('app.composer_autoload')) {
-            Import::file($path);
+            require_once $path;
         }
+    }
+
+    /**
+     * Jalankan app kernel boot.
+     *
+     * @return bool
+     */
+    private function callAppHttpKernelBoot()
+    {
+        AppHttpKernel::boot();
+    }
+
+    /**
+     * Eksekusi route yang telah didaftarkan user.
+     *
+     * @return bool
+     */
+    private function dispatchUserDefinedRoutes()
+    {
+        $this->getRouteDefinitions();
+        Router::run();
+    }
+
+    /**
+     * Ambil semua routes yang telah didefinisikan oleh user.
+     *
+     * @return mixed
+     */
+    private function getRouteDefinitions()
+    {
+        return require_once base_path('routes/web.php');
     }
 
     /**
@@ -61,6 +96,7 @@ class App
     private function reconfigureDebugger()
     {
         $config = Config::get('debugger');
+
         Debugger::$strictMode = boolval($config['strict_mode']);
         Debugger::$scream = boolval($config['scream']);
 
@@ -93,7 +129,7 @@ class App
         $appkey = Config::get('app.application_key');
         if (blank($appkey) || mb_strlen($appkey) < 32) {
             $appkey = Str::random(32);
-            $path = ROOT_PATH.'config'.DS.'app.php';
+            $path = BASE_PATH.'config'.DS.'app.php';
             $pattern = "/('application_key')\h*=>\h*\'\s?\'?.*/i";
             $subject = file_get_contents($path);
             $replacement = "'application_key' => '{$appkey}',";
