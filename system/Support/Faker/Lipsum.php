@@ -4,8 +4,6 @@ namespace System\Support\Faker;
 
 defined('DS') or exit('No direct script access allowed.');
 
-use System\Support\Faker;
-
 class Lipsum extends Module
 {
     protected static $lipsum = null;

@@ -25,7 +25,7 @@ class Address extends Module
 
         switch (mt_rand(0, 4)) {
             default:
-            
+
             case 0:
                 return sprintf(
                     '%s %s%s',
@@ -33,21 +33,21 @@ class Address extends Module
                     Faker::name()->first(),
                     static::pickOne('city_prefix')
                 );
-            
+
             case 1:
                 return sprintf(
                     '%s %s',
                     static::pickOne('city_prefix'),
                     Faker::name()->first()
                 );
-            
+
             case 2:
                 return sprintf(
                     '%s%s',
                     Faker::name()->first(),
                     static::pickOne('city_suffix')
                 );
-            
+
             case 3:
                 return sprintf(
                     '%s%s',
@@ -72,7 +72,7 @@ class Address extends Module
     {
         switch (mt_rand(0, 1)) {
             default:
-            
+
             case 0:
                 return sprintf(
                     '%s %s',

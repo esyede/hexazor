@@ -3,6 +3,6 @@
 defined('DS') or exit('No direct script access allowed.');
 
 return [
-	'No. %d',
-	'Lt. %d',
+    'No. %d',
+    'Lt. %d',
 ];

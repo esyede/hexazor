@@ -3,7 +3,7 @@
 defined('DS') or exit('No direct script access allowed.');
 
 return [
-	'Abang', 'Abdul', 'Abdul Muis', 'Abdul Rahmat', 'Abdul. Muis', 'Abdullah',
+    'Abang', 'Abdul', 'Abdul Muis', 'Abdul Rahmat', 'Abdul. Muis', 'Abdullah',
     'Aceh', 'Achmad', 'Achmad Yani', 'Acordion', 'Adisucipto',
     'Adisumarmo', 'Agus Salim', 'Ahmad Dahlan', 'Antapani Lama', 'Arifin',
     'Asia Afrika', 'Astana Anyar', 'B.Agam 1', 'B.Agam Dlm', 'BKR',

@@ -3,7 +3,7 @@
 defined('DS') or exit('No direct script access allowed.');
 
 return [
-	'Adriansyah', 'Ardianto', 'Anggriawan', 'Budiman', 'Budiyanto',
+    'Adriansyah', 'Ardianto', 'Anggriawan', 'Budiman', 'Budiyanto',
     'Damanik', 'Dongoran', 'Dabukke', 'Firmansyah', 'Firgantoro',
     'Gunarto', 'Gunawan', 'Hardiansyah', 'Habibi', 'Hakim', 'Halim',
     'Haryanto', 'Hidayat', 'Hidayanto', 'Hutagalung', 'Hutapea', 'Hutasoit',

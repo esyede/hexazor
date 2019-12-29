@@ -16,7 +16,7 @@ class Faker
 
         if (!isset(static::$instances[$name])) {
             $class = __NAMESPACE__.'\\Faker\\'.$name;
-            
+
             if (!class_exists($class)) {
                 throw new InvalidArgumentException('No such faker data class: '.$name);
             }

@@ -66,7 +66,7 @@ class Module
 
     public function __get($name)
     {
-        $name =  Str::camel($name);
+        $name = Str::camel($name);
 
         if (!method_exists($this, $name)) {
             throw new InvalidArgumentException('Undefined faker property: '.$name);
