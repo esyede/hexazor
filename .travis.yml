@@ -22,4 +22,6 @@ before_script:
   - composer install -vvv
 
 # Script to run tests
-script: composer test -vvv
+script:
+  - composer hexazor-key-generate
+  - composer hexazor-run-test
