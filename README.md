@@ -105,9 +105,14 @@ $users = User::whereIn('id', [1, 2, 3])
 	->get();
 ```
 
-## Unit Test
+## Unit Testing
 
-Untuk menjalankan unit testing pustaka - pustaka Hexazor, silahkan gunakan phpunit:
+Untuk menjalankan unit testing pustaka - pustaka Hexazor, silahkan isi dulu application keynya via console:
+```bash
+php hexazor key:generate
+```
+
+Lalu silahkan jalankan test casenya:
 
 ```bash
 phpunit tests/
