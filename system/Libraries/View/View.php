@@ -704,6 +704,10 @@ class View
 
         $html = $this->fetch($name, $data);
 
+        if (is_cli()) {
+            return json_encode($data);
+        }
+
         if (false !== $returnOnly) {
             return $html;
         }
