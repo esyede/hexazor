@@ -7,7 +7,6 @@ defined('DS') or exit('No direct script access allowed.');
 use Closure;
 use System\Console\Command;
 use System\Console\Table;
-use System\Core\Import;
 use System\Core\Router;
 use System\Support\Str;
 

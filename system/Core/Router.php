@@ -4,12 +4,12 @@ namespace System\Core;
 
 defined('DS') or exit('No direct script access allowed.');
 
+use App\Http\Kernel as AppHttpKernel;
 use Closure;
 use RuntimeException;
 use System\Facades\Response;
 use System\Facades\View;
 use System\Support\Str;
-use App\Http\Kernel as AppHttpKernel;
 
 class Router
 {

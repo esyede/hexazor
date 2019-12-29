@@ -1,5 +1,5 @@
 preset: recommended
-risky: false
+risky: true
 finder:
   exclude:
     - system/Support/compat
