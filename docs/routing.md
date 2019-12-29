@@ -67,20 +67,19 @@ Route::get('/profil', 'Users@profile');
 
 ## Parameter Dalam Routing
 
-Ketika mendefinisikan rute, Anda juga boleh mengirim parameter ke closure ataupun controller method Anda. Gunakan method `where()` jika Anda ingin mem-filter datanya menggunakan regular expression:
+Ketika mendefinisikan rute, Anda juga boleh mengirim parameter ke closure ataupun controller method Anda:
+
+```php
+Route::get('/user/{param}', function ($param) {
+	echo 'Parameter yang dikirim adalah: '.$param;
+});
+```
+Gunakan method `where()` jika Anda ingin mem-filter datanya menggunakan regular expression:
 
 ```php
 Route::get('/user/{name}', function ($name) {
-	
 	echo 'Halo, '.$name;
-
-})->where(['name' => '([A-Za-z]+)'])
-
-
-Route::get('/blog/{title}', 'Blog@post')->where(['title' => '([A-Za-z]+)']);
-
-
-Route::get('/blog/{postId}', 'Blog@post')->where(['postId' => '(\d+)']);
+})->where(['name' => '([A-Za-z]+)']);
 
 
 Route::get('/blog/{categoryId}/detail/{postId}', 'Blog@post')
@@ -90,7 +89,7 @@ Route::get('/blog/{categoryId}/detail/{postId}', 'Blog@post')
 	]);
 ```
 
-Lalu Anda tinggal mengakap parameternya dari dalam method controller:
+Lalu Anda tinggal menangkap parameternya dari dalam method controller:
 
 ```php
 class Blog extends Controller
@@ -157,7 +156,7 @@ Route::namespaces('frontend')->get('/dashboard', 'Dashboard@index');
 ```
 
 > [!NOTE]
-> Nama methodnya adalah `namespaces()` ya! dibuat plural karena PHP 5.4 keyword `namespace` tidak bisa dipakai untuk nama method.
+> Nama methodnya adalah `namespaces()` ya! dibuat plural karena di PHP 5.4 keyword `namespace` tidak bisa dipakai untuk nama method.
 
 
 ## Route Middleware
@@ -165,8 +164,12 @@ Route::namespaces('frontend')->get('/dashboard', 'Dashboard@index');
 Middleware juga dapat didefinisikan secara terpisah untuk setiap rute dan grup rute. Middleware akan dijalankan sebelum halaman yang ditargetkan oleh rute ini diproses. Berikut ini adalah contoh penggunaan middleware `auth` di dalam rute:
 
 ```php
-Route::middleware(['auth'])->group(function () {
+Route::middleware('auth')->group(function () {
 	Route::get('/dashboard', 'Dashboard@index');
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+	// ..
 });
 ```
 
