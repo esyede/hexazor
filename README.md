@@ -32,19 +32,22 @@ Pengguna yang lebih berpengalaman akan mendapatkan kesempatan untuk memodulasi k
 
 ## Ikhtisar Fitur
 
-- Autoloading mengikuti standar PSR-4.
-- Bisa berjalan dengan ataupun tanpa Composer.
+- Mendukung autoloading standar PSR-4 dan PSR-0.
+- Bisa digunakan dengan ataupun tanpa Composer.
 - Routing sederhana menggunakan Closure atau Controller.
-- Views dan templating.
+- CLI tool (`php hexazor make:controller`, `make:model` dll.)
+- View dan templating mini mirip blade.
 - Abstraksi database dengan ORM dan query builder.
 - Schema builder untuk pembangunan skema database.
-- Migrasi database.
-- Otentikasi.
-- Aplikasi konsol untuk otomasi tugas
+- Migrasi database (via CLI tool, `migrate:install`, `migrate:rollback` dll.).
+- Fake fixture data untuk seeding database.
+- Database seeding (via CLI, `db:seed`, `db:seed --class=FooSeeder`).
+- Otentikasi (`Auth::attempt()`, `Auth::login()` dll.).
 - Tersedia pustaka yang cukup banyak.
-- Ukuran yang framework mungil (< 400Kb).
-- Berjalan di shared hosting.
-- Masih banyak lagi.
+- Ukuran yang framework kecil (< 400Kb zip).
+- Bisa berjalan di shared hosting.
+- Dan lain - lain.
+
 
 ### Kebutuhan Sistem
 
@@ -54,23 +57,22 @@ Berikut adalah kebutuhan dasar yang diperlukan untuk dapat menjalankan Hexazor:
 - Ekstensi OpenSSL
 - Ekstensi PDO
 - Ekstensi Mbstring
-- Apache Webserver
+- Apache Webserver (atau menggunakan PHP dev server, `php hexazor serve`).
 
 
 ## Selayang Pandang
 
 **Routing:**
 ```php
-Route::prefix('frontend')->namespaces('frontend')->group(function () {
-	Route::get('/', 'Home@index');
-	Route::get('/info', 'Home@info');
-	Route::get('/blog', 'Blog@posts');
+Route::prefix('frontend')->namespaces('frontend')->middleware('auth')->group(function () {
+	Route::get('/', 'Home@index')->name('frontpage');
+	Route::get('/blog/{id?}', 'Blog@posts')->where(['id' => '(\d+)']);
 });
 ```
 
 **View**
 ```blade
-{{-- welcome.blade.php --}}
+{{-- resources/views/welcome.blade.php --}}
 
 <p>Halo {{ $name }}</p>
 ```
@@ -81,7 +83,6 @@ Route::prefix('frontend')->namespaces('frontend')->group(function () {
 namespace App\Http\Controllers;
 
 use App\Http\Controller;
-use View;
 
 class Hello extends Controller
 {
@@ -89,7 +90,7 @@ class Hello extends Controller
 	{
 		$name = 'Budi';
 
-		View::make('welcome', compact('name'));
+		return view('welcome', compact('name'));
 	}
 }
 ```
