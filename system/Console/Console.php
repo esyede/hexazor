@@ -61,7 +61,7 @@ class Console
     public function __construct(array $argv = null)
     {
         if (is_null($argv)) {
-            if ('cli' === PHP_SAPI) {
+            if (is_cli()) {
                 $argv = $GLOBALS['argv'];
             } else {
                 $argv = $_GET;

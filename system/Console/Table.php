@@ -202,12 +202,7 @@ class Table
             $output .= $this->border ? $this->getBorderLine() : '';
         }
 
-        // Jika di request selain dari console
-        if (PHP_SAPI !== 'cli') {
-            $output = '<pre>'.$output.'</pre>';
-        }
-
-        return $output;
+        return is_cli() ? $output : '<pre>'.$output.'</pre>';
     }
 
     /**

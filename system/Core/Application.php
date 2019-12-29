@@ -22,17 +22,17 @@ class Application
         $this->ensureAppKeyIsProvided();
         $this->reconfigureDebugger();
 
-        $this->initApplications();
+        $this->registerDefinedFacades();
         $this->includeComposerAutoloaderIfExists();
         $this->callAppHttpKernelBoot();
 
-        $this->dispatchUserDefinedRoutes();
+        $this->dispatchRouteDefinitions();
     }
 
     /**
      * Inisialisasi (muat) seluruh facade yang telah didefinisikan.
      */
-    private function initApplications()
+    private function registerDefinedFacades()
     {
         $facades = AppServices::$facades;
         $providers = AppServices::$providers;
@@ -74,7 +74,7 @@ class Application
      *
      * @return bool
      */
-    private function dispatchUserDefinedRoutes()
+    private function dispatchRouteDefinitions()
     {
         $this->getRouteDefinitions();
         Router::run();
@@ -100,6 +100,7 @@ class Application
         Debugger::$strictMode = boolval($config['strict_mode']);
         Debugger::$scream = boolval($config['scream']);
 
+        // sengaja nggak dimunculin di config debugger
         Debugger::$logSeverity = 0;
         Debugger::$onFatalError = [];
 

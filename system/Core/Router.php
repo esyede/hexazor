@@ -435,7 +435,7 @@ class Router
             $uri = substr($uri, 0, strpos($uri, '?'));
         }
 
-        if (Str::contains(PHP_SAPI, 'cli')) {
+        if (is_cli()) {
             $uri = str_replace($_SERVER['SCRIPT_NAME'], '', $_SERVER['PHP_SELF']);
         }
 
