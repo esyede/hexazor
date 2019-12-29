@@ -13,6 +13,7 @@ $excludeFolders = [
 ];
 
 return PhpCsFixer\Config::create()
+    ->setRiskyAllowed(true)
     ->setRules([])
     ->setFinder(
         PhpCsFixer\Finder::create()
