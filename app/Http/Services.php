@@ -6,11 +6,11 @@ defined('DS') or exit('No direct script access allowed.');
 
 class Services
 {
-	/**
-	 * Facades.
-	 *
-	 * @var array
-	 */
+    /**
+     * Application facades.
+     *
+     * @var array
+     */
     public static $facades = [
         'Auth'      => 'System\Facades\Auth',
         'Cache'     => 'System\Facades\Cache',
@@ -41,10 +41,10 @@ class Services
     ];
 
     /**
-	 * Providers.
-	 *
-	 * @var array
-	 */
+     * Application service providers.
+     *
+     * @var array
+     */
     public static $providers = [
         'Auth'      => 'System\Libraries\Auth\Auth',
         'Cache'     => 'System\Libraries\Cache\Cache',
@@ -73,4 +73,5 @@ class Services
 
         // ...
     ];
+
 }
