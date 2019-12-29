@@ -18,7 +18,7 @@ class Config implements ArrayAccess
      */
     public function __construct()
     {
-        $this->path = BASE_PATH.'config';
+        $this->path = base_path('config/');
 
         if (!static::$instance) {
             static::$instance = $this;
@@ -35,8 +35,13 @@ class Config implements ArrayAccess
         if (!static::$instance) {
             static::$instance = new self();
         } else {
-            static::$instance->path = BASE_PATH.'config';
-            static::$instance->container = [];
+            static::$instance->path = base_path('config/');
+            $files = glob(static::$instance->path.'*.php');
+            
+            foreach ($files as $file) {
+                $name = basename($file, '.php');
+                static::$instance->container[$name] = require_once $file;
+            }
         }
 
         return static::$instance;
@@ -62,25 +67,25 @@ class Config implements ArrayAccess
     /**
      * Set data config.
      *
-     * @param string|array $key
-     * @param mixed        $value
+     * @param string $key
+     * @param mixed  $value
+     * 
+     * @return bool
      */
-    public static function put($key, $value)
+    public static function set($key, $value)
     {
         if (!static::$instance) {
             static::init();
         }
 
-        $instance = static::$instance;
-
-        if (is_array($key)) {
-            foreach ($key as $innerKey => $innerValue) {
-                static::arraySet($instance->container, $innerKey, $innerValue);
-            }
-        } else {
-            static::$instance->offsetGet($key);
-            static::arraySet($instance->container, $key, $value);
+        if (!array_key_exists($key, static::$instance->container)) {
+            return false;
         }
+
+        static::$instance->offsetGet($key);
+        static::$instance->container[$key] = $value;
+
+        return true;
     }
 
     /**
@@ -179,36 +184,5 @@ class Config implements ArrayAccess
     {
         $this->container[$offset] = null;
         unset($this->container[$offset]);
-    }
-
-    /**
-     * Set array ke config.
-     *
-     * @param array  &$array
-     * @param string $key
-     * @param mixed  $value
-     *
-     * @return array
-     */
-    private static function arraySet(&$array, $key, $value)
-    {
-        if (is_null($key)) {
-            return $array = $value;
-        }
-
-        $keys = explode('.', $key);
-
-        while (count($keys) > 1) {
-            $key = array_shift($keys);
-            if (!isset($array[$key]) || !is_array($array[$key])) {
-                $array[$key] = [];
-            }
-
-            $array = &$array[$key];
-        }
-
-        $array[array_shift($keys)] = $value;
-
-        return $array;
     }
 }
