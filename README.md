@@ -54,9 +54,8 @@ Pengguna yang lebih berpengalaman akan mendapatkan kesempatan untuk memodulasi k
 Berikut adalah kebutuhan dasar yang diperlukan untuk dapat menjalankan Hexazor:
 
 - PHP versi 5.4.0 atau yang lebih baru
-- Ekstensi OpenSSL
-- Ekstensi PDO
 - Ekstensi Mbstring
+- Ekstensi OpenSSL
 - Apache Webserver (atau menggunakan PHP dev server, `php hexazor serve`).
 
 
