@@ -13,7 +13,7 @@ class Lipsum extends Module
         $sentences = mt_rand(4, 10);
         $output = [];
 
-        for ($i = 0; $i < $sentences; ++$i) {
+        for ($i = 0; $i < $sentences; $i++) {
             $output[] = $this->sentence();
         }
 
@@ -31,7 +31,7 @@ class Lipsum extends Module
         $commad = false;
         $output = [];
 
-        for ($i = 0; $i < $words; ++$i) {
+        for ($i = 0; $i < $words; $i++) {
             $word = $this->word();
             if (0 == $i) {
                 $word = ucwords($word);

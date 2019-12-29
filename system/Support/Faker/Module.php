@@ -5,10 +5,10 @@ namespace System\Support\Faker;
 defined('DS') or exit('No direct script access allowed.');
 
 use Exception;
+use InvalidArgumentException;
 use System\Core\Config;
 use System\Facades\Storage;
 use System\Support\Str;
-use InvalidArgumentException;
 
 class Module
 {
@@ -57,7 +57,7 @@ class Module
     protected static function numberize($format, $min = 0, $max = 9)
     {
         $results = [];
-        for ($i = substr_count($format, '%d'); $i > 0; --$i) {
+        for ($i = substr_count($format, '%d'); $i > 0; $i--) {
             $results[] = mt_rand($min, $max);
         }
 
