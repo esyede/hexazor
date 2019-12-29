@@ -7,12 +7,12 @@ defined('DS') or exit('No direct script access allowed.');
 class Kernel
 {
     /**
-	 * Kelompok middleware global.
+     * Kelompok middleware global.
      * Middleware yang didaftarkan pada kelompok ini akan dieksekusi secara
      * otomatis pada semua rute di aplikasi Anda.
-	 *
-	 * @var array
-	 */
+     *
+     * @var array
+     */
     public static $globalMiddlewareGroups = [
     	// 'web' => [
     	// 	'\App\Http\Middleware\VerifyCsrfToken',
@@ -20,13 +20,13 @@ class Kernel
     ];
 
     /**
-	 * Kelompok middleware lokal.
-	 * Middleware yang didaftarkan pada kelompok ini hanya akan dieksekusi jika
+     * Kelompok middleware lokal.
+     * Middleware yang didaftarkan pada kelompok ini hanya akan dieksekusi jika
      * Anda memanggilnya, pemanggilan bisa dilakukan melalui definisi routes
      * maupun dari dalam controller.
-	 *
-	 * @var array
-	 */
+     *
+     * @var array
+     */
     public static $localMiddlewareGroups = [
         // 'auth' => [
         //  '\App\Http\Middleware\Authenticate',
@@ -41,6 +41,6 @@ class Kernel
      */
     public static function boot()
     {
-    	// code..
+        // ...
     }
 }
