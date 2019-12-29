@@ -29,7 +29,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "hexazor-key-generate": "./hexazor key:generate",
-        "hexazor-run-test": "./vendor/bin/phpunit tests/"
+        "hexazor-key-generate": "@php ./hexazor key:generate",
+        "hexazor-run-test": "@php ./vendor/bin/phpunit tests/"
     }
 }
