@@ -167,24 +167,20 @@ Middleware juga dapat didefinisikan secara terpisah untuk setiap rute dan grup r
 Route::middleware('auth')->group(function () {
 	Route::get('/dashboard', 'Dashboard@index');
 });
-
-Route::middleware(['auth', 'verified'])->group(function () {
-	// ..
-});
 ```
 
 Anda juga boleh menggunakan beberapa middleware sekaligus:
 
 ```php
 Route::middleware(['auth', 'verified'])->group(function () {
-	Route::get('/dashboard', 'Dashboard@index');
+	// ...
 });
 ```
 
 Middleware juga dapat dipanggil tanpa grouping:
 
 ```php
-Route::middleware(['auth'])->get('/dashboard', 'Dashboard@index');
+Route::middleware('auth')->get('/dashboard', 'Dashboard@index');
 ```
 
 
