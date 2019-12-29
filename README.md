@@ -44,7 +44,7 @@ Pengguna yang lebih berpengalaman akan mendapatkan kesempatan untuk memodulasi k
 - Database seeding (via CLI, `db:seed`, `db:seed --class=FooSeeder`).
 - Otentikasi (`Auth::attempt()`, `Auth::login()` dll.).
 - Tersedia pustaka yang cukup banyak.
-- Ukuran yang framework kecil (< 400Kb zip).
+- Ukuran framework relatif kecil (< 400Kb zip).
 - Bisa berjalan di shared hosting.
 - Dan lain - lain.
 
