@@ -110,7 +110,7 @@ $users = User::whereIn('id', [1, 2, 3])
 Untuk menjalankan unit testing pustaka - pustaka Hexazor, silahkan gunakan phpunit:
 
 ```bash
-phpunit test/
+phpunit tests/
 ```
 
 ## Dokumentasi
