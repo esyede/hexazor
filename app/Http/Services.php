@@ -15,7 +15,6 @@ class Services
         'Auth'      => 'System\Facades\Auth',
         'Cache'     => 'System\Facades\Cache',
         'Cookie'    => 'System\Facades\Cookie',
-        'Config'    => 'System\Facades\Config',
         'Console'   => 'System\Facades\Console',
         'Crypt'     => 'System\Facades\Crypt',
         'Curl'      => 'System\Facades\Curl',
@@ -48,7 +47,6 @@ class Services
     public static $providers = [
         'Auth'      => 'System\Libraries\Auth\Auth',
         'Cache'     => 'System\Libraries\Cache\Cache',
-        'Config'    => 'System\Core\Config',
         'Cookie'    => 'System\Libraries\Cookie\Cookie',
         'Console'   => 'System\Console\Console',
         'Crypt'     => 'System\Libraries\Crypt\Crypt',
