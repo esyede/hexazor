@@ -30,6 +30,6 @@
     "prefer-stable": true,
     "scripts": {
         "hexazor-key-generate": "./hexazor key:generate",
-        "hexazor-run-test": "./vendor/bin/phpunit tests/",
+        "hexazor-run-test": "./vendor/bin/phpunit tests/"
     }
 }
