@@ -277,7 +277,7 @@ if (!function_exists('dd')) {
     function dd()
     {
         $variables = func_get_args();
-        if (PHP_SAPI === 'cli') {
+        if (is_cli()) {
             array_map(function ($var) {
                 if (windows_os()) {
                     echo Dumper::toText($var);
@@ -668,7 +668,7 @@ if (!function_exists('windows_os')) {
 if (!function_exists('is_cli')) {
     function is_cli()
     {
-        return 'win' === PHP_SAPI;
+        return php_sapi_name() === 'cli' || php_sapi_name() === 'phpdbg';
     }
 }
 
