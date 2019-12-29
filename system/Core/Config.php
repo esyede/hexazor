@@ -37,7 +37,7 @@ class Config implements ArrayAccess
         } else {
             static::$instance->path = base_path('config/');
             $files = glob(static::$instance->path.'*.php');
-            
+
             foreach ($files as $file) {
                 $name = basename($file, '.php');
                 static::$instance->container[$name] = require_once $file;
@@ -69,7 +69,7 @@ class Config implements ArrayAccess
      *
      * @param string $key
      * @param mixed  $value
-     * 
+     *
      * @return bool
      */
     public static function set($key, $value)

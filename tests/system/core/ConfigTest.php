@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 use System\Core\Config;
 
 class ConfigTest extends TestCase
-{   
+{
     public function __construct()
     {
         parent::__construct();
@@ -36,7 +36,7 @@ class ConfigTest extends TestCase
     public function testAll()
     {
         $all = Config::all();
-        
+
         return $this->assertTrue(is_array($all) && count($all) > 5);
     }
 

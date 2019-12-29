@@ -6,7 +6,7 @@ use System\Core\Router;
 use System\Debugger\Debugger;
 
 class ApplicationTest extends TestCase
-{   
+{
     public function __construct()
     {
         parent::__construct();
