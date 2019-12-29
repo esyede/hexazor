@@ -430,7 +430,12 @@ class Router
      */
     public static function getCurrentUri()
     {
-        $uri = substr($_SERVER['REQUEST_URI'], strlen(static::getBasePath()));
+        if (is_cli()) {
+            $uri = '/';
+        } else {
+            $uri = substr($_SERVER['REQUEST_URI'], strlen(static::getBasePath()));
+        }
+
         if (strstr($uri, '?')) {
             $uri = substr($uri, 0, strpos($uri, '?'));
         }
@@ -471,11 +476,16 @@ class Router
      */
     public static function getRequestMethod()
     {
-        $method = $_SERVER['REQUEST_METHOD'];
-        if ('HEAD' == $_SERVER['REQUEST_METHOD']) {
+        if (is_cli()) {
+            $method = 'GET';
+        } else {
+            $method = $_SERVER['REQUEST_METHOD'];
+        }
+
+        if ('HEAD' == $method) {
             ob_start();
             $method = 'GET';
-        } elseif ('POST' == $_SERVER['REQUEST_METHOD']) {
+        } elseif ('POST' == $method) {
             $headers = static::getRequestHeaders();
             if (isset($headers['X-HTTP-Method-Override'])
             && in_array($headers['X-HTTP-Method-Override'], ['PUT', 'DELETE', 'PATCH'])) {
