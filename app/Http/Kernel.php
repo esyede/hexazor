@@ -14,9 +14,9 @@ class Kernel
      * @var array
      */
     public static $globalMiddlewareGroups = [
-    	// 'web' => [
-    	// 	'\App\Http\Middleware\VerifyCsrfToken',
-    	// ],
+        // 'web' => [
+        //     '\App\Http\Middleware\VerifyCsrfToken',
+        // ],
     ];
 
     /**
@@ -29,7 +29,7 @@ class Kernel
      */
     public static $localMiddlewareGroups = [
         // 'auth' => [
-        //  '\App\Http\Middleware\Authenticate',
+        //     '\App\Http\Middleware\Authenticate',
         // ],
     ];
 
