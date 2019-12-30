@@ -15,6 +15,7 @@
 	<img src="https://img.shields.io/github/issues-raw/esyede/hexazor" alt="Issue"/>
 	<img src="https://img.shields.io/github/issues-closed/esyede/hexazor" alt="Closed"/>
 	<img src="https://img.shields.io/github/issues-pr/esyede/hexazor" alt="Closed"/>
+	<img src="https://img.shields.io/github/downloads/esyede/hexazor/total" alt="Downloads"/>
 </p>
 <p align="center">
 	<a href="https://esyede.github.io/hexazor">https://esyede.github.io/hexazor</a>
