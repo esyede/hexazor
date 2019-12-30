@@ -1,6 +1,6 @@
 <?php
 
-$excludeFolders = [
+$ignoredFolders = [
     'storage',
     'assets',
     'docs',
@@ -12,25 +12,33 @@ $excludeFolders = [
     '.github'
 ];
 
+$ignoredFiles = [
+    '*.cache',
+    '*.blade.php',
+    '*.vc.php',
+    '*.sqlite',
+    '*.log',
+    '*.htaccess',
+    '.htaccess',
+    '*.md',
+    '*.yml',
+    '*.conf',
+    '*.ini',
+    '.editorconfig',
+    '.gitignore',
+    '_ide_helper.php',
+];
+
+
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__)
+    ->exclude($ignoredFolders);
+
+foreach ($ignoredFiles as $file) {
+    $finder->notName($file);
+}
+
 return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules([])
-    ->setFinder(
-        PhpCsFixer\Finder::create()
-        ->in(__DIR__)
-        ->exclude($excludeFolders)
-        ->notName('README.md')
-        ->notName('*.blade.php')
-        ->notName('*.cache')
-        ->notName('*.sqlite')
-        ->notName('*.conf')
-        ->notName('*.htaccess')
-        ->notName('*.editorconfig')
-        ->notName('*.gitignore')
-        ->notName('*.ini')
-        ->notName('*.log')
-        ->notName('*.xml')
-        ->notName('*.yml')
-        ->notName('*.vc.php')
-        ->notName('_ide_helper.php')
-    );
+    ->setFinder($finder);

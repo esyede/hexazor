@@ -120,14 +120,14 @@ class Config implements ArrayAccess
      */
     public function offsetExists($offset)
     {
-        if (isset($this->container[$offset])) {
+        if (isset(static::$instance->container[$offset])) {
             return true;
         }
 
         $name = strtok($offset, '.');
 
-        if (isset($this->container[$name])) {
-            $p = $this->container[$name];
+        if (isset(static::$instance->container[$name])) {
+            $p = static::$instance->container[$name];
             while (false !== ($name = strtok('.'))) {
                 if (!isset($p[$name])) {
                     return false;
@@ -135,54 +135,72 @@ class Config implements ArrayAccess
                 $p = $p[$name];
             }
 
-            $this->container[$offset] = $p;
+            static::$instance->container[$offset] = $p;
 
             return true;
         }
         $name = str_replace(['\\', '/'], [DS, DS], $name);
-        $path = $this->path.DS.$name.'.php';
+        $path = static::$instance->path.DS.$name.'.php';
 
         if (is_readable($path)) {
-            $this->container[$name] = include $path;
-            $file = $this->path.DS.$name.'.php';
+            static::$instance->container[$name] = include $path;
+            $file = static::$instance->path.DS.$name.'.php';
 
             if (is_readable($file)) {
-                $this->container[$name] = include $file;
+                static::$instance->container[$name] = include $file;
             }
 
-            return $this->offsetExists($offset);
+            return static::$instance->offsetExists($offset);
         }
 
         return false;
     }
 
     /**
-     * ArrayAccess.
+     * ArrayAccess offsetGet.
      *
      * @param mixed $offset
+     *
+     * @return mixed|null
      */
     public function offsetGet($offset)
     {
-        return $this->offsetExists($offset) ? $this->container[$offset] : null;
+        return static::$instance->offsetExists($offset)
+            ? static::$instance->container[$offset]
+            : null;
     }
 
+    /**
+     * ArrayAccess offsetSet.
+     *
+     * @param string $offset
+     * @param mixed $value
+     *
+     * @return bool
+     */
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
-            $this->container[] = $value;
+            static::$instance->container[] = $value;
         } else {
-            $this->container[$offset] = $value;
+            static::$instance->container[$offset] = $value;
         }
+
+        return static::$instance->container[$offset] === $value;
     }
 
     /**
      * ArrayAccess.
      *
      * @param mixed $offset
+     *
+     * @return bool
      */
     public function offsetUnset($offset)
     {
-        $this->container[$offset] = null;
-        unset($this->container[$offset]);
+        static::$instance->container[$offset] = null;
+        unset(static::$instance->container[$offset]);
+
+        return false === isset(static::$instance->container[$offset]);
     }
 }

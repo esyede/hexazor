@@ -18,7 +18,7 @@ return [
     |
     */
 
-    'application_key' => '',
+    'application_key' => 'LopdoI5mgsxnpUcWStwi1vrQ9bn02q7S',
 
     /*
     |--------------------------------------------------------------------------

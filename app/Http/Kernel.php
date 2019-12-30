@@ -28,9 +28,9 @@ class Kernel
      * @var array
      */
     public static $localMiddlewareGroups = [
-        // 'auth' => [
-        //     '\App\Http\Middleware\Authenticate',
-        // ],
+        'auth' => [
+            '\App\Http\Middleware\Authenticate',
+        ],
     ];
 
     /**
