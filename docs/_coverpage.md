@@ -5,9 +5,9 @@
 
 > framework PHP mungil dan sederhana
 
--   ringan (~400Kb zip)
--   sederhana & kaya fitur
--   berjalan baik di shared hosting
+-   Ringan (~400Kb zip)
+-   Sederhana & kaya fitur
+-   Berjalan baik di shared hosting
 
 
 [Download](https://github.com/esyede/hexazor/releases/latest)

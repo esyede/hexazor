@@ -954,3 +954,8 @@ pre:after {
     text-align: right;
     top: 0
 }
+
+:root {
+    --docsifytabs-border-color: #ededed;
+    --docsifytabs-tab-highlight-color: purple;
+  }

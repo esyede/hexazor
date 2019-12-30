@@ -18,7 +18,7 @@ Berikut adalah kebutuhan dasar yang diperlukan untuk dapat menjalankan Hexazor:
 - Ekstensi Mbstring
 - Apache Webserver
 
-Anda boleh menggunakan websever lain seperti _Litespeed_, _Nginx_, _Lighttpd_, _Hiawatha_ atau yang lainnya, namun kami tidak menyertakan file konfigurasinya, hal ini karena keterbatasan pengetahuan kami tentang webserver lain selain Apache.
+Anda boleh menggunakan websever lain seperti _Litespeed_, _Nginx_, _Lighttpd_, _Hiawatha_ atau yang lainnya, namun kami tidak menyertakan file konfigurasinya, hal ini karena keterbatasan pengetahuan kami tentang webserver lain selain Apache :see_no_evil: :pray:
 
 Tentu saja, semua kebutuhan diatas sudah dipenuhi oleh webserver stack standar yang sering Anda gunakan, sebut saja _XAMPP_, _Uniform Server_, ataupun _USB Webserver_. Silahkan pilih salah satu, Anda dapat mengunduhnya secara gratis melalui tautan berikut:
 
