@@ -7,7 +7,7 @@ class ControllerTest extends TestCase
 {
 	private $controller;
 
-	public function __construct()
+    public function __construct()
     {
         parent::__construct();
         require_once dirname(dirname(dirname(__DIR__))).'/index.php';
@@ -16,12 +16,12 @@ class ControllerTest extends TestCase
 
     public function testFailingMiddleware()
     {
-    	$this->expectException(\InvalidArgumentException::class);
-    	$this->controller->middleware('a-non-existant-middleware');
+        $this->expectException('\InvalidArgumentException');
+        $this->controller->middleware('a-non-existant-middleware');
     }
 
     public function testSuccessMiddleware()
     {
-    	$this->assertNull($this->controller->middleware('auth'));
+        $this->assertNull($this->controller->middleware('auth'));
     }
 }
