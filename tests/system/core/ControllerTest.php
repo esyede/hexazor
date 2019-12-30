@@ -5,7 +5,7 @@ use System\Core\Controller;
 
 class ControllerTest extends TestCase
 {
-	private $controller;
+    private $controller;
 
     public function __construct()
     {
