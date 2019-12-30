@@ -16,7 +16,7 @@ class ConfigTest extends TestCase
 
     public function testInit()
     {
-        return $this->assertInstanceOf(Config::class, Config::init());
+        return $this->assertInstanceOf('\System\Core\Config', Config::init());
     }
 
     public function testGet()
