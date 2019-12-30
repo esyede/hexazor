@@ -38,7 +38,7 @@ class Controller
                     if (!class_exists($class)) {
                         throw new InvalidArgumentException("Middleware class does not exists: {$class}");
                     }
-                    
+
                     call_user_func_array([new $class(), 'handle'], []);
                 }
             } else {

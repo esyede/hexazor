@@ -13,7 +13,7 @@ class DummyClass extends Command
 
     /**
      * Handle command ini.
-     * 
+     *
      * @return string
      */
     public function handle()

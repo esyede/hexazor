@@ -174,7 +174,7 @@ class Config implements ArrayAccess
      * ArrayAccess offsetSet.
      *
      * @param string $offset
-     * @param mixed $value
+     * @param mixed  $value
      *
      * @return bool
      */

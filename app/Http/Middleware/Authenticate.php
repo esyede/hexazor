@@ -8,11 +8,11 @@ class Authenticate
 {
     /**
      * Tangani request yang datang.
-     * 
+     *
      * @return mixed
      */
     public function handle()
     {
-    	return true;
+        return true;
     }
 }

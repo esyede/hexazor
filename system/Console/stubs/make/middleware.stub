@@ -8,7 +8,7 @@ class DummyClass
 {
     /**
      * Tangani request yang datang.
-     * 
+     *
      * @return mixed
      */
     public function handle()

@@ -9,7 +9,7 @@ class stubClassName extends Migration
 {
 	/**
 	 * Jalankan proses migrasi.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function up()
@@ -23,7 +23,7 @@ class stubClassName extends Migration
 
 	/**
 	 * Balikkan proses migrasi.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function down()
