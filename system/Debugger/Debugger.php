@@ -25,7 +25,7 @@ class Debugger
     public static $onFatalError = [];
 
     public static $maxDepth = 10;
-    public static $maxLen = 300;
+    public static $maxLen = 250;
     public static $showLocation = false;
 
     public static $logFolder;

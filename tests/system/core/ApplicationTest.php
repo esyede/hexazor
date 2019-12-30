@@ -11,6 +11,7 @@ class ApplicationTest extends TestCase
     {
         parent::__construct();
         require_once dirname(dirname(dirname(__DIR__))).'/index.php';
+        Debugger::enable(false);
     }
 
     public function testEnsureAppKeyIsProvided()
@@ -25,7 +26,7 @@ class ApplicationTest extends TestCase
 
     public function testReconfigureDebugger()
     {
-        return $this->assertTrue(Debugger::isEnabled());
+        return $this->assertTrue(Debugger::$maxLen === 300);
     }
 
     public function testRegisterDefinedFacades()

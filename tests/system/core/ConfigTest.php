@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use System\Core\Config;
+use System\Debugger\Debugger;
 
 class ConfigTest extends TestCase
 {
@@ -12,6 +13,7 @@ class ConfigTest extends TestCase
         parent::__construct();
         $this->config = new Config();
         require_once dirname(dirname(dirname(__DIR__))).'/index.php';
+        Debugger::enable(false);
     }
 
     public function testInit()
