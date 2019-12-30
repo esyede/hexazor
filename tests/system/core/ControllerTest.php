@@ -18,8 +18,18 @@ class ControllerTest extends TestCase
 
     public function testFailingMiddleware()
     {
-        $this->expectException('\InvalidArgumentException');
-        $this->controller->middleware('a-non-existant-middleware');
+        $name = 'a-non-existant-middleware';
+
+        if (PHP_VERSION_ID <= 50600) {
+            $this->setExpectedException(
+              '\InvalidArgumentException',
+              'No local middleware found with name: '.$name
+            );
+        } else {
+            $this->expectException('\InvalidArgumentException');
+        }
+
+        $this->controller->middleware($name);
     }
 
     public function testSuccessMiddleware()
