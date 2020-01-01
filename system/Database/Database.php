@@ -13,8 +13,6 @@ class Database
     public static $connections = [];
     public static $registrar = [];
 
-    private static $defaultQueryGrammar = '\System\Database\Query\Grammars\Grammar';
-
     /**
      * Ambil koneksi database (dari app/Config/Database.php).
      *
@@ -39,6 +37,18 @@ class Database
         }
 
         return static::$connections[$connection];
+    }
+
+    /**
+     * Ambil objek koneksi PDO dari sebuah koneksi database
+     *
+     * @param  string $connection
+     *
+     * @return \PDO
+     */
+    public function getPdo($connection = null)
+    {
+        return static::connection($connection)->pdo;
     }
 
     /**
@@ -147,7 +157,7 @@ class Database
     public static function extend($name, Closure $connector, $query = null, $schema = null)
     {
         if (is_null($query)) {
-            $query = static::$defaultQueryGrammar;
+            $query = __NAMESPACE__.'\\Query\\Grammars\\Grammar';
         }
 
         static::$registrar[$name] = compact('connector', 'query', 'schema');
