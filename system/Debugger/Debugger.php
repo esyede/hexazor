@@ -180,7 +180,7 @@ class Debugger
             E_USER_ERROR,
         ];
 
-        if (in_array($error['type'], $errList, true)) {
+        if (!is_null($error['type']) && in_array($error['type'], $errList, true)) {
             self::exceptionHandler(
                 Helpers::fixStack(
                     new \ErrorException(
