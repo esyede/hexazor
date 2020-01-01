@@ -11,7 +11,6 @@ class HomeController extends Controller
 {
 	public function index()
 	{
-		dd(DB::getPdo());
 		return View::make('welcome');
 	}
 }
