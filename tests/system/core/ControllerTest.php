@@ -25,7 +25,7 @@ class ControllerTest extends TestCase
         $exception = '\InvalidArgumentException';
 
         // fails
-        if (PHP_VERSION_ID <= 50500) {
+        if (PHP_VERSION_ID <= 50600) {
             // travis: phpunit <=  4.8
             $this->setExpectedException(
               $exception,
