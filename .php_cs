@@ -1,6 +1,6 @@
 <?php
 
-$ignoredFolders = [
+$directories = [
     'storage',
     'assets',
     'docs',
@@ -12,7 +12,7 @@ $ignoredFolders = [
     '.github'
 ];
 
-$ignoredFiles = [
+$files = [
     '*.cache',
     '*.blade.php',
     '*.vc.php',
@@ -29,16 +29,15 @@ $ignoredFiles = [
     '_ide_helper.php',
 ];
 
-
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
-    ->exclude($ignoredFolders);
+    ->exclude($directories);
 
-foreach ($ignoredFiles as $file) {
+foreach ($files as $file) {
     $finder->notName($file);
 }
 
 return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
-    ->setRules([])
+    ->setRules(['@PSR2' => true])
     ->setFinder($finder);

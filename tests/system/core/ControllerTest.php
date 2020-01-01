@@ -28,8 +28,8 @@ class ControllerTest extends TestCase
         if (PHP_VERSION_ID <= 50600) {
             // travis: phpunit <=  4.8
             $this->setExpectedException(
-              $exception,
-              'No local middleware found with name: '.$name
+                $exception,
+                'No local middleware found with name: '.$name
             );
         } else {
             // travis: phpunit >= 5.7

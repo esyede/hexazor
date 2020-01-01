@@ -54,7 +54,6 @@ if (!is_callable('RandomCompat_strlen')) {
 
             return (int) mb_strlen($binary_string, '8bit');
         }
-
     } else {
         /**
          * strlen() implementation that isn't brittle to mbstring.func_overload
@@ -80,7 +79,6 @@ if (!is_callable('RandomCompat_strlen')) {
 }
 
 if (!is_callable('RandomCompat_substr')) {
-
     if (
         defined('MB_OVERLOAD_STRING')
             &&
@@ -142,7 +140,6 @@ if (!is_callable('RandomCompat_substr')) {
                 '8bit'
             );
         }
-
     } else {
 
         /**

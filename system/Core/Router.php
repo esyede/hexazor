@@ -345,8 +345,8 @@ class Router
                                 $object = new $class();
                                 if (!method_exists($object, 'handle')) {
                                     throw new RuntimeException(
-                                       'Middleware handler not found: '.$class.'::handle()'
-                                   );
+                                        'Middleware handler not found: '.$class.'::handle()'
+                                    );
                                 }
 
                                 call_user_func_array([$object, $method], []);

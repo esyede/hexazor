@@ -126,7 +126,6 @@ if (!is_callable('random_int')) {
             $bytes = PHP_INT_SIZE;
             /** @var int $mask */
             $mask = ~0;
-
         } else {
 
             /**

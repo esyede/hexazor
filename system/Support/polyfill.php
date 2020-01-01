@@ -750,7 +750,8 @@ if (!function_exists('mb_str_split')) {
                 "/(.{{$split_length}})/u",
                 $string,
                 null,
-                PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+                PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY
+            );
         }
 
         if ('8BIT' === $encoding || 'BINARY' === $encoding) {
