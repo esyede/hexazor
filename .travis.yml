@@ -12,6 +12,10 @@ php:
   - 7.3
   - 7.4
 
+matrix:
+  allow_failures:
+    - php: nightly
+
 before_script:
   - composer install -vvv
 
