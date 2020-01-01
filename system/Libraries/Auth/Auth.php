@@ -49,8 +49,8 @@ class Auth
         }
 
         switch ($driver) {
-            case 'default': return new Drivers\DefaultDriver('users');
-            case 'model':   return new Drivers\ModelDriver('\App\Models\User');
+            case 'default': return new Drivers\DefaultDriver(Config::get('auth.table'));
+            case 'model':   return new Drivers\ModelDriver(Config::get('auth.model'));
             default:        throw new Exception("Auth driver [$driver] is not supported.");
         }
     }

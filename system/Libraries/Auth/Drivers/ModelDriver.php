@@ -21,7 +21,7 @@ class ModelDriver extends Driver
     {
         if (false !== filter_var($token, FILTER_VALIDATE_INT)) {
             return $this->model()->find($token);
-        } elseif (is_object($token) && '\App\Models\User' == get_class($token)) {
+        } elseif (is_object($token) && Config::get('auth.model') == get_class($token)) {
             return $token;
         }
     }
@@ -36,9 +36,9 @@ class ModelDriver extends Driver
     public function attempt(array $credentials = [])
     {
         $user = $this->model()->where(function ($query) use ($credentials) {
-            $username = Config::get('auth.username', 'email');
-            $password = Config::get('auth.password', 'password');
-            $remember = Config::get('auth.remember', 'remember');
+            $username = Config::get('auth.username');
+            $password = Config::get('auth.password');
+            $remember = Config::get('auth.remember');
 
             $query->where($username, '=', $credentials[$username]);
             $columns = array_except($credentials, [$username, $password, $remember]);
@@ -49,8 +49,8 @@ class ModelDriver extends Driver
         })->first();
 
         $password = $credentials['password'];
-        $passfield = Config::get('auth.password', 'password');
-        $remember = Config::get('auth.remember', 'remember');
+        $passfield = Config::get('auth.password');
+        $remember = Config::get('auth.remember');
 
         if (!is_null($user) && Hash::check($password, $user->{$passfield})) {
             return $this->login($user->getKey(), array_get($credentials, $remember));
@@ -66,6 +66,8 @@ class ModelDriver extends Driver
      */
     protected function model()
     {
-        return new \App\Models\User();
+        $model = Config::get('auth.model');
+
+        return new $model();
     }
 }

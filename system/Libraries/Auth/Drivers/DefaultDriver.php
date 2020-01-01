@@ -33,11 +33,10 @@ class DefaultDriver extends Driver
      */
     public function attempt(array $credentials = [])
     {
-        $config = Config::get('auth');
         $user = $this->getUser($credentials);
         $password = $credentials['password'];
-        $passfield = Config::get('auth.password', 'password');
-        $remember = Config::get('auth.remember', 'remember');
+        $passfield = Config::get('auth.password');
+        $remember = Config::get('auth.remember');
 
         if (!is_null($user) && Hash::check($password, $user->{$passfield})) {
             return $this->login($user->id, array_get($credentials, $remember));
@@ -55,10 +54,10 @@ class DefaultDriver extends Driver
      */
     protected function getUser(array $credentials)
     {
-        return Database::table('users')->where(function ($query) use ($credentials) {
-            $username = Config::get('auth.username', 'email');
-            $passfield = Config::get('auth.password', 'password');
-            $remember = Config::get('auth.remember', 'remember');
+        return Database::table(Config::get('auth.table'))->where(function ($query) use ($credentials) {
+            $username = Config::get('auth.username');
+            $passfield = Config::get('auth.password');
+            $remember = Config::get('auth.remember');
 
             $query->where($username, '=', $credentials[$username]);
             $columns = array_except($credentials, [$username, $passfield, $remember]);
