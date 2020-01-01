@@ -49,6 +49,7 @@ class ApplicationTest extends TestCase
 
         $this->assertTrue(is_object($now));
         $this->assertTrue(is_string($now->get()));
+        $this->assertSame($now->get(), date('Y-m-d H:i:s'));
         $this->assertFalse(!is_string($now->get()));
     }
 

@@ -15,7 +15,7 @@ class Module
     protected function loadData($name, $locale = null)
     {
         $variableName = Str::camel($name);
-
+        // Variable juggling, psstt... memang disengaja.
         if (null == $this::$$variableName) {
             if (null == $locale) {
                 $locale = setlocale(LC_ALL, null);

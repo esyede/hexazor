@@ -30,7 +30,7 @@ class KeyGenerate extends Command
             if (false === file_put_contents($path, $subject, LOCK_EX)) {
                 return $this->error('Failed to set application key.');
             } else {
-                return $this->success("Application key [$appkey] set successfully.");
+                return $this->success("Application key set successfully.");
             }
         } else {
             return $this->error('Failed to set application key.');
