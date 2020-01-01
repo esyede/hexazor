@@ -9,6 +9,7 @@ use Closure;
 use RuntimeException;
 use System\Facades\Response;
 use System\Facades\View;
+use System\Support\Arr;
 use System\Support\Str;
 
 class Router
@@ -17,21 +18,21 @@ class Router
     private static $middlewares = [];
     private static $prefix = [];
     private static $baseroute = '/';
-    private static $namespaces = '';
+    private static $namespace = '';
     private static $domain = '';
     private static $ip = '';
     private static $groups = [];
     private static $names = [];
     private static $grouped = 0;
     private static $ssl = false;
-    protected static $baseNamespace = 'App\\Http\\Controllers\\';
-
     private static $patterns = [
         '{all}'   => '([^/]+)',
         '{num}'   => '([0-9]+)',
         '{alpha}' => '([a-zA-Z]+)',
         '{alnum}' => '([a-zA-Z0-9_-]+)',
     ];
+
+    protected static $baseNamespace = 'App\\Http\\Controllers\\';
 
     /**
      * Route group.
@@ -45,7 +46,7 @@ class Router
         static::$groups[] = [
             'baseroute'   => static::$baseroute,
             'middlewares' => static::$middlewares,
-            'namespaces'  => static::$namespaces,
+            'namespaces'  => static::$namespace,
             'domain'      => static::$domain,
             'ip'          => static::$ip,
             'ssl'         => static::$ssl,
@@ -60,7 +61,7 @@ class Router
 
             static::$baseroute = $group['baseroute'];
             static::$middlewares = $group['middlewares'];
-            static::$namespaces = $group['namespaces'];
+            static::$namespace = $group['namespaces'];
             static::$domain = $group['domain'];
             static::$ip = $group['ip'];
             static::$ssl = $group['ssl'];
@@ -74,7 +75,7 @@ class Router
             // reset
             static::$baseroute = '/';
             static::$middlewares = [];
-            static::$namespaces = '';
+            static::$namespace = '';
             static::$domain = '';
             static::$ip = '';
             static::$ssl = false;
@@ -84,15 +85,35 @@ class Router
     }
 
     /**
+     * Ambil list data grup yang terdaftar
+     *
+     * @return array
+     */
+    public static function getGroups()
+    {
+        return static::$groups;
+    }
+
+    /**
      * Set namespace grup route.
      *
-     * @param string $namespaces
+     * @param string $namespace
      */
-    public static function setNamespaces($namespaces)
+    public static function setNamespace($namespace)
     {
-        static::$namespaces = $namespaces;
+        static::$namespace = $namespace;
 
         return new static();
+    }
+
+    /**
+     * Get namespace grup route.
+     *
+     * @return string
+     */
+    public static function getNamespace()
+    {
+        return static::$namespace;
     }
 
     /**
@@ -112,12 +133,16 @@ class Router
                 throw new RuntimeException("No local middleware found with this name: {$name}");
             }
 
-            $class = $locals[$name];
-            if (!class_exists($class)) {
-                throw new RuntimeException("Local middleware class not found for '{$name}': {$class}");
-            }
+            $classes = $locals[$name];
+            $classes = Arr::wrap($classes);
 
-            static::addMiddleware($name, $class);
+            foreach ($classes as $class) {
+                if (!class_exists($class)) {
+                    throw new RuntimeException("Local middleware class not found for '{$name}': {$class}");
+                }
+
+                static::addMiddleware($name, $class);
+            }
         }
 
         return new static();
@@ -132,6 +157,38 @@ class Router
     private static function addMiddleware($name, $class)
     {
         static::$middlewares[$name] = $class.'@handle';
+    }
+
+    /**
+     * Ambil satu atau seluruh middleware
+     *
+     * @param  string $name
+     *
+     * @return string
+     */
+    public static function getMiddleware($name = null)
+    {
+        if (null === $name) {
+            return static::$middlewares;
+        }
+
+        if (static::hasMiddleware($name)) {
+            return static::$middlewares[$name];
+        }
+
+        return null;
+    }
+
+    /**
+     * Cek apakah middleware sudah terdaftar atau belum
+     *
+     * @param  string $name
+     *
+     * @return bool
+     */
+    public static function hasMiddleware($name)
+    {
+        return array_key_exists($name, static::$middlewares);
     }
 
     /**
@@ -218,8 +275,8 @@ class Router
         if (is_callable($callback) || $callback instanceof Closure) {
             $handler = $callback;
         } elseif (false !== stripos($callback, '@')) {
-            if (static::$namespaces) {
-                $namespaces = Str::studly(static::$namespaces);
+            if (static::$namespace) {
+                $namespaces = Str::studly(static::$namespace);
                 $handler = static::$baseNamespace.$namespaces.'\\'.$callback;
             } else {
                 $handler = static::$baseNamespace.$callback;
@@ -242,8 +299,8 @@ class Router
             }
         }
 
-        if (static::$namespaces) {
-            $routes['namespaces'] = Str::studly(static::$namespaces);
+        if (static::$namespace) {
+            $routes['namespaces'] = Str::studly(static::$namespace);
         }
 
         if (!empty(static::$middlewares)) {
@@ -699,14 +756,14 @@ class Router
      * Magic method untuk memanggil method kelas secara statis.
      *
      * @param string $method
-     * @param array  $args
+     * @param array  $parameters
      *
      * @return object
      */
-    public static function __callStatic($method, $args)
+    public static function __callStatic($method, $parameters)
     {
         if ('namespaces' === $method) {
-            static::setNamespaces($args[0]);
+            static::setNamespace($parameters[0]);
 
             return new static();
         }
@@ -716,14 +773,14 @@ class Router
      * Magic method untuk memanggil method kelas.
      *
      * @param string $method
-     * @param array  $args
+     * @param array  $parameters
      *
      * @return object
      */
-    public function __call($method, $args)
+    public function __call($method, $parameters)
     {
         if ('namespaces' === $method) {
-            static::setNamespaces($args[0]);
+            static::setNamespace($parameters[0]);
 
             return new static();
         }
