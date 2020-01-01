@@ -10,7 +10,7 @@ return [
     |
     | Hexazor menggunakan sistem berbasis driver yang fleksibel untuk menangani
     | otentikasi. Anda bebas mendaftarkan driver Anda sendiri menggunakan
-    | method Auth::extended(). Tentu saja, beberapa driver sudah disediakan
+    | method Auth::extend(). Tentu saja, beberapa driver sudah disediakan
     | untuk menangani otentikasi dasar secara sederhana dan mudah.
     |
     | Pilihan driver: 'default', 'model'.
@@ -18,6 +18,33 @@ return [
     */
 
     'driver' => 'default',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Nama Model Otentikasi
+    |--------------------------------------------------------------------------
+    |
+    | Saat menggunakan driver otentikasi 'model', Anda dapat menentukan model
+    | yang harus dianggap sebagai model "User". Model ini akan digunakan untuk
+    | meng-otentikasi pengguna aplikasi Anda.
+    |
+    */
+
+    'model' => '\App\User',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Nama Tabel Otentikasi
+    |--------------------------------------------------------------------------
+    |
+    | Saat menggunakan driver otentikasi 'default', tabel database yang
+    | digunakan untuk memuat pengguna dapat ditentukan di sini. Tabel ini akan
+    | digunakan oleh query builder untuk mengotentikasi dan meng-otentikasi
+    | pengguna aplikasi Anda.
+    |
+    */
+
+    'table' => 'users',
 
     /*
     |--------------------------------------------------------------------------
@@ -55,5 +82,5 @@ return [
     |
     */
 
-    'remember' => 'remember',
+    'remember' => 'remember_token',
 ];

@@ -16,6 +16,4 @@ use System\Core\Router as Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::middleware('auth')->get('/', 'HomeController@index');

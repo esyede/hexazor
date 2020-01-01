@@ -16,24 +16,26 @@ class ControllerTest extends TestCase
         $this->controller = new Controller();
     }
 
-    public function testFailingMiddleware()
+    public function testMiddleware()
     {
-        $name = 'a-non-existant-middleware';
+        // success
+        $this->assertNull($this->controller->middleware('auth'));
 
-        if (PHP_VERSION_ID <= 50600) {
+        $name = 'a-non-existant-middleware';
+        $exception =  '\InvalidArgumentException';
+
+        // fails
+        if (PHP_VERSION_ID <= 50500) {
+            // travis: phpunit <=  4.8
             $this->setExpectedException(
-              '\InvalidArgumentException',
+              $exception,
               'No local middleware found with name: '.$name
             );
         } else {
-            $this->expectException('\InvalidArgumentException');
+            // travis: phpunit >= 5.7
+            $this->expectException($exception);
         }
 
         $this->controller->middleware($name);
-    }
-
-    public function testSuccessMiddleware()
-    {
-        $this->assertNull($this->controller->middleware('auth'));
     }
 }

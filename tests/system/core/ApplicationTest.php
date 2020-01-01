@@ -16,27 +16,46 @@ class ApplicationTest extends TestCase
 
     public function testEnsureAppKeyIsProvided()
     {
-        return $this->assertTrue(strlen(Config::get('app.application_key')) === 32);
+        $appkey = Config::get('app.application_key');
+
+        $this->assertTrue(is_string($appkey));
+        $this->assertGreaterThanOrEqual(strlen($appkey), 32);
+        $this->assertFalse(!is_string($appkey));
+        $this->assertFalse(strlen($appkey) < 32);
     }
 
     public function testReconfigureTimezone()
     {
-        return $this->assertSame(date_default_timezone_get(), 'Asia/Jakarta');
+        $timezone = date_default_timezone_get();
+
+        $this->assertTrue(is_string($timezone));
+        $this->assertSame($timezone, 'Asia/Jakarta');
     }
 
     public function testReconfigureDebugger()
     {
-        return $this->assertTrue(Debugger::$maxLen === 300);
+        $maxLength = Debugger::$maxLen;
+
+        $this->assertTrue(is_int($maxLength));
+        $this->assertTrue($maxLength === 300);
+        $this->assertFalse($maxLength < 300);
     }
 
     public function testRegisterDefinedFacades()
     {
-        $this->assertTrue(is_string(Date::now()->get()));
+        $this->assertTrue(class_exists('\System\Facades\Date'));
+
+        $now = Date::now();
+
+        $this->assertTrue(is_object($now));
+        $this->assertTrue(is_string($now->get()));
+        $this->assertFalse(!is_string($now->get()));
     }
 
     public function testDispatchRouteDefinitions()
     {
-        return $this->assertTrue(is_array(Router::getRoutes()));
+        $this->assertTrue(is_array(Router::getRoutes()));
+        $this->assertFalse(blank(Router::getRoutes()));
     }
 
     public function __destruct()
