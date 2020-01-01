@@ -1,13 +1,12 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use System\Debugger\Debugger;
 use System\Core\Router as Route;
+use System\Debugger\Debugger;
 
 class RouterTest extends TestCase
 {
-   
-   public function __construct()
+    public function __construct()
     {
         parent::__construct();
         require_once dirname(dirname(dirname(__DIR__))).'/index.php';
@@ -35,12 +34,12 @@ class RouterTest extends TestCase
     public function testMiddleware()
     {
         Route::middleware('auth');
-        
+
         $this->assertSame(
             Route::getMiddleware('auth'),
             'App\Http\Middleware\Authenticate@handle'
         );
-        
+
         $this->assertTrue(Route::hasMiddleware('auth'));
         $this->assertSame(Route::getMiddleware('foobar'), null);
     }

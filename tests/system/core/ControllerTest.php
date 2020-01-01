@@ -22,7 +22,7 @@ class ControllerTest extends TestCase
         $this->assertNull($this->controller->middleware('auth'));
 
         $name = 'a-non-existant-middleware';
-        $exception =  '\InvalidArgumentException';
+        $exception = '\InvalidArgumentException';
 
         // fails
         if (PHP_VERSION_ID <= 50500) {

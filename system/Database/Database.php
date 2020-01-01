@@ -14,7 +14,7 @@ class Database
     public static $registrar = [];
 
     /**
-     * Ambil koneksi database (dari app/Config/Database.php).
+     * Ambil koneksi database (dari config/database.php).
      *
      * @param string $connection
      *
@@ -40,9 +40,9 @@ class Database
     }
 
     /**
-     * Ambil objek koneksi PDO dari sebuah koneksi database
+     * Ambil objek koneksi PDO dari sebuah koneksi database.
      *
-     * @param  string $connection
+     * @param string $connection
      *
      * @return \PDO
      */

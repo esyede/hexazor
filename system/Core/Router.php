@@ -85,7 +85,7 @@ class Router
     }
 
     /**
-     * Ambil list data grup yang terdaftar
+     * Ambil list data grup yang terdaftar.
      *
      * @return array
      */
@@ -160,9 +160,9 @@ class Router
     }
 
     /**
-     * Ambil satu atau seluruh middleware
+     * Ambil satu atau seluruh middleware.
      *
-     * @param  string $name
+     * @param string $name
      *
      * @return string
      */
@@ -180,9 +180,9 @@ class Router
     }
 
     /**
-     * Cek apakah middleware sudah terdaftar atau belum
+     * Cek apakah middleware sudah terdaftar atau belum.
      *
-     * @param  string $name
+     * @param string $name
      *
      * @return bool
      */
