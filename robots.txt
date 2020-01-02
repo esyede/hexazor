@@ -7,4 +7,5 @@ Disallow: /resources/*
 Disallow: /routes/*
 Disallow: /storage/*
 Disallow: /system/*
+Disallow: /tests/*
 Disallow: /vendor/*

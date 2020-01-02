@@ -133,7 +133,7 @@ if (!function_exists('lang')) {
 
         $file = strtolower($file);
         $default = Config::get('app.default_language');
-        $path = resources_path('lang/'.$default.'/'.$file.'.php');
+        $path = resource_path('lang/'.$default.'/'.$file.'.php');
 
         if (!is_file($path)) {
             throw new RuntimeException('Language file not found: '.$path);
@@ -208,10 +208,10 @@ if (!function_exists('database_path')) {
     }
 }
 
-if (!function_exists('resources_path')) {
-    function resources_path($path = null)
+if (!function_exists('resource_path')) {
+    function resource_path($path = null)
     {
-        $path = RESOURCES_PATH.ltrim(ltrim($path, '/'), '\\');
+        $path = RESOURCE_PATH.ltrim(ltrim($path, '/'), '\\');
 
         return $path;
     }

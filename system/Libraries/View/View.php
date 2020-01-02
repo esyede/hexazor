@@ -819,7 +819,7 @@ class View
     public function exists($view)
     {
         $view = str_replace('.', '/', ltrim($view, '/'));
-        $view = resources_path('views/'.$view.$this->fileExtension);
+        $view = resource_path('views/'.$view.$this->fileExtension);
 
         return Storage::isFile($view);
     }

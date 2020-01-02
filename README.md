@@ -27,20 +27,23 @@
 
 ## Apa itu Hexazor?
 
-Hexazor adalah framework PHP yang kuat yang menekankan fleksibilitas dan ekspresif. Pengguna yang baru menggunakan Hexazor akan menikmati kemudahan pengembangan yang sama dengan yang ditemukan dalam kerangka kerja PHP yang paling populer saat ini.
+> Framework mungil dan sederhana
 
-Pengguna yang lebih berpengalaman akan mendapatkan kesempatan untuk memodulasi kode mereka dengan cara yang elegan. Fleksibilitas Hexazor akan memungkinkan organisasi Anda memperbarui dan membentuk aplikasi dari waktu ke waktu sesuai kebutuhan dan ekspresifitasnya akan memungkinkan Anda dan tim Anda untuk mengembangkan kode yang ringkas dan mudah dibaca.
+
+Hexazor adalah framework yang sederhana dan ekspresif. Pengguna yang baru menggunakan Hexazor akan menikmati kemudahan pengembangan yang sama dengan yang ditemukan dalam kerangka kerja PHP yang paling populer saat ini.
+
+Pengguna yang lebih berpengalaman akan mendapatkan kesempatan untuk memodulasi kode mereka dengan cara yang elegan, memungkinkan organisasi Anda memperbarui dan membentuk aplikasi dari waktu ke waktu sesuai kebutuhan. Ekspresifitasnya memungkinkan Anda dan tim untuk mengembangkan kode yang ringkas dan mudah dibaca.
 
 
 ## Ikhtisar Fitur
 
 - Mendukung autoloading standar PSR-4 dan PSR-0.
-- Bisa digunakan dengan ataupun tanpa Composer.
+- Bisa digunakan dengan ataupun tanpa [Composer](https://getcomposer.org).
 - Routing sederhana menggunakan Closure atau Controller.
 - CLI tool (`php hexazor make:controller`, `make:model` dll.)
-- View dan templating mini mirip blade.
-- Abstraksi database dengan ORM dan query builder.
-- Schema builder untuk pembangunan skema database.
+- View dan templating mini mirip Blade.
+- Abstraksi database dengan ORM dan Query Builder.
+- Schema Builder untuk pembangunan skema database.
 - Migrasi database (via CLI tool, `migrate:install`, `migrate:rollback` dll.).
 - Fake fixture data untuk seeding database.
 - Database seeding (via CLI, `db:seed`, `db:seed --class=FooSeeder`).
@@ -66,8 +69,8 @@ Berikut adalah kebutuhan dasar yang diperlukan untuk dapat menjalankan Hexazor:
 **Routing:**
 ```php
 Route::prefix('frontend')->namespaces('frontend')->middleware('auth')->group(function () {
-	Route::get('/', 'Home@index')->name('frontpage');
-	Route::get('/blog/{id?}', 'Blog@posts')->where(['id' => '(\d+)']);
+    Route::get('/', 'Home@index')->name('frontpage');
+    Route::get('/blog/{id?}', 'Blog@posts')->where(['id' => '(\d+)']);
 });
 ```
 
@@ -87,12 +90,12 @@ use App\Http\Controller;
 
 class Hello extends Controller
 {
-	public function index()
-	{
-		$name = 'Budi';
+    public function index()
+    {
+        $name = 'Budi';
 
-		return view('welcome', compact('name'));
-	}
+        return view('welcome', compact('name'));
+    }
 }
 ```
 
@@ -101,9 +104,9 @@ class Hello extends Controller
 $user = User::first();
 
 $users = User::whereIn('id', [1, 2, 3])
-	->orWhere('email', '=', $email)
-	->take(10)
-	->get();
+    ->orWhere('email', '=', $email)
+    ->take(10)
+    ->get();
 ```
 
 ## Unit Testing

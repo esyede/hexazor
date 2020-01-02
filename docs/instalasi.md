@@ -63,8 +63,8 @@ Jika Anda tidak memiliki file tersebut, silahkan buat sebuah file di root webser
   RewriteEngine On
 
   # cegah akses ke file - file framework
-  RewriteRule ^(app|config|system|database) - [F]
-  RewriteRule ^(routes|storage|resources|vendor) - [F]
+  RewriteRule ^(app|config|system|database|routes) - [F]
+  RewriteRule ^(storage|resources|tests|vendor) - [F]
 
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
@@ -80,8 +80,8 @@ Options -MultiViews
 RewriteEngine on
 
 # cegah akses ke file - file framework
-RewriteRule ^(app|config|system|database) - [F]
-RewriteRule ^(routes|storage|resources|vendor) - [F]
+RewriteRule ^(app|config|system|database|routes) - [F]
+RewriteRule ^(storage|resources|tests|vendor) - [F]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

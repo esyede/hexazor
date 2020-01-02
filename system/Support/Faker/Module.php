@@ -23,7 +23,7 @@ class Module
 
             try {
                 $defaultLang = Config::get('app.default_language', 'en');
-                $path = resources_path('lang/'.$defaultLang.'/faker/'.$name.'.php');
+                $path = resource_path("lang/{$defaultLang}/faker/{$name}.php");
                 $config = Storage::getRequire($path);
 
                 if (is_null($config)) {
