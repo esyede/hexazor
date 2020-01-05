@@ -109,9 +109,10 @@ class User extends Model
 {
     // ..
 }
+```
 
-// pemanggilan dari dalam controller
-
+Pemanggilan dari dalam controller:
+```php
 $user = User::first();
 
 $users = User::whereIn('id', [1, 2, 3])
