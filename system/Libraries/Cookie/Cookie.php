@@ -6,6 +6,7 @@ defined('DS') or exit('No direct script access allowed.');
 
 use Exception;
 use System\Core\Config;
+use System\Facades\Crypt;
 use System\Facades\Request;
 
 class Cookie
@@ -35,13 +36,13 @@ class Cookie
     public function get($name, $default = null)
     {
         if (isset($this->jar[$name])) {
-            return $this->parse($this->jar[$name]['value']);
+            return Crypt::decrypt($this->jar[$name]['value']);
         }
 
         $value = Request::cookie($name, null);
 
         if (!is_null($value)) {
-            return $this->parse($value);
+            return Crypt::decrypt($value);
         }
 
         return value($default);
@@ -63,7 +64,7 @@ class Cookie
             $expiration = time() + ($expiration * 60);
         }
 
-        $value = $this->hash($value).'+'.$value;
+        $value = Crypt::encrypt($value);
 
         if ($secure && !Request::isSecure()) {
             throw new Exception('Attempting to set secure cookie over HTTP.');
@@ -88,11 +89,11 @@ class Cookie
     }
 
     /**
-     * Lihat isi cookie jar.
+     * Lihat semua isi cookie jar.
      *
      * @return array
      */
-    public function jar()
+    public function all()
     {
         return $this->jar;
     }
@@ -109,40 +110,6 @@ class Cookie
     {
         if (isset($this->jar[$name])) {
             return $this->put($name, null, -2000, $path, $domain, $secure);
-        }
-    }
-
-    /**
-     * Hash value cookie yang diberikan.
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    public function hash($value)
-    {
-        return hash_hmac('sha1', $value, Config::get('app.application_key'));
-    }
-
-    /**
-     * Parse value cookie yang di-hash.
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    protected function parse($value)
-    {
-        $segments = explode('+', $value);
-
-        if (count($segments) < 2) {
-            return;
-        }
-
-        $value = implode('+', array_slice($segments, 1));
-
-        if ($segments[0] === $this->hash($value)) {
-            return $value;
         }
     }
 }
