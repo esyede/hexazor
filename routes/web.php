@@ -16,4 +16,4 @@ use System\Core\Route;
 |
 */
 
-Route::middleware('auth')->get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
