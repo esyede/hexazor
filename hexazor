@@ -3,6 +3,8 @@
 
 require __DIR__.'/bootstrap.php';
 
-$console = new System\Console\Console($argv);
+use System\Console\Console;
+
+$console = new Console($argv);
 $status = $console->run();
 exit($status);

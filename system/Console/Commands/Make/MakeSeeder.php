@@ -7,7 +7,7 @@ use System\Console\Generators\GeneralFile;
 class MakeSeeder extends GeneralFile
 {
     protected $signature = 'make:seeder {name}';
-    protected $description = 'Create a new seeder class.';
+    protected $description = 'Create a new seeder class';
     protected $type = 'Seeder';
 
     /**

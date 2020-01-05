@@ -7,7 +7,7 @@ use System\Console\Generators\GeneralFile;
 class MakeController extends GeneralFile
 {
     protected $signature = 'make:controller {name}';
-    protected $description = 'Create a new controller class.';
+    protected $description = 'Create a new controller class';
     protected $type = 'Controller';
 
     /**

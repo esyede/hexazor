@@ -13,7 +13,7 @@ use System\Support\Str;
 class RouteList extends Command
 {
     protected $signature = 'route:list';
-    protected $description = 'List defined routes.';
+    protected $description = 'List all defined routes';
 
     /**
      * Tangani command ini.

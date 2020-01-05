@@ -9,7 +9,7 @@ use System\Console\Generators\MigrationFile;
 class MakeMigration extends MigrationFile
 {
     protected $signature = 'make:migration {name}';
-    protected $description = 'Create a new migration file';
+    protected $description = 'Create a new migration class';
     protected $creator;
 
     /**

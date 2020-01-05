@@ -7,7 +7,7 @@ use System\Console\Generators\GeneralFile;
 class MakeCommand extends GeneralFile
 {
     protected $signature = 'make:command {name}';
-    protected $description = 'Create a new console command.';
+    protected $description = 'Create a new console command';
     protected $type = 'Command';
 
     /**

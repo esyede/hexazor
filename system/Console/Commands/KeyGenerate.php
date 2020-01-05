@@ -10,7 +10,7 @@ use System\Support\Str;
 class KeyGenerate extends Command
 {
     protected $signature = 'key:generate';
-    protected $description = 'Set the application key.';
+    protected $description = 'Set the application key';
 
     /**
      * Tangani command ini.

@@ -9,7 +9,7 @@ use System\Console\Command;
 class DbSeed extends Command
 {
     protected $signature = 'db:seed';
-    protected $description = 'Seed the database with records.';
+    protected $description = 'Seed the database with records';
 
     /**
      * Tangani command ini.

@@ -7,7 +7,7 @@ use System\Console\Generators\GeneralFile;
 class MakeMiddleware extends GeneralFile
 {
     protected $signature = 'make:middleware {name}';
-    protected $description = 'Create a new middleware class.';
+    protected $description = 'Create a new middleware class';
     protected $type = 'Middleware';
 
     /**
