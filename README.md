@@ -113,6 +113,9 @@ class User extends Model
 
 Pemanggilan dari dalam controller:
 ```php
+use App\User;
+
+
 $user = User::first();
 
 $users = User::whereIn('id', [1, 2, 3])
