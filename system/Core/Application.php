@@ -54,9 +54,26 @@ class Application
     private function includeComposerAutoloaderIfExists()
     {
         $path = base_path('vendor/autoload.php');
-        if (is_file($path) && true == Config::get('app.composer_autoload')) {
+        if (is_file($path) && true === Config::get('app.composer_autoload', true)) {
+            $this->protectVendorDirWithHtaccess();
             require_once $path;
         }
+    }
+
+    /**
+     * Proteksiksi direktori 'vendor/' milik composer dengan htaccess.
+     *
+     * @return bool
+     */
+    private function protectVendorDirWithHtaccess()
+    {
+        $path = base_path('vendor/.htaccess');
+
+        if (!is_file($path)) {
+            return (false !== file_put_contents($path, 'deny from all', LOCK_EX));
+        }
+
+        return true;
     }
 
     /**
