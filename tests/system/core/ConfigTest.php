@@ -27,15 +27,15 @@ class ConfigTest extends TestCase
     public function testGet()
     {
         $this->assertFalse(Config::get('session.lifetime') === 0);
-        $this->assertTrue(Config::get('session.lifetime') === 3600);
+        $this->assertTrue(Config::get('session.lifetime') === 60);
     }
 
     public function testSet()
     {
-        Config::set('session.lifetime', 8000);
+        Config::set('session.lifetime', 80);
 
-        $this->assertSame(Config::get('session.lifetime'), 8000);
-        $this->assertFalse(Config::get('session.lifetime') !== 8000);
+        $this->assertSame(Config::get('session.lifetime'), 80);
+        $this->assertFalse(Config::get('session.lifetime') !== 80);
     }
 
     public function testHas()
@@ -60,16 +60,16 @@ class ConfigTest extends TestCase
 
     public function testOffsetGet()
     {
-        $this->assertSame($this->config->offsetGet('session.lifetime'), 8000);
-        $this->assertFalse($this->config->offsetGet('session.lifetime') !== 8000);
+        $this->assertSame($this->config->offsetGet('session.lifetime'), 80);
+        $this->assertFalse($this->config->offsetGet('session.lifetime') !== 80);
     }
 
     public function testOffsetSet()
     {
-        $this->assertTrue($this->config->offsetSet('session.lifetime', 10000));
-        $this->assertFalse($this->config->offsetGet('session.lifetime') !== 10000);
-        $this->assertTrue($this->config->get('session.lifetime') === 10000);
-        $this->assertFalse($this->config->get('session.lifetime') !== 10000);
+        $this->assertTrue($this->config->offsetSet('session.lifetime', 100));
+        $this->assertFalse($this->config->offsetGet('session.lifetime') !== 100);
+        $this->assertTrue($this->config->get('session.lifetime') === 100);
+        $this->assertFalse($this->config->get('session.lifetime') !== 100);
     }
 
     public function testOffsetUnset()
@@ -77,7 +77,7 @@ class ConfigTest extends TestCase
         $this->assertTrue($this->config->offsetUnset('session.lifetime'));
         $this->assertArrayHasKey('lifetime', $this->config->get('session'));
         // put back default value
-        $this->config->offsetSet('session.lifetime', 3600);
+        $this->config->offsetSet('session.lifetime', 60);
     }
 
     public function __destruct()
