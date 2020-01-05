@@ -12,7 +12,7 @@ use System\Facades\View;
 use System\Support\Arr;
 use System\Support\Str;
 
-class Router
+class Route
 {
     private static $routes = [];
     private static $middlewares = [];

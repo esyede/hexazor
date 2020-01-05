@@ -1,10 +1,10 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use System\Core\Router as Route;
+use System\Core\Route;
 use System\Debugger\Debugger;
 
-class RouterTest extends TestCase
+class RouteTest extends TestCase
 {
     public function __construct()
     {

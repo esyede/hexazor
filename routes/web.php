@@ -2,7 +2,7 @@
 
 defined('DS') or exit('No direct script access allowed.');
 
-use System\Core\Router as Route;
+use System\Core\Route;
 
 /*
 |--------------------------------------------------------------------------

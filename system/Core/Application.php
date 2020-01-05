@@ -94,7 +94,7 @@ class Application
     private function dispatchRouteDefinitions()
     {
         $this->getRouteDefinitions();
-        Router::run();
+        Route::run();
     }
 
     /**

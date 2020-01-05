@@ -1,7 +1,7 @@
 <?php
 
 use System\Core\Config;
-use System\Core\Router;
+use System\Core\Route;
 use System\Debugger\Debugger;
 use System\Debugger\Dumper;
 use System\Support\Arr;
@@ -266,7 +266,7 @@ if (!function_exists('slug')) {
 if (!function_exists('route')) {
     function route($name, array $params = [])
     {
-        return link_to(Router::getUrl($name, $params));
+        return link_to(Route::getUrl($name, $params));
     }
 }
 

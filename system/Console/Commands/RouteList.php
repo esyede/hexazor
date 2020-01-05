@@ -7,7 +7,7 @@ defined('DS') or exit('No direct script access allowed.');
 use Closure;
 use System\Console\Command;
 use System\Console\Table;
-use System\Core\Router;
+use System\Core\Route;
 use System\Support\Str;
 
 class RouteList extends Command
@@ -25,7 +25,7 @@ class RouteList extends Command
         $routes = [];
 
         $this->getRouteDefinitions();
-        $routes = Router::getRoutes();
+        $routes = Route::getRoutes();
 
         $table = new Table();
 

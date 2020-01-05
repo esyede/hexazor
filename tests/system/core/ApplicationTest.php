@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use System\Core\Config;
-use System\Core\Router;
+use System\Core\Route;
 use System\Debugger\Debugger;
 
 class ApplicationTest extends TestCase
@@ -55,8 +55,8 @@ class ApplicationTest extends TestCase
 
     public function testDispatchRouteDefinitions()
     {
-        $this->assertTrue(is_array(Router::getRoutes()));
-        $this->assertFalse(blank(Router::getRoutes()));
+        $this->assertTrue(is_array(Route::getRoutes()));
+        $this->assertFalse(blank(Route::getRoutes()));
     }
 
     public function __destruct()
