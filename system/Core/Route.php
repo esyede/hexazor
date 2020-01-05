@@ -156,7 +156,7 @@ class Route
      */
     private static function addMiddleware($name, $class)
     {
-        static::$middlewares[$name] = $class.'@handle';
+        static::$middlewares[$name][] = $class.'@handle';
     }
 
     /**
@@ -336,23 +336,14 @@ class Route
                 $methodCheck = static::checkMethod($route);
 
                 if ($domainCheck && $methodCheck && $ipCheck && $sslCheck) {
-                    $matched++;
-                    array_shift($params);
-                    if (isset($route['middlewares'])) {
-                        foreach ($route['middlewares'] as $name => $middleware) {
-                            list($class, $method) = explode('@', $middleware);
-                            if (class_exists($class)) {
-                                $object = new $class();
-                                if (!method_exists($object, 'handle')) {
-                                    throw new RuntimeException(
-                                        'Middleware handler not found: '.$class.'::handle()'
-                                    );
-                                }
 
-                                call_user_func_array([$object, $method], []);
-                            } else {
-                                throw new RuntimeException('Middleware class not found: '.$class);
-                            }
+                    $matched++;
+
+                    array_shift($params);
+
+                    if (isset($route['middlewares'])) {
+                        foreach ($route['middlewares'] as $name => $middlewares) {
+                            static::callMiddlewares($middlewares);
                         }
                     }
 
@@ -374,6 +365,30 @@ class Route
 
         if (0 === $matched) {
             static::showPageNotFound();
+        }
+    }
+
+    /**
+     * Panggil array middleware yang telah didaftarkan.
+     *
+     * @param array $middlewares
+     *
+     * @return void
+     */
+    private static function callMiddlewares(array $middlewares)
+    {
+        foreach ($middlewares as $middleware) {
+            list($class, $method) = explode('@', $middleware);
+            if (class_exists($class)) {
+                $object = new $class();
+                if (!method_exists($object, 'handle')) {
+                    throw new RuntimeException('Middleware handler not found: '.$class.'::handle()');
+                }
+
+                call_user_func_array([$object, $method], []);
+            } else {
+                throw new RuntimeException('Middleware class not found: '.$class);
+            }
         }
     }
 
