@@ -4,234 +4,129 @@ namespace System\Libraries\Session;
 
 defined('DS') or exit('No direct script access allowed.');
 
+use Closure;
+use Exception;
 use System\Core\Config;
-use System\Debugger\Debugger;
+use System\Database\Database;
+use System\Facades\Cookie;
 
 class Session
 {
-    private $config;
+    protected $driver;
+    protected $registrar = [];
 
     /**
-     * Constructor.
+     * Buat payload Session baru.
      */
     public function __construct()
     {
-        $this->config = Config::get('session');
-
-        if (true === $this->config['cookie_httponly']) {
-            ini_set('session.cookie_httponly', 1);
-        }
-
-        if (true === $this->config['use_only_cookies']) {
-            ini_set('session.use_only_cookies', 1);
-        }
-
-        ini_set('session.gc_maxlifetime', $this->config['lifetime']);
-        session_set_cookie_params($this->config['lifetime']);
-
-        $this->init();
+        $this->load();
     }
 
     /**
-     * Mulai session.
+     * Buat payload session dan load library session.
+     *
+     * @return void
      */
-    private function init()
+    public function load()
     {
-        if (!$this->started()) {
-            if (!Debugger::isEnabled()) {
-                if (!Debugger::DETECT) {
-                    Debugger::dispatch();
-                }
-            }
-
-            @session_start();
-            Debugger::dispatch();
-            $this->put('session_id', $this->generateSessionId());
-        } else {
-            if (!hash_equals($this->get('session_id'), $this->generateSessionId())) {
-                $this->destroy();
-            }
-        }
-
-        $this->put('csrf_token', $this->generateCsrfToken());
+        $this->start(Config::get('session.driver'));
+        $this->driver->load(Cookie::get(Config::get('session.cookie')));
     }
 
     /**
-     * Cek apakah session sudah aktif atau belum.
+     * Buat payload session untuk request saat ini.
+     *
+     * @param  string $driver
+     *
+     * @return void
+     */
+    public function start($driver)
+    {
+        $this->driver = new Payload($this->factory($driver));
+    }
+
+    /**
+     * Buat payload baru session driver.
+     *
+     * @param  string $driver
+     *
+     * @return \System\Libraries\Session\Drivers\Driver
+     */
+    public function factory($driver)
+    {
+        if (isset($this->registrar[$driver])) {
+            $resolver = $this->registrar[$driver];
+
+            return $resolver();
+        }
+
+        switch ($driver) {
+            case 'cookie': return new Drivers\CookieDriver();
+            case 'database': return new Drivers\DbDriver(Database::connection());
+            case 'file': return new Drivers\FileDriver(storage_path('sytem/sessions/'));
+            case 'memory': return new Drivers\MemoryDriver();
+            default: throw new Exception("Session driver [$driver] is not supported.");
+        }
+    }
+
+    /**
+     * Ambil daftar registrar diver.
+     *
+     * @return array
+     */
+    public function registrar()
+    {
+        return $this->registrar;
+    }
+
+    /**
+     * Ambil object driver saat ini.
+     *
+     * @return \System\Libraries\Session\Payload
+     */
+    public function driver()
+    {
+        if ($this->started()) {
+            return $this->driver;
+        }
+
+        throw new Exception("A driver must be set before using the session.");
+    }
+
+    /**
+     * Cek apakah session handler sudah di start atau belum
      *
      * @return bool
      */
     public function started()
     {
-        return PHP_SESSION_ACTIVE === session_status();
+        return !is_null($this->driver);
     }
 
     /**
-     * Simpan data ke session.
+     * Daftarkan session driver baru
      *
-     * @param string $key
-     * @param mixed  $value
+     * @param  strung   $driver
+     * @param  \Closure $resolver
+     *
+     * @return void
      */
-    public function put($key, $value = null)
+    public function extend($driver, Closure $resolver)
     {
-        if (is_array($key)) {
-            foreach ($key as $key => $value) {
-                $_SESSION[$key] = $value;
-            }
-        } else {
-            $_SESSION[$key] = $value;
-        }
+        $this->registrar[$driver] = $resolver;
     }
 
     /**
-     * Ambil data dari session.
+     * Magic Method call.
      *
-     * @param string $key
-     * @param mixed  $default
+     * @param  string $method
+     * @param  array  $parameters
      *
      * @return mixed
      */
-    public function get($key, $default = null)
+    public function __call($method, $parameters)
     {
-        return $this->has($key) ? $_SESSION[$key] : $default;
-    }
-
-    /**
-     * Cek apakah session key ada.
-     *
-     * @param string $key
-     *
-     * @return bool
-     */
-    public function has($key)
-    {
-        return isset($_SESSION[$key]);
-    }
-
-    /**
-     * Lupakan / unset data session.
-     *
-     * @param string $key
-     */
-    public function forget($key = null)
-    {
-        if (is_null($key)) {
-            session_unset();
-        } else {
-            unset($_SESSION[$key]);
-        }
-    }
-
-    /**
-     * Destroy / hapus semua data.
-     */
-    public function destroy()
-    {
-        if (!isset($_SESSION)) {
-            $_SESSION = [];
-        }
-
-        session_unset();
-        session_destroy();
-    }
-
-    /**
-     * Set session flash.
-     *
-     * @param string $message
-     * @param string $url
-     */
-    public function setFlash($message, $url = null)
-    {
-        $this->set('flash', $message);
-
-        if (!is_null($url)) {
-            header("Location: $url");
-            exit();
-        }
-    }
-
-    /**
-     * Ambil session flasl.
-     *
-     * @return mixed
-     */
-    public function getFlash()
-    {
-        $flash = $this->get('flash');
-        $this->forget('flash');
-
-        return $flash;
-    }
-
-    /**
-     * Cek apakah ada session flash yang tersimpan atau tidak.
-     *
-     * @return bool
-     */
-    public function hasFlash()
-    {
-        return $this->has('flash');
-    }
-
-    /**
-     * Ambil semua sssion (termasuk session_id, dan csrf_token).
-     *
-     * @return array
-     */
-    public function all()
-    {
-        $sessions = $_SESSION;
-        unset($sessions['__DEBUGGER']);
-
-        return $sessions;
-    }
-
-    /**
-     * Ambil value CSRF token.
-     *
-     * @return string
-     */
-    public function token()
-    {
-        return $this->get('csrf_token');
-    }
-
-    /**
-     * Ambil value session id.
-     *
-     * @return string
-     */
-    public function id()
-    {
-        return $this->get('session_id');
-    }
-
-    /**
-     * Buat session hash.
-     *
-     * @return string
-     */
-    private function generateSessionId()
-    {
-        $string = Config::get('app.application_key');
-
-        if (isset($_SERVER['REMOTE_ADDR']) && isset($_SERVER['HTTP_USER_AGENT'])) {
-            $string .= $_SERVER['REMOTE_ADDR'].$_SERVER['HTTP_USER_AGENT'];
-        }
-
-        $string .= random_bytes(16);
-
-        return md5(base64_encode($string));
-    }
-
-    /**
-     * Buat token anti CSRF.
-     *
-     * @return string
-     */
-    private function generateCsrfToken()
-    {
-        return base64_encode(random_bytes(16).microtime(true));
+        return call_user_func_array([$this->driver(), $method], $parameters);
     }
 }

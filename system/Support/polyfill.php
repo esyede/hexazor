@@ -144,28 +144,28 @@ if (!function_exists('json_last_error_msg')) {
 }
 
 if (!function_exists('array_column')) {
-    function array_column(array $input, $columnKey, $indexKey = null)
+    function array_column(array $input, $column_key, $index_key = null)
     {
         $output = [];
         foreach ($input as $row) {
             $key = $value = null;
-            $keySet = $valueSet = false;
+            $key_set = $value_set = false;
 
-            if (null !== $indexKey && array_key_exists($indexKey, $row)) {
-                $keySet = true;
-                $key = (string) $row[$indexKey];
+            if (null !== $index_key && array_key_exists($index_key, $row)) {
+                $key_set = true;
+                $key = (string) $row[$index_key];
             }
 
-            if (null === $columnKey) {
-                $valueSet = true;
+            if (null === $column_key) {
+                $value_set = true;
                 $value = $row;
-            } elseif (is_array($row) && array_key_exists($columnKey, $row)) {
-                $valueSet = true;
-                $value = $row[$columnKey];
+            } elseif (is_array($row) && array_key_exists($column_key, $row)) {
+                $value_set = true;
+                $value = $row[$column_key];
             }
 
-            if ($valueSet) {
-                if ($keySet) {
+            if ($value_set) {
+                if ($key_set) {
                     $output[$key] = $value;
                 } else {
                     $output[] = $value;
@@ -323,8 +323,8 @@ if (!function_exists('hash_equals')) {
             return false;
         }
 
-        $knownLen = _polyfill_strlen($known_string);
-        $userLen = _polyfill_strlen($user_string);
+        $knownLen = mb_strlen($known_string, '8BIT');
+        $userLen = mb_strlen($user_string, '8BIT');
 
         if ($knownLen !== $userLen) {
             return false;
@@ -666,13 +666,13 @@ if (!function_exists('mb_ord')) {
 // PHP 7.3+
 // ---------------------------------------------------------------------
 if (!function_exists('hrtime')) {
-    function hrtime($asNum = false)
+    function hrtime($as_num = false)
     {
         $ns = microtime(false);
         $s = substr($ns, 11) - 1533462603;
         $ns = 1E9 * (float) $ns;
 
-        if ($asNum) {
+        if ($as_num) {
             $ns += $s * 1E9;
 
             return PHP_INT_SIZE === 4 ? $ns : (int) $ns;
@@ -683,9 +683,9 @@ if (!function_exists('hrtime')) {
 }
 
 if (!function_exists('array_key_first')) {
-    function array_key_first(array $arr)
+    function array_key_first(array $array)
     {
-        foreach ($arr as $key => $unused) {
+        foreach ($array as $key => $unused) {
             return $key;
         }
     }
@@ -710,7 +710,7 @@ if (!function_exists('array_key_last')) {
                 || $var instanceof \SimpleXMLElement
             );
 
-            return $countable && (class_exists('ResourceBundle')
+            return $countable && (class_exists('\ResourceBundle')
                 ? ($countable instanceof \ResourceBundle) : $countable);
         }
     }

@@ -5,12 +5,13 @@ namespace System\Facades;
 defined('DS') or exit('No direct script access allowed.');
 
 use RuntimeException;
+use InvalidArgumentException;
 
 abstract class Facade
 {
     protected static $applications;
-    protected static $reselovedInstance = [];
-    protected static $createdInstances = [];
+    protected static $reseloved = [];
+    protected static $created = [];
 
     protected static function resolveInstance($facadeName)
     {
@@ -18,11 +19,11 @@ abstract class Facade
             return $facadeName;
         }
 
-        if (isset(static::$reselovedInstance[$facadeName])) {
-            return static::$reselovedInstance[$facadeName];
+        if (isset(static::$reseloved[$facadeName])) {
+            return static::$reseloved[$facadeName];
         }
 
-        return static::$reselovedInstance[$facadeName] = static::$applications['providers'][$facadeName];
+        return static::$reseloved[$facadeName] = static::$applications['providers'][$facadeName];
     }
 
     public static function setFacadeApplication($app)
@@ -37,7 +38,7 @@ abstract class Facade
 
     public static function clearResolvedInstance($facadeName)
     {
-        unset(static::$reselovedInstance[$facadeName]);
+        unset(static::$reseloved[$facadeName]);
     }
 
     public static function __callStatic($method, $params)
@@ -45,14 +46,14 @@ abstract class Facade
         $accessor = static::getFacadeAccessor();
         $provider = static::resolveInstance($accessor);
 
-        if (!isset(static::$createdInstances[$accessor])) {
+        if (!isset(static::$created[$accessor])) {
             if (!class_exists($provider)) {
                 throw new RuntimeException('Unable to resolve facade class: '.$accessor);
             }
 
-            static::$createdInstances[$accessor] = new $provider();
+            static::$created[$accessor] = new $provider();
         }
 
-        return call_user_func_array([static::$createdInstances[$accessor], $method], $params);
+        return call_user_func_array([static::$created[$accessor], $method], $params);
     }
 }

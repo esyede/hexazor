@@ -5,46 +5,111 @@ defined('DS') or exit('No direct script access allowed.');
 return [
     /*
     |--------------------------------------------------------------------------
-    | HTTP Only Cookie
+    | Session Driver
     |--------------------------------------------------------------------------
     |
-    | Jika di set ke TRUE, cookie hanya dapat diakses melalui protokol HTTP.
-    | Ini berarti bahwa cookie tidak akan dapat diakses oleh bahasa scripting,
-    | seperti JavaScript. Disarankan bahwa pengaturan ini dapat secara
-    | efektif membantu mengurangi pencurian identitas melalui serangan XSS
-    | (meskipun tidak didukung oleh semua browser), tetapi klaim tersebut maih
-    | sering diperdebatkan. Referensi:
-    | https://www.php.net/manual/en/session.configuration.php
+    | Nama driver session yang digunakan oleh aplikasi Anda. Karena HTTP
+    | sifatnya stateless, session digunakan untuk mensimulasikan "state" di
+    | seluruh request yang dibuat oleh user. Dengan kata lain, ini adalah
+    | bagaimana aplikasi mengetahui siapa sih sebenarnya Anda ini.
+    |
+    | Driver yang tersedia: 'cookie', 'file', 'database'.
     |
     */
 
-    'cookie_httponly'  => true,
+    'driver' => 'cookie',
 
     /*
     |--------------------------------------------------------------------------
-    | Session Use Only Cookie
+    | Session Database
     |--------------------------------------------------------------------------
     |
-    | Secara default, aplikasi harus menggunakan cookie untuk Session ID. Jika
-    | opsi ini dimatikan, modul session di PHP akan menggunakan value Session ID
-    | yang dibuat oleh GET / POST / URL. Disarankan untuk mengaktifkan opsi ini
-    | agar aplikasi Anda tetap mendapat tambahan proteksi. Referensi:
-    | https://www.php.net/manual/en/session.configuration.php
+    | Tabel database tempat session harus disimpan.
+    | Opsi ini digunakan saat Anda memilih 'database' sebagai driver session.
     |
     */
 
-    'use_only_cookies' => true,
+    'table' => 'sessions',
 
     /*
     |--------------------------------------------------------------------------
-    | Session Cookie Lifetime
+    | Session Garbage Collection Probability
     |--------------------------------------------------------------------------
     |
-    | Lamanya waktu aktif sebuah cookie (dalam satuan detik) sebelum dihapus
-    | oleh garbage collector. Referensi:
-    | https://www.php.net/manual/en/session.configuration.php
+    | Beberapa driver session memerlukan pembersihan manual dari session yang
+    | telah kadaluwarsa. Opsi ini menentukan probabilitas pengumpulan
+    | sampah session untuk setiap request yang diberikan ke aplikasi.
+    |
+    | Misalnya, nilai defaultnya memiliki peluang 2% untuk setiap request yang
+    | diberikan ke aplikasi. Sesuaikan ini dengan kebutuhan Anda.
     |
     */
 
-    'lifetime' => 3600,
+    'sweepage' => [2, 100],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Session Lifetime
+    |--------------------------------------------------------------------------
+    |
+    | Jumlah menit session aktif sebelum ia kadaluwarsa.
+    |
+    */
+
+    'lifetime' => 60,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Session Expiration On Close
+    |--------------------------------------------------------------------------
+    |
+    | Menentukan apakah session akan kedaluwarsa ketika browser ditutup.
+    |
+    */
+
+    'expire_on_close' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Session Cookie Name
+    |--------------------------------------------------------------------------
+    |
+    | Nama cookie untuk session.
+    |
+    */
+
+    'cookie' => 'hexazor_session',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Session Cookie Path
+    |--------------------------------------------------------------------------
+    |
+    | Path dimana cookie session diletakkan.
+    |
+    */
+
+    'path' => '/',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Session Cookie Domain
+    |--------------------------------------------------------------------------
+    |
+    | Domain dimana cookie session diletakkan.
+    |
+    */
+
+    'domain' => null,
+
+    /*
+    |--------------------------------------------------------------------------
+    | HTTPS Only Session Cookie
+    |--------------------------------------------------------------------------
+    |
+    | Tentukan apakah cookie hanya boleh dikirimkan melalui HTTPS.
+    |
+    */
+
+    'secure' => false,
 ];

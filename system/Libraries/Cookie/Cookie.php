@@ -10,7 +10,7 @@ use System\Facades\Request;
 
 class Cookie
 {
-    public static $jar = [];
+    protected $jar = [];
 
     /**
      * Cek apakah cookie ada atau tidak.
@@ -19,9 +19,9 @@ class Cookie
      *
      * @return bool
      */
-    public static function has($name)
+    public function has($name)
     {
-        return !is_null(static::get($name, null));
+        return !is_null($this->get($name, null));
     }
 
     /**
@@ -32,16 +32,16 @@ class Cookie
      *
      * @return mixed
      */
-    public static function get($name, $default = null)
+    public function get($name, $default = null)
     {
-        if (isset(static::$jar[$name])) {
-            return static::parse(static::$jar[$name]['value']);
+        if (isset($this->jar[$name])) {
+            return $this->parse($this->jar[$name]['value']);
         }
 
         $value = Request::cookie($name, null);
 
         if (!is_null($value)) {
-            return static::parse($value);
+            return $this->parse($value);
         }
 
         return value($default);
@@ -57,19 +57,19 @@ class Cookie
      * @param string $domain
      * @param bool   $secure
      */
-    public static function put($name, $value, $expiration = 0, $path = '/', $domain = null, $secure = false)
+    public function put($name, $value, $expiration = 0, $path = '/', $domain = null, $secure = false)
     {
         if (0 !== $expiration) {
             $expiration = time() + ($expiration * 60);
         }
 
-        $value = static::hash($value).'+'.$value;
+        $value = $this->hash($value).'+'.$value;
 
         if ($secure && !Request::isSecure()) {
             throw new Exception('Attempting to set secure cookie over HTTP.');
         }
 
-        static::$jar[$name] = compact('name', 'value', 'expiration', 'path', 'domain', 'secure');
+        $this->jar[$name] = compact('name', 'value', 'expiration', 'path', 'domain', 'secure');
     }
 
     /**
@@ -82,9 +82,19 @@ class Cookie
      * @param string $domain
      * @param bool   $secure
      */
-    public static function forever($name, $value, $path = '/', $domain = null, $secure = false)
+    public function forever($name, $value, $path = '/', $domain = null, $secure = false)
     {
-        return static::put($name, $value, 157680000, $path, $domain, $secure);
+        return $this->put($name, $value, 2628000, $path, $domain, $secure);
+    }
+
+    /**
+     * Lihat isi cookie jar.
+     *
+     * @return array
+     */
+    public function jar()
+    {
+        return $this->jar;
     }
 
     /**
@@ -95,10 +105,10 @@ class Cookie
      * @param string $domain
      * @param bool   $secure
      */
-    public static function forget($name, $path = '/', $domain = null, $secure = false)
+    public function forget($name, $path = '/', $domain = null, $secure = false)
     {
-        if (isset(static::$jar[$name])) {
-            return static::put($name, null, -157680000, $path, $domain, $secure);
+        if (isset($this->jar[$name])) {
+            return $this->put($name, null, -2000, $path, $domain, $secure);
         }
     }
 
@@ -109,7 +119,7 @@ class Cookie
      *
      * @return string
      */
-    public static function hash($value)
+    public function hash($value)
     {
         return hash_hmac('sha1', $value, Config::get('app.application_key'));
     }
@@ -121,7 +131,7 @@ class Cookie
      *
      * @return string
      */
-    protected static function parse($value)
+    protected function parse($value)
     {
         $segments = explode('+', $value);
 
@@ -131,7 +141,7 @@ class Cookie
 
         $value = implode('+', array_slice($segments, 1));
 
-        if ($segments[0] == static::hash($value)) {
+        if ($segments[0] === $this->hash($value)) {
             return $value;
         }
     }
