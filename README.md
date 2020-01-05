@@ -68,10 +68,7 @@ Berikut adalah kebutuhan dasar yang diperlukan untuk dapat menjalankan Hexazor:
 
 **Routing:**
 ```php
-Route::prefix('frontend')->namespaces('frontend')->middleware('auth')->group(function () {
-    Route::get('/', 'Home@index')->name('frontpage');
-    Route::get('/blog/{id?}', 'Blog@posts')->where(['id' => '(\d+)']);
-});
+Route::get('/', 'HomeController@index')->name('home');
 ```
 
 **View**
@@ -88,7 +85,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controller;
 
-class Hello extends Controller
+class HomeController extends Controller
 {
     public function index()
     {
@@ -101,6 +98,20 @@ class Hello extends Controller
 
 **Model:**
 ```php
+
+namespace App;
+
+defined('DS') or exit('No direct script access allowed.');
+
+use System\Database\ORM\Model;
+
+class User extends Model
+{
+    // ..
+}
+
+// pemanggilan dari dalam controller
+
 $user = User::first();
 
 $users = User::whereIn('id', [1, 2, 3])
