@@ -34,11 +34,9 @@ class RouteTest extends TestCase
     public function testMiddleware()
     {
         Route::middleware('auth');
+        $middlewares = Route::getMiddleware('auth');
 
-        $this->assertSame(
-            Route::getMiddleware('auth'),
-            'App\Http\Middleware\Authenticate@handle'
-        );
+        $this->assertTrue(in_array('App\Http\Middleware\Authenticate@handle', $middlewares));
 
         $this->assertTrue(Route::hasMiddleware('auth'));
         $this->assertSame(Route::getMiddleware('foobar'), null);
