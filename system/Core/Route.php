@@ -336,7 +336,6 @@ class Route
                 $methodCheck = static::checkMethod($route);
 
                 if ($domainCheck && $methodCheck && $ipCheck && $sslCheck) {
-
                     $matched++;
 
                     array_shift($params);
