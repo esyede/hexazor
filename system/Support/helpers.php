@@ -70,6 +70,13 @@ if (!function_exists('request')) {
     }
 }
 
+if (!function_exists('bcrypt')) {
+    function bcrypt($value)
+    {
+        return (new System\Libraries\Hash\Hash())->make($value);
+    }
+}
+
 if (!function_exists('event')) {
     function event($name, $action = null, array $params = [])
     {
