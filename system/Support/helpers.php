@@ -73,7 +73,9 @@ if (!function_exists('request')) {
 if (!function_exists('bcrypt')) {
     function bcrypt($value)
     {
-        return (new System\Libraries\Hash\Hash())->make($value);
+        $hash = new System\Libraries\Hash\Hash();
+
+        return $hash->make($value);
     }
 }
 
