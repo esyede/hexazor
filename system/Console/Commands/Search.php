@@ -5,6 +5,7 @@ namespace System\Console\Commands;
 defined('DS') or exit('No direct script access allowed.');
 
 use System\Console\Command;
+use System\Core\Application;
 
 class Search extends Command
 {
@@ -18,7 +19,7 @@ class Search extends Command
      */
     public function handle($keyword)
     {
-        $this->success('Welcome to Hexazor Console v'.VERSION);
+        $this->success('Welcome to Hexazor Console v'.Application::VERSION);
         $this->newline();
 
         if ($keyword) {

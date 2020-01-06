@@ -5,6 +5,7 @@ namespace System\Libraries\Mail;
 defined('DS') or exit('No direct script access allowed.');
 
 use Exception;
+use System\Core\Application;
 use System\Core\Config;
 
 class Mail
@@ -47,7 +48,7 @@ class Mail
         $this->port($this->config['port']);
 
         $this->headers['MIME-Version'] = '1.0';
-        $this->headers['X-Mailer'] = 'Hexazor Mail';
+        $this->headers['X-Mailer'] = Application::PACKAGE.' Mail';
 
         if (filled($this->config['mailer'])) {
             $this->headers['X-Mailer'] = $this->config['mailer'];
@@ -122,7 +123,7 @@ class Mail
      *
      * @return $this
      */
-    public function replyto($address, $name = null)
+    public function replyTo($address, $name = null)
     {
         $this->replyTo[] = [$address, $name];
 

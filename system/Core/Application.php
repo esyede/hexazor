@@ -13,6 +13,9 @@ use System\Support\Str;
 
 class Application
 {
+    const PACKAGE = 'Hexazor';
+    const VERSION = '0.9.3';
+
     /**
      * Constructor.
      */
