@@ -7,24 +7,24 @@ use System\Database\Schema;
 
 class CreateUsersTable extends Migration
 {
-	/**
-	 * Jalankan proses migrasi.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		//
-	}
+    /**
+     * Jalankan proses migrasi.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        //
+    }
 
 
-	/**
-	 * Balikkan poses migrasi.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		//
-	}
+    /**
+     * Balikkan poses migrasi.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        //
+    }
 }

@@ -18,14 +18,14 @@ use System\Loader\Autoloader;
 Config::init();
 
 if (is_null(Config::get('app.base_url', null))) {
-	$base = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http');
-	$base .= '://'.$_SERVER['HTTP_HOST'];
-	$base .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
-	Config::set('app.base_url', $base);
+    $base = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http');
+    $base .= '://'.$_SERVER['HTTP_HOST'];
+    $base .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+    Config::set('app.base_url', $base);
 } else {
-	$base = Config::get('app.base_url');
-	$base = rtrim($base, '/').'/';
-	Config::set('app.base_url', $base);
+    $base = Config::get('app.base_url');
+    $base = rtrim($base, '/').'/';
+    Config::set('app.base_url', $base);
 }
 
 
