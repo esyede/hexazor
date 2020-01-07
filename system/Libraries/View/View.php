@@ -880,12 +880,12 @@ class View
         }
 
         while ($templates = array_shift($this->templates)) {
-            $this->beginBlock('content');
+            $this->beginBlock('_view_data');
             require $this->prepare($templates);
             $this->endBlock(true);
         }
 
-        return $this->block('content');
+        return $this->block('_view_data');
     }
 
     /**

@@ -95,13 +95,6 @@ if (!function_exists('event')) {
     }
 }
 
-if (!function_exists('view')) {
-    function view($name, array $data = [], $returnOnly = false)
-    {
-        return View::make($name, $data = [], $returnOnly);
-    }
-}
-
 // ---------------------------------------------------------------------
 // Languages
 // ---------------------------------------------------------------------
@@ -232,7 +225,11 @@ if (!function_exists('resource_path')) {
 if (!function_exists('base_url')) {
     function base_url($url = null)
     {
-        return Request::baseUrl(ltrim(BASE_PATH, '/').'/'.ltrim($url, '/'));
+        $url = ltrim($url, '/');
+        $baseUrl = Config::get('app.base_url', 'http://localhost');
+        $baseUrl = rtrim($baseUrl, '/').'/';
+        
+        return $baseUrl.$url;
     }
 }
 
@@ -246,9 +243,9 @@ if (!function_exists('current_url')) {
 }
 
 if (!function_exists('link_to')) {
-    function link_to($url)
+    function link_to($url = null)
     {
-        return BASE_PATH.'/'.$url;
+        return base_url($url);
     }
 }
 

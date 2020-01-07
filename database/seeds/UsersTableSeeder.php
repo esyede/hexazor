@@ -8,9 +8,11 @@ class UsersTableSeeder extends Seeder
 {
     /**
      * Jalankan seeder database ini.
+     *
+     * @return void
      */
     public function run()
     {
-        // code..
+        //
     }
 }

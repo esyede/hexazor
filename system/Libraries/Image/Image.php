@@ -31,7 +31,7 @@ class Image
         $this->storage = storage_path('system/image/');
 
         if (!is_dir($this->storage)) {
-            if (false === @mkdir($this->storage, 0755, true)) {
+            if (false === @mkdir($this->storage, 0777, true)) {
                 throw new Exception('Unable to create temporary folder: '.$this->storage);
             }
         }

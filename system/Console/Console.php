@@ -7,6 +7,7 @@ defined('DS') or exit('No direct script access allowed.');
 use Closure;
 use Exception;
 use InvalidArgumentException;
+use System\Core\Config;
 
 class Console
 {
@@ -60,6 +61,8 @@ class Console
      */
     public function __construct(array $argv = null)
     {
+        date_default_timezone_set(Config::get('app.timezone', 'UTC'));
+
         if (is_null($argv)) {
             if (is_cli()) {
                 $argv = $GLOBALS['argv'];

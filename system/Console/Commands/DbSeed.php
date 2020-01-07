@@ -5,6 +5,7 @@ namespace System\Console\Commands;
 defined('DS') or exit('No direct script access allowed.');
 
 use System\Console\Command;
+use System\Debugger\Debugger;
 
 class DbSeed extends Command
 {

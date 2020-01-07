@@ -5,6 +5,7 @@ namespace System\Core;
 defined('DS') or exit('No direct script access allowed.');
 
 use App\Http\Kernel as AppHttpKernel;
+use BadMethodCallException;
 use Closure;
 use RuntimeException;
 use System\Facades\Response;
@@ -130,7 +131,9 @@ class Route
 
         foreach ($names as $name) {
             if (!isset($locals[$name])) {
-                throw new RuntimeException("No local middleware found with this name: {$name}");
+                throw new RuntimeException(
+                    "No local middleware found with this name: {$name}"
+                );
             }
 
             $classes = $locals[$name];
@@ -138,7 +141,9 @@ class Route
 
             foreach ($classes as $class) {
                 if (!class_exists($class)) {
-                    throw new RuntimeException("Local middleware class not found for '{$name}': {$class}");
+                    throw new RuntimeException(
+                        "Local middleware class not found for '{$name}': {$class}"
+                    );
                 }
 
                 static::addMiddleware($name, $class);
@@ -351,7 +356,14 @@ class Route
                     } elseif (false !== stripos($route['callback'], '@')) {
                         list($controller, $method) = explode('@', $route['callback']);
                         if (class_exists($controller)) {
-                            call_user_func_array([new $controller(), $method], array_values($params));
+                            $object = new $controller();
+                            if (!method_exists($controller, $method)) {
+                                throw new BadMethodCallException(
+                                    "Method [$method] does not exists on {$controller}"
+                                );
+                            }
+
+                            call_user_func_array([$object, $method], array_values($params));
                         } else {
                             static::showPageNotFound();
                         }

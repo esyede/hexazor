@@ -5,12 +5,29 @@ defined('DS') or exit('No direct script access allowed.');
 return [
     /*
     |--------------------------------------------------------------------------
+    | Base URL
+    |--------------------------------------------------------------------------
+    |
+    | URL ke halaman muka aplikasi Anda. Biasanya, ini akan menjadi URL halaman
+    | rumah situs Anda. Jika dikosongkan, maka Hexazor mencoba menebaknya
+    | via kombinasi $_SERVER['HTTP_HOST'] dan $_SERVER['SCRIPT_NAME'].
+    |
+    | Contoh isian base url:
+    | https://situsku.com atau jika aplikasi berada didalam subfolder:
+    | https://situsku.com/blog
+    |
+    */
+
+    'base_url' => '',
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Key
     |--------------------------------------------------------------------------
     |
     | Application key ini akan terisi otomatis saat Anda membuka halaman depan
     | aplikasi Anda. Ini berisi mminimal 32 karakter acak yang digunakan
-    | sebagai secret salt untuk enkripsi cookie, session dan library Crypt.
+    | sebagai secret salt untuk enkripsi cookie, cache, session dan Crypt.
     |
     | Anda boleh mengubahnya dengan command 'key:generate' di Hexazor Console
     | jika dirasa perlu. Namun, disarankan untuk tidak mengubahnya secara manual
@@ -67,17 +84,4 @@ return [
     */
 
     'default_language' => 'en',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Cache Expiration
-    |--------------------------------------------------------------------------
-    |
-    | Waktu maksimum sebelum sebuah cache di aplikasi Anda kadaluwarsa.
-    | Defaultnya adalah 604800 (1 minggu, dalam detik). Anda boleh
-    | mengubahnya sesuai kebutuhan.
-    |
-    */
-
-    'cache_expiration' => 604800,
 ];

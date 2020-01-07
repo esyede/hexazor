@@ -12,6 +12,7 @@ use System\Support\Str;
 class MigrationFile extends Command
 {
     protected $storage;
+    protected $migrationPath;
     protected $postCreate = [];
 
     /**
@@ -20,6 +21,7 @@ class MigrationFile extends Command
     public function __construct()
     {
         $this->storage = new Storage();
+        $this->migrationPath = database_path('migrations/');
     }
 
     /**
@@ -36,6 +38,7 @@ class MigrationFile extends Command
         $path = $this->getPath($name);
         $stub = $this->getStub($table, $create);
 
+        $this->ensureMigrationPathExists();
         $this->ensureMigrationDoesntAlreadyExist($name);
 
         $this->storage->put($path, $this->populateStub($name, $stub, $table));
@@ -72,16 +75,27 @@ class MigrationFile extends Command
      */
     protected function ensureMigrationDoesntAlreadyExist($name)
     {
-        $migrationPath = database_path('migrations/');
-        $migrationFiles = $this->storage->glob($migrationPath.'*.php');
+        $files = $this->storage->glob($this->migrationPath.'*.php');
 
-        foreach ($migrationFiles as $migrationFile) {
-            $this->storage->requireOnce($migrationFile);
+        foreach ($files as $file) {
+            $this->storage->requireOnce($file);
         }
 
         if (class_exists($className = $this->getClassName($name))) {
             $this->plain("A {$className} class already exists.");
             exit();
+        }
+    }
+
+    /**
+     * Pastikan folder migration sudah dibuat.
+     *
+     * @return void
+     */
+    protected function ensureMigrationPathExists()
+    {
+        if (!is_dir($this->migrationPath)) {
+            $this->storage->makeDirectory($this->migrationPath, 0777, true);
         }
     }
 

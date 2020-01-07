@@ -116,8 +116,8 @@ abstract class GeneralFile extends Command
      */
     protected function makeDirectory($path)
     {
-        if (!$this->storage->isDirectory(dirname($path))) {
-            $this->storage->makeDirectory(dirname($path), 0777, true, true);
+        if (!is_dir(dirname($path))) {
+            $this->storage->makeDirectory(dirname($path), 0777, true);
         }
 
         return $path;

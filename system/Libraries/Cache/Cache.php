@@ -77,19 +77,21 @@ class Cache
      *
      * @param string $key
      * @param mixed  $value
-     * @param int    $seconds
+     * @param int    $minutes
      *
      * @return bool
      */
-    public function put($key, $value, $seconds = null)
+    public function put($key, $value, $minutes)
     {
-        $filepath = $this->path.$this->encode($key).'.cache';
-        $seconds = blank($seconds) ? 157680000 : $seconds;
+        if ($minutes <= 0) {
+            return;
+        }
 
-        $value = $this->expiration($seconds).serialize($value);
+        $file = $this->path.$this->encode($key).'.cache';
+        $value = $this->expiration($minutes).serialize($value);
         $value = Crypt::encrypt($value);
 
-        return Storage::put($filepath, $value, true);
+        return Storage::put($file, $value, true);
     }
 
     /**
@@ -98,11 +100,11 @@ class Cache
      *
      * @param string $key
      * @param mixed  $default
-     * @param int    $seconds
+     * @param int    $minutes
      *
      * @return mixed
      */
-    public function remember($key, $default, $seconds = null)
+    public function remember($key, $default, $minutes)
     {
         $item = $this->get($key, null);
 
@@ -111,14 +113,14 @@ class Cache
         }
 
         $default = value($default);
-        $this->put($key, $default, $seconds);
+        $this->put($key, $default, $minutes);
 
         return $default;
     }
 
     /**
      * Simpan item ke cache secara permanen / selamanya.
-     * Selamanya disini maksudnya 5 tahun.
+     * Selamanya disini maksudnya 5 tahun dalam menit.
      *
      * @param string $key
      * @param mixed  $value
@@ -127,7 +129,7 @@ class Cache
      */
     public function forever($key, $value)
     {
-        return $this->put($key, $value, 157680000);
+        return $this->put($key, $value, 2628000);
     }
 
     /**
@@ -181,9 +183,16 @@ class Cache
         return $this->path;
     }
 
-    protected function expiration($seconds)
+    /**
+     * Ambil waktu kadaluwarsa cache dalam format UNIX timestamp.
+     *
+     * @param  int $minutes
+     *
+     * @return int
+     */
+    protected function expiration($minutes)
     {
-        return time() + $seconds;
+        return time() + ($minutes * 60);
     }
 
     /**

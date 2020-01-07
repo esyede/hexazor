@@ -13,7 +13,7 @@ return [
     | seluruh request yang dibuat oleh user. Dengan kata lain, ini adalah
     | bagaimana aplikasi mengetahui siapa sih sebenarnya Anda ini.
     |
-    | Driver yang tersedia: 'cookie', 'file', 'database'.
+    | Pilihan driver: 'cookie', 'file', 'database'.
     |
     */
 
