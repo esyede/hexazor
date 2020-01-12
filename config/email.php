@@ -8,7 +8,7 @@ return [
     | SMTP Host
     |--------------------------------------------------------------------------
     |
-    | Host dari smtp server Anda. Secara default, Hexazor menggunakan Mailtrap
+    | Host dari SMTP server Anda. Secara default, Hexazor menggunakan Mailtrap
     | untuk keperluan testing, namun Anda boleh mengubahnya sesuai kebutuhan.
     |
     */
@@ -21,7 +21,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Protokol SMTP yang Anda gunakan, bisa diisi dengan 'tcp', 'ssl' atau
-    | asalkan mendukung pengiriman email via SMTP.
+    | apapun asalkan mendukung pengiriman email via SMTP.
     |
     */
 
@@ -79,7 +79,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Set encoding karakter yang akan digunakan untuk pengiriman email Anda.
-    | UTF-8 adalah character set standar yang lazim digunakan, akan tetapi,
+    | UTF-8 adalah encoding standar yang lazim digunakan, akan tetapi,
     | Anda boleh mengubahnya ke character set lain.
     |
     */

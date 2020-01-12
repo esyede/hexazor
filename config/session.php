@@ -9,8 +9,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | Nama driver session yang digunakan oleh aplikasi Anda. Karena HTTP
-    | sifatnya stateless, session digunakan untuk mensimulasikan "state" di
-    | seluruh request yang dibuat oleh user. Dengan kata lain, ini adalah
+    | sifatnya state-less, session digunakan untuk mensimulasikan "state" di
+    | seluruh request yang dibuat oleh user. Dengan kata lain, ini adalah cara
     | bagaimana aplikasi mengetahui siapa sih sebenarnya Anda ini.
     |
     | Pilihan driver: 'cookie', 'file', 'database'.
@@ -24,8 +24,8 @@ return [
     | Session Database
     |--------------------------------------------------------------------------
     |
-    | Tabel database tempat session harus disimpan.
-    | Opsi ini digunakan saat Anda memilih 'database' sebagai driver session.
+    | Tabel database tempat session harus disimpan. Opsi ini digunakan saat
+    | Anda memilih 'database' sebagai session driver.
     |
     */
 
@@ -37,8 +37,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | Beberapa driver session memerlukan pembersihan manual dari session yang
-    | telah kadaluwarsa. Opsi ini menentukan probabilitas pengumpulan
-    | sampah session untuk setiap request yang diberikan ke aplikasi.
+    | telah kadaluwarsa. Opsi ini menentukan probabilitas pengumpulan sampah
+    | session untuk setiap request yang diberikan ke aplikasi.
     |
     | Misalnya, nilai defaultnya memiliki peluang 2% untuk setiap request yang
     | diberikan ke aplikasi. Sesuaikan ini dengan kebutuhan Anda.
@@ -63,7 +63,8 @@ return [
     | Session Expiration On Close
     |--------------------------------------------------------------------------
     |
-    | Menentukan apakah session akan kedaluwarsa ketika browser ditutup.
+    | Opsi untuk menentukan apakah session akan kadaluwarsa ketika user
+    | menutup browser miliknya.
     |
     */
 
@@ -74,7 +75,7 @@ return [
     | Session Cookie Name
     |--------------------------------------------------------------------------
     |
-    | Nama cookie untuk session.
+    | Nama cookie untuk session. Silahkan ubah jika dirasa perlu.
     |
     */
 
@@ -85,7 +86,7 @@ return [
     | Session Cookie Path
     |--------------------------------------------------------------------------
     |
-    | Path dimana cookie session diletakkan.
+    | Path dimana cookie session diletakkan. Silahkan ubah jika dirasa perlu.
     |
     */
 
@@ -96,7 +97,7 @@ return [
     | Session Cookie Domain
     |--------------------------------------------------------------------------
     |
-    | Domain dimana cookie session diletakkan.
+    | Domain dimana cookie session diletakkan. Silahkan ubah jika dirasa perlu.
     |
     */
 

@@ -10,7 +10,7 @@ return [
     |
     | Jika mode ini diaktifkan, setiap error yang terjadi akan menyebabkan
     | eksekusi aplikasi Anda akan langsung dihentikan; jika sebaliknya, maka
-    | aplikasi akan tetap nerjalan dan error hanya akan ditampilkan di debug bar.
+    | aplikasi akan tetap berjalan, error hanya akan ditampilkan di debug bar.
     |
     */
 
@@ -21,8 +21,8 @@ return [
     | Scream!
     |--------------------------------------------------------------------------
     |
-    | Non-aktifkan operator @ (diam!) sehingga notice dan warning tidak lagi
-    | disembunyikan oleh PHP.
+    | Opsi untuk menonaktifkan operator @ (diam!) sehingga notice dan warning
+    | tidak lagi disembunyikan oleh PHP.
     |
     */
 
@@ -56,8 +56,8 @@ return [
     | Maximum Depth
     |--------------------------------------------------------------------------
     |
-    | Sebarapa string yang harus ditampilkan ketika Anda memanggil perintah
-    | dd(), bd() dan dump() ?
+    | Sebarapa banyak string yang harus ditampilkan ketika Anda memanggil
+    | perintah dd(), bd() dan dump() ?
     |
     */
 

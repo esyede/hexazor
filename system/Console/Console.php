@@ -217,9 +217,7 @@ class Console
      */
     public function hasOption($option)
     {
-        $options = (array) $this->options;
-
-        return array_key_exists($option, $options);
+        return array_key_exists($option, $this->options);
     }
 
     /**

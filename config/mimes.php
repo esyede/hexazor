@@ -8,8 +8,8 @@ return [
     | Mime-types
     |--------------------------------------------------------------------------
     |
-    | List mime type untuk pendeteksian jenis file. Ini berguna ketika misalnya
-    | jika Anda perlu memeriksa tipe file yang boleh diupload dan lain - lain.
+    | List mime type untuk pendeteksian jenis file. Ini berguna ketika Anda
+    | perlu memeriksa tipe file yang boleh diupload dan lain - lain.
     |
     */
 

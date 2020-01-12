@@ -44,7 +44,7 @@ class Migrate extends Command
         }
 
         if ($this->hasOption('seed')) {
-            $this->execute('db:seed --force=true');
+            $this->execute('db:seed --force');
         }
     }
 

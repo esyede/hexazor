@@ -8,11 +8,11 @@ return [
     | Profiler Database
     |--------------------------------------------------------------------------
     |
-    | Secara default, SQL, binding, dan waktu eksekusi dicatat untuk Anda.
-    | Mereka dapat diambil menggunakan method DB::profile(). Tetapi, di
-    | beberapa situasi, Anda kadang ingin mematikan pencatatan ini
-    | misalya saat Anda melakukan equery database yang berat. Anda bisa
-    | melakukannya melalui opsi ini.
+    | Secara default, seluruh query SQL, binding, dan waktu eksekusi query
+    | akan dicatat oleh Hexazor. Anda dapat melihatnya menggunakan method
+    | DB::profile(). Tetapi, di beberapa situasi, Anda kadang ingin mematikan
+    | fitur pencatatan ini, misalya saat Anda menjalankan query database yang
+    | kompleks dan berat. Anda bisa melakukannya melalui opsi ini.
     |
     */
 
@@ -24,9 +24,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | Nama tabel migrasi. Tabel inilah yang akan menjadi tempat penyimpanan
-    | catatan migrasi ketika Anda menjalankan command -command migrasi database
+    | catatan migrasi ketika Anda menjalankan command migrasi database
     | seperti 'hexazor migrate', 'hexazor migrate:rollback' dll.
-    |
     |
     */
 
@@ -34,12 +33,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Fetch Style PDO
+    | PDO Fetch Style
     |--------------------------------------------------------------------------
     |
-    | Secara default, hasil query database akan di-return sbagai instance dari
-    | object stdClass; akan tetapi, jika Anda lebih suka me-return array
-    | daripada object, bisa saja. Melalui opsi ini Anda bisa mengontrol
+    | Secara default, hasil query database akan direturn sebagai instance dari
+    | object stdClass; akan tetapi, jika Anda lebih suka mereturn array
+    | ketimbang object, bisa saja. Melalui opsi ini Anda bisa mengontrol
     | fetch style PDO dari query database yang dijalankan oleh aplikasi Anda.
     |
     */
@@ -52,8 +51,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | Ini adalah nama dari koneksi database default Anda. Koneksi inilah yang
-    | akan digunakan sebagai koneksi standar untuk seluruh operasi database
-    | kecuali Anda menentukan nama lain saat melakukan operasi database.
+    | akan digunakan sebagai koneksi standar untuk seluruh operasi database,
+    | kecuali Anda menentukan nama lain pada saat melakukan operasi database.
     | Nama koneksi ini harus tercantum dalam list koneksi database di bawah.
     |
     */
@@ -65,12 +64,12 @@ return [
     | List Koneksi Database
     |--------------------------------------------------------------------------
     |
-    | Semua koneksi basis data yang digunakan oleh aplikasi Anda. Pada umumnya,
-    | aplikasi Anda hanya akan menggunakan satu koneksi; namun, Anda bebas
-    | untuk menentukan berapa banyak koneksi yang hendak Anda tangani.
+    | List nama - nama koneksi database yang digunakan oleh aplikasi Anda.
+    | Pada umumnya, aplikasi Anda hanya akan menggunakan satu koneksi; namun,
+    | Anda bebas menentukan berapa banyak koneksi yang hendak Anda tangani.
     |
-    | Semua operasi database di Hexazor dilakukan melalui fasilitas PDO PHP,
-    | jadi pastikan untuk menginstall driver PDO sesuai database pilihan Anda.
+    | Semua operasi database di Hexazor dilakukan dengan bantuan PDO, jadi
+    | pastikan untuk menginstall driver PDO sesuai database pilihan Anda.
     |
     */
 

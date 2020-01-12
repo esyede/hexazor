@@ -24,9 +24,9 @@ return [
     | Nama Model Otentikasi
     |--------------------------------------------------------------------------
     |
-    | Saat menggunakan driver otentikasi 'model', Anda dapat menentukan model
-    | yang harus dianggap sebagai model "User". Model ini akan digunakan untuk
-    | meng-otentikasi pengguna aplikasi Anda.
+    | Saat driver otentikasi default di set ke 'model', Anda dapat menentukan
+    | model yang harus dianggap sebagai model "User". Model ini akan digunakan
+    | untuk meng-otentikasi pengguna aplikasi Anda.
     |
     */
 
@@ -37,10 +37,10 @@ return [
     | Nama Tabel Otentikasi
     |--------------------------------------------------------------------------
     |
-    | Saat menggunakan driver otentikasi 'default', tabel database yang
-    | digunakan untuk memuat pengguna dapat ditentukan di sini. Tabel ini akan
-    | digunakan oleh query builder untuk mengotentikasi dan meng-otentikasi
-    | pengguna aplikasi Anda.
+    | Saat driver otentikasi default di set ke 'default', tabel database yang
+    | digunakan untuk memuat pengguna dapat ditentukan di sini. Tabel inilah
+    | yang digunakan oleh query builder untuk meng-otentikasi pengguna
+    | pada aplikasi Anda.
     |
     */
 
@@ -52,8 +52,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | Di sini Anda dapat menentukan nama kolom di database yang harus dianggap
-    | sebagai "username" untuk user Anda. Biasanya, ini bisa berupa "username"
-    | atau "email". Tentu saja, Anda bebas mengubahnya sesuai kebutuhan.
+    | sebagai "username" untuk user Anda. Biasanya diberi nama "username"
+    | atau "email". Tentu saja, Anda bebas menamainya sesuai kebutuhan.
     |
     */
 
@@ -65,8 +65,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | Di sini Anda dapat menentukan nama kolom di database yang harus dianggap
-    | sebagai "password" untuk user Anda. Biasanya, ini bisa berupa "password"
-    | atau "kata_sandi" atau lainnya. Tentu saja, Anda juga bebas mengubahnya.
+    | sebagai "password" untuk user Anda. Biasanya diberi nama 'password'
+    | atau 'kata_sandi' atau lainnya. Tentu saja, Anda juga bebas menamainya.
     |
     */
 
@@ -74,11 +74,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Nama Kolom 'remember_me'
+    | Nama Kolom 'remember_token'
     |--------------------------------------------------------------------------
     |
     | Di sini Anda dapat menentukan nama kolom di database yang harus dianggap
-    | sebagai "remember_me" untuk user Anda. Anda juga bebas mengubahnya.
+    | sebagai "remember_token" untuk user Anda. Kolom ini digunakan untuk
+    | fitur 'remember me'. Anda juga bebas mengganti namanya.
     |
     */
 

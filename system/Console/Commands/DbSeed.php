@@ -9,7 +9,7 @@ use System\Debugger\Debugger;
 
 class DbSeed extends Command
 {
-    protected $signature = 'db:seed';
+    protected $signature = 'db:seed {force?}';
     protected $description = 'Seed the database with records';
 
     /**
