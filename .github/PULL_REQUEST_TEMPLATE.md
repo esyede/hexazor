@@ -3,14 +3,14 @@
 
 
 
-### Apa motivasinya?
+### Mengapa ini perlu dilakukan?
 <!--- Mengapa perubahan ini perlu dilakukan? Masalah apa yang hendak diperbaiki? -->
 <!--- Jika ini memperbaiki issue yang masih open, harap sertakan linknya disini. -->
 
 
 
 ### Bagaimana cara mencobanya?
-<!--- Tolong jelaskan secara rinci bagaimana kami dapat mencob kode di perubahan yang Anda buat --->
+<!--- Tolong jelaskan secara rinci bagaimana kami dapat mencoba kode di perubahan yang Anda buat --->
 
 
 

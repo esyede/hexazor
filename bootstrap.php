@@ -39,7 +39,7 @@ if (!is_dir($logs) && false === @mkdir($logs, 0777, true)) {
     throw new RuntimeException('Unable to create logs directory: '.$logs);
 }
 
-Debugger::enable(Debugger::DETECT, $logs);
+Debugger::enable(Debugger::DETECT || is_cli(), $logs);
 
 unset($logs);
 
