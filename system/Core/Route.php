@@ -681,8 +681,23 @@ class Route
     public static function match(array $methods, $pattern, $callback)
     {
         foreach ($methods as $method) {
-            static::route(strtoupper($method), $pattern, $callback);
+            $method = strtoupper($method);
+            static::route($metthod, $pattern, $callback);
         }
+    }
+
+    /**
+     * Daftarkan route dengan seluruh http method.
+     *
+     * @param string          $pattern
+     * @param string|callable $callback
+     *
+     * @return void
+     */
+    public static function any($pattern, $callback)
+    {
+        $methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'];
+        static::match($methods, $pattern, $callback);
     }
 
     /**

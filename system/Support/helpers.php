@@ -213,9 +213,9 @@ if (!function_exists('database_path')) {
 if (!function_exists('resource_path')) {
     function resource_path($path = null)
     {
-        $path = RESOURCE_PATH.ltrim(ltrim($path, '/'), '\\');
+        $path = str_replace(['/', '\\'], [DS, DS], ltrim(ltrim($path, '/'), '\\'));
 
-        return $path;
+        return RESOURCE_PATH.$path;
     }
 }
 

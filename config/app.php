@@ -27,11 +27,11 @@ return [
     |
     | URL ke halaman muka aplikasi Anda. Biasanya, ini akan menjadi URL halaman
     | rumah situs Anda. Jika dikosongkan, maka Hexazor mencoba menebaknya
-    | via kombinasi $_SERVER['HTTP_HOST'] dan $_SERVER['SCRIPT_NAME'].
+    | dengan bantuan $_SERVER['HTTP_HOST'] dan $_SERVER['SCRIPT_NAME'].
     |
     | Contoh isian base url:
-    | https://situsku.com atau jika aplikasi berada didalam subfolder:
-    | https://situsku.com/blog
+    | https://situsku.com/ atau jika aplikasi berada didalam subfolder:
+    | https://situsku.com/blog/
     |
     */
 

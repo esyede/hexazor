@@ -8,5 +8,8 @@ use System\Database\ORM\Model;
 
 class User extends Model
 {
-    // code..
+    public static $timestamps = true;
+    public static $hidden = ['password', 'remember_token'];
+
+    // ...
 }

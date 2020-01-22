@@ -1,4 +1,7 @@
 <?php
 
 require __DIR__.'/bootstrap.php';
-new System\Core\Application();
+
+use System\Core\Application;
+
+new Application();

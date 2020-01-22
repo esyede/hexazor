@@ -4,9 +4,12 @@ namespace System\Libraries\View;
 
 defined('DS') or exit('No direct script access allowed.');
 
+use Exception;
 use InvalidArgumentException;
 use RuntimeException;
 use System\Facades\Storage;
+use System\Facades\Session;
+use System\Support\Messages;
 
 class View
 {
@@ -16,8 +19,10 @@ class View
     protected $echoFormat = null;
     protected $extensions = [];
     protected $templates = [];
+    protected $data = [];
 
     protected static $directives = [];
+    protected static $shared = [];
 
     protected $blocks = [];
     protected $blockStacks = [];
@@ -60,7 +65,7 @@ class View
         return preg_replace_callback($pattern, function ($match) {
             // perintah default
             if (method_exists($this, $method = 'compile'.ucfirst($match[1]))) {
-                $match[0] = $this->$method(isset($match[3]) ? $match[3] : '');
+                $match[0] = $this->{$method}(isset($match[3]) ? $match[3] : '');
             }
 
             // custom directive
@@ -700,8 +705,6 @@ class View
      */
     public function make($name, array $data = [], $returnOnly = false)
     {
-        // TODO: Tambahkan validation error message ke $data agar bisa diakses di view
-
         $html = $this->fetch($name, $data);
 
         if (is_cli()) {
@@ -713,6 +716,50 @@ class View
         }
 
         echo $html;
+    }
+
+    /**
+     * Share data view secara global.
+     *
+     * @param  string $keys
+     * @param  mixed  $value
+     *
+     * @return $this
+     */
+    public function share($keys, $value = null)
+    {
+        if (is_array($keys)) {
+            foreach ($keys as $key => $val) {
+                $this->share($key, $val);
+            }
+        } else {
+            static::$shared[$keys] = $value;
+        }
+        
+        return $this;
+    }
+
+    /**
+     * Lihat seluruh view data (termasuk shared data).
+     *
+     * @return array
+     */
+    public function data()
+    {
+        return array_merge($this->data, static::$shared);
+    }
+
+
+    public function path($name)
+    {
+        if ($this->exists($name)) {
+            $name = str_replace(['.', '/', '\\'], [DS, DS, DS], $name);
+            $name = resource_path('views/'.$name.$this->fileExtension);
+
+            return $name;
+        }
+
+        throw new Exception("View [$name] doesn't exist.");
     }
 
     /**
@@ -873,12 +920,19 @@ class View
      */
     public function fetch($name, array $data = [])
     {
-        $this->templates[] = $name;
-
-        if (filled($data)) {
-            extract($data);
+        $this->data = array_merge($data, static::$shared);
+        if (!isset($this->data['errors'])) {
+            if (Session::started() && Session::has('errors')) {
+                $this->data['errors'] = Session::get('errors');
+            } else {
+                $this->data['errors'] = new Messages();
+            }
         }
 
+        $this->templates[] = $name;
+
+        extract($this->data, EXTR_SKIP);
+        
         while ($templates = array_shift($this->templates)) {
             $this->beginBlock('_view_data');
             require $this->prepare($templates);

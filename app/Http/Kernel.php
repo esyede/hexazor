@@ -4,6 +4,8 @@ namespace App\Http;
 
 defined('DS') or exit('No direct script access allowed.');
 
+use View;
+
 class Kernel
 {
     /**
@@ -41,6 +43,7 @@ class Kernel
      */
     public static function boot()
     {
-        // ...
+        View::share(['test1' => 'dummy foobar']);
+        View::share('test2', 'dummy');
     }
 }

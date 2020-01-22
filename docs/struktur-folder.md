@@ -6,33 +6,38 @@ Secara default, struktur folder dalam aplikasi Anda akan terlihat seperti beriku
 
 ```
 ├───app
-│   ├───Configs            // berisi file - file konfigurasi
-│   ├───Controllers        // berisi kelas - kelas kontroller
-│   ├───Helpers            // berisi file - file helper
-│   ├───Languages          // berisi file - file bahasa
-│   ├───Listeners          // berisi kelas - kelas listener (dibuat oleh konsol)
-│   ├───Middlewares        // berisi kelas - kelas middleware (dibuat oleh konsol)
-│   ├───Models             // berisi kelas - kelas model
-│   └───Views              // berisi file - file view
+│   ├───Console
+│   │    └───Commands
+│   └───Http
+│   │    ├───Controllers   // tempat controller anda disimpan
+│   │    ├───Middleware    // tempat middleware anda disimpan
+│   │    └───Listeners     // tempat listener anda disimpan
+│   │    ├───Kernel.php    // tempat middleware dan post-boot didefinisikan
+│   │    └───Services.php  // daftar definisi provider dan facades
+│   └───User.php           // model user, seluruh model anda juga akan berada disini
 │
-├───storage
-│   ├───cache              // berisi file cache umum dan cache curl
-│   ├───databases
-│   │    ├───migrations    // berisi file migrasi database (dibuat oleh konsol)
-│   │    ├───sqlite        // berisi file database sqlite
-│   │    └───seeders       // berisi file seeder untuk database (dibuat oleh konsol)
-│   ├───logs               // berisi file log umum dan file error dari debugger
-│   ├───uploads            // berisi file hasil upload
-│   └───views              // berisi file cache hasil rendering view
-│
+├───config                 // berisi file - file konfigurasi framework
+├───database
+│   ├───migrations         // berisi file - file migrasi database
+│   ├───seeds              // berisi file seeder database
+│   └───sqlite             // berisi file database untuk driver sqlite
+├───resources
+│   ├───lang               // berisi daftar language files untuk aplikasi
+│   └───views              // letakkan file view anda disini
+├───routes                 // berisi file - file definisi routes
+├───storage                // storage internal sistem dan aplikasi anda
 └───system
-    ├───Console            // berisi file - file aplikasi konsol
-    ├───Core               // berisi file - file inti untuk startup framework
-    ├───Database           // berisi kelas - kelas database
-    ├───Debugger           // berisi kelas - kelas debugger
-    ├───Facades            // berisi kelas - kelas facades
-    ├───Languages          // berisi file - file bahasa bawaan framework
-    ├───Libraries          // berisi kelas - kelas library bawaan framework
-    ├───Loader             // berisi kelas - kelas autoloader
-    └───Support            // berisi kelas - kelas dukungan
+│   ├───Console            // berisi file - file aplikasi konsol
+│   ├───Core               // berisi file - file inti untuk startup framework
+│   ├───Database           // berisi kelas - kelas database
+│   ├───Debugger           // berisi kelas - kelas debugger
+│   ├───Facades            // berisi kelas - kelas facades
+│   ├───Libraries          // berisi kelas - kelas library bawaan framework
+│   ├───Loader             // berisi kelas - kelas autoloader
+│   └───Support            // berisi kelas - kelas dukungan
+│
+├───bootstrap.php          // bootstrap script framework
+├───constants.php          // konstanta framework
+├───hexazor                // CLI tool untuk otomasi tugas
+└───index.php              // entry point untuk aplikasi anda
 ```

@@ -11,7 +11,7 @@ return [
     | Nama driver session yang digunakan oleh aplikasi Anda. Karena HTTP
     | sifatnya state-less, session digunakan untuk mensimulasikan "state" di
     | seluruh request yang dibuat oleh user. Dengan kata lain, ini adalah cara
-    | bagaimana aplikasi mengetahui siapa sih sebenarnya Anda ini.
+    | bagaimana aplikasi mengetahui siapa sih sebenarnya Anda ini?
     |
     | Pilihan driver: 'cookie', 'file', 'database'.
     |
@@ -24,7 +24,7 @@ return [
     | Session Database
     |--------------------------------------------------------------------------
     |
-    | Tabel database tempat session harus disimpan. Opsi ini digunakan saat
+    | Nama tabel tempat session harus disimpan. Opsi ini digunakan saat
     | Anda memilih 'database' sebagai session driver.
     |
     */

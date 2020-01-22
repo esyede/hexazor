@@ -4,6 +4,7 @@ namespace System\Debugger;
 
 defined('DS') or exit('No direct script access allowed.');
 
+use System\Core\Config;
 use System\Debugger\Interfaces\LoggerInterface;
 
 class Debugger
@@ -113,13 +114,13 @@ class Debugger
             set_error_handler([__CLASS__, 'errorHandler']);
 
             array_map('class_exists', [
-                '\System\Debugger\Bar',
-                '\System\Debugger\BlueScreen',
-                '\System\Debugger\DefaultBarPanel',
-                '\System\Debugger\Dumper',
-                '\System\Debugger\FireLogger',
-                '\System\Debugger\Helpers',
-                '\System\Debugger\Logger',
+                '\\'.__NAMESPACE__.'\\Bar',
+                '\\'.__NAMESPACE__.'\\BlueScreen',
+                '\\'.__NAMESPACE__.'\\DefaultBarPanel',
+                '\\'.__NAMESPACE__.'\\Dumper',
+                '\\'.__NAMESPACE__.'\\FireLogger',
+                '\\'.__NAMESPACE__.'\\Helpers',
+                '\\'.__NAMESPACE__.'\\Logger',
             ]);
             self::$enabled = true;
         }
@@ -444,6 +445,10 @@ class Debugger
             self::$bar->addPanel($info = new DefaultBarPanel('info'), 'Debugger:info');
             $info->cpuUsage = self::$cpuUsage;
             self::$bar->addPanel(new DefaultBarPanel('errors'), 'Debugger:errors');
+            
+            if (Config::get('database.profile')) {
+                self::$bar->addPanel(new DefaultBarPanel('db'), 'db');
+            }
         }
 
         return self::$bar;

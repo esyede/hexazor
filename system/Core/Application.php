@@ -4,12 +4,13 @@ namespace System\Core;
 
 defined('DS') or exit('No direct script access allowed.');
 
-use App\Http\Kernel as AppHttpKernel;
+use App\Http\Kernel as AppKernel;
 use App\Http\Services as AppServices;
 use System\Debugger\Debugger;
 use System\Facades\Facade;
 use System\Libraries\Http\Response;
 use System\Support\Str;
+use System\Console\Console;
 
 class Application
 {
@@ -24,11 +25,10 @@ class Application
         $this->reconfigureTimezone();
         $this->ensureAppKeyIsProvided();
         $this->reconfigureDebugger();
-
         $this->registerDefinedFacades();
         $this->includeComposerAutoloaderIfExists();
-        $this->callAppHttpKernelBoot();
-
+        $this->registerConsoleApplication();
+        $this->callAppKernelBoot();
         $this->dispatchRouteDefinitions();
     }
 
@@ -43,8 +43,6 @@ class Application
         Facade::setFacadeApplication(compact('facades', 'providers'));
 
         foreach ($facades as $facadeName => $facadeClass) {
-            // gunakan bantuan class_alias untuk autoload facades (parameter ke-3)
-            // ref: https://www.php.net/manual/en/function.class-alias.php
             class_alias($facadeClass, $facadeName, true);
         }
     }
@@ -57,7 +55,9 @@ class Application
     private function includeComposerAutoloaderIfExists()
     {
         $path = base_path('vendor/autoload.php');
-        if (is_file($path) && true === Config::get('app.composer_autoload', true)) {
+        $autoloadComposer = (bool) Config::get('app.composer_autoload', true);
+
+        if (is_file($path) && true === $autoloadComposer) {
             $this->protectVendorDirWithHtaccess();
             require_once $path;
         }
@@ -70,10 +70,10 @@ class Application
      */
     private function protectVendorDirWithHtaccess()
     {
-        $path = base_path('vendor/.htaccess');
+        $vendor = base_path('vendor/');
 
-        if (!is_file($path)) {
-            return (false !== file_put_contents($path, 'deny from all', LOCK_EX));
+        if (is_dir($vendor) && !is_file($vendor.'.htaccess')) {
+            return (false !== @file_put_contents($vendor, 'deny from all', LOCK_EX));
         }
 
         return true;
@@ -84,9 +84,9 @@ class Application
      *
      * @return bool
      */
-    private function callAppHttpKernelBoot()
+    private function callAppKernelBoot()
     {
-        AppHttpKernel::boot();
+        AppKernel::boot();
     }
 
     /**
@@ -110,6 +110,13 @@ class Application
         return require_once base_path('routes/web.php');
     }
 
+
+    private function registerConsoleApplication()
+    {
+        Console::register(system_path('Console/Commands'));
+        Console::register(app_path('Console/Commands'));
+    }
+
     /**
      * Setel ulang debugger: terapkan config user.
      */
@@ -117,18 +124,18 @@ class Application
     {
         $config = Config::get('debugger');
 
-        Debugger::$strictMode = boolval($config['strict_mode']);
-        Debugger::$scream = boolval($config['scream']);
+        Debugger::$strictMode = (bool) $config['strict_mode'];
+        Debugger::$scream = (bool) $config['scream'];
 
         // sengaja nggak dimunculin di config debugger
         Debugger::$logSeverity = 0;
         Debugger::$onFatalError = [];
 
-        Debugger::$showBar = boolval($config['show_debugbar']);
-        Debugger::$showLocation = boolval($config['show_location']);
-        Debugger::$maxDepth = intval($config['max_depth']);
-        Debugger::$maxLen = intval($config['max_length']);
-        Debugger::$email = strval($config['email']);
+        Debugger::$showBar = (bool) $config['show_debugbar'];
+        Debugger::$showLocation = (bool) $config['show_location'];
+        Debugger::$maxDepth = (int) $config['max_depth'];
+        Debugger::$maxLen = (int) $config['max_length'];
+        Debugger::$email = (string) $config['email'];
     }
 
     /**
@@ -150,7 +157,7 @@ class Application
         $appkey = Config::get('app.application_key');
         if (blank($appkey) || mb_strlen($appkey) < 32) {
             $appkey = Str::random(32);
-            $path = BASE_PATH.'config'.DS.'app.php';
+            $path = base_path('config/app.php');
             $pattern = "/('application_key')\h*=>\h*\'\s?\'?.*/i";
             $subject = file_get_contents($path);
             $replacement = "'application_key' => '{$appkey}',";

@@ -11,6 +11,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return View::make('welcome');
+        $greeting = 'You have arrived.';
+
+        return View::make('welcome', compact('greeting'));
     }
 }

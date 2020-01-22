@@ -5,6 +5,7 @@ require __DIR__.'/bootstrap.php';
 
 use System\Console\Console;
 
-$console = new Console($argv);
-$status = $console->run();
-exit($status);
+Console::register(system_path('Console/Commands'));
+Console::register(app_path('Console/Commands'));
+
+Console::listen($argv);

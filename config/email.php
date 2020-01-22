@@ -21,7 +21,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Protokol SMTP yang Anda gunakan, bisa diisi dengan 'tcp', 'ssl' atau
-    | apapun asalkan mendukung pengiriman email via SMTP.
+    | yang lain asalkan mendukung pengiriman email via SMTP.
     |
     */
 

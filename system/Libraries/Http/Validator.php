@@ -782,7 +782,7 @@ class Validator
         $message = str_replace(':attribute', $this->attribute($attribute), $message);
 
         if (method_exists($this, $replacer = 'replace'.Str::studly($rule))) {
-            $message = $this->$replacer($message, $attribute, $rule, $parameters);
+            $message = $this->{$replacer}($message, $attribute, $rule, $parameters);
         }
 
         return $message;

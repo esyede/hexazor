@@ -18,7 +18,7 @@ class Magic
         $attributes = (array) $attributes;
 
         foreach ($attributes as $key => $value) {
-            $this->$key = $value;
+            $this->{$key} = $value;
         }
     }
 
@@ -46,7 +46,7 @@ class Magic
     public function __call($method, $parameters)
     {
         $parameters = (array) $parameters;
-        $this->$method = (count($parameters) > 0) ? $parameters[0] : true;
+        $this->{$method} = (count($parameters) > 0) ? $parameters[0] : true;
 
         return $this;
     }

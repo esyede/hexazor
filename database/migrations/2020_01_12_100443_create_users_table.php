@@ -15,9 +15,17 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function ($table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('id');
 
-            //
+            $table->string('username')->index();
+            $table->string('password')->index();
+            $table->string('email')->index();
+            $table->integer('role_id')->unsigned()->index();
+            $table->boolean('verified');
+            $table->boolean('disabled');
+            $table->boolean('deleted');
 
             $table->timestamps();
         });

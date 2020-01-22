@@ -17,3 +17,4 @@ use System\Core\Route;
 */
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/test', 'HomeController@test')->name('test');

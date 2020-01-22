@@ -56,7 +56,7 @@ return [
     | Maximum Depth
     |--------------------------------------------------------------------------
     |
-    | Sebarapa banyak string yang harus ditampilkan ketika Anda memanggil
+    | Sebarapa banyak karakter yang harus ditampilkan ketika Anda memanggil
     | perintah dd(), bd() dan dump() ?
     |
     */
@@ -68,8 +68,8 @@ return [
     | Show Location
     |--------------------------------------------------------------------------
     |
-    | Apakah lokasi file juga harus ditampilkan ketika Anda  memanggil perintah
-    | dd(), bd() dan dump() ?
+    | Apakah lokasi file juga perlu ditampilkan ketika Anda  memanggil
+    | perintah dd(), bd() dan dump() ?
     |
     */
 
@@ -80,7 +80,7 @@ return [
     | Error Email
     |--------------------------------------------------------------------------
     |
-    | Isi dengan alamat email Anda jika Anda ingin menerima notifokasi error
+    | Isi dengan alamat email Anda jika Anda ingin menerima notifikasi error
     | pada aplikasi Anda.
     |
     */

@@ -3,6 +3,22 @@
 defined('DS') or exit('No direct script access allowed.');
 
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Validator
+    |--------------------------------------------------------------------------
+    |
+    | Lokalisasi bahasa inggris pesan error default untuk library Validator.
+    | Beberapa rules dibawah ini mengandung beberapa versi, seperti
+    | rule size (min, max, between), versi - versi ini digunakan untuk
+    | menangani tipe input yang berbeda, seperti string dan file.
+    |
+    | List pesan error ini juga boleh diubah agar sesuai dengan kebutuhan
+    | aplikasi Anda. Pesan error untuk custom validator juga dapat Anda
+    | tambahkan disini.
+    |
+    */
+
     'accepted'   => 'The :attribute must be accepted.',
     'active_url' => 'The :attribute is not a valid URL.',
     'after'      => 'The :attribute must be a date after :date.',
@@ -11,11 +27,13 @@ return [
     'alpha_num'  => 'The :attribute may only contain letters and numbers.',
     'array'      => 'The :attribute must have selected elements.',
     'before'     => 'The :attribute must be a date before :date.',
-    'between'    => [
+
+    'between' => [
         'numeric' => 'The :attribute must be between :min - :max.',
         'file'    => 'The :attribute must be between :min - :max kilobytes.',
         'string'  => 'The :attribute must be between :min - :max characters.',
     ],
+
     'confirmed'     => 'The :attribute confirmation does not match.',
     'count'         => 'The :attribute must have exactly :count selected elements.',
     'count_between' => 'The :attribute must have between :min and :max selected elements.',
@@ -58,10 +76,43 @@ return [
     'unique' => 'The :attribute has already been taken.',
     'url'    => 'The :attribute format is invalid.',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Custom Validator Message
+    |--------------------------------------------------------------------------
+    |
+    | Di sini Anda dapat menentukan pesan validasi custom untuk atribut
+    | menggunakan konvensi "attribute_rule" untuk penamaannya. Ini membantu
+    | menjaga rule validasi custom Anda tetap bersih dan rapi.
+    |
+    | Jadi, misalkan Anda ingin menggunakan pesan validasi custom saat
+    | memvalidasi bahwa atribut "email" harus unique, cukup tambahkan
+    | "email_unique" ke array ini dengan pesan custom Anda.
+    | Validator akan menangani sisanya!
+    |
+    */
+
     'custom' => [
-        // 'key' => 'value',
+        // 'attribute_rule' => 'Your custom message',
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Custom Attributes
+    |--------------------------------------------------------------------------
+    |
+    | Lokalaisasi berikut digunakan untuk mengganti place-holder ":attribute"
+    | dengan sesuatu yang lebih ramah pembaca seperti "Alamat E-Mail" sebagai
+    | pengganti dari "email". Pengguna Anda akan lebih terbantu dengan pesan
+    | error yang lebih deskriptif.
+    |
+    | Kelas Validator akan secara otomatis mencoba mencari array ini untuk
+    | mengganti place-holder ":attribute" dalam pesan error. Menarik kan?
+    | Kami pikir Anda akan menyukainya.
+    |
+    */
+
     'attributes' => [
+        //
     ],
 ];

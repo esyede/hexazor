@@ -5,6 +5,8 @@ namespace System\Debugger;
 defined('DS') or exit('No direct script access allowed.');
 
 use System\Debugger\Interfaces\LoggerInterface;
+use System\Libraries\Mail\Mail;
+use System\Config\Config;
 
 class Logger implements LoggerInterface
 {
@@ -21,7 +23,7 @@ class Logger implements LoggerInterface
         $this->directory = $directory;
         $this->email = $email;
         $this->blueScreen = $blue;
-        $this->mailer = [$this, 'defaultMailer'];
+        $this->mailer = [$this, is_callable('mail') ? 'defaultMailer' : 'smtpMailer'];
     }
 
     /**
@@ -175,16 +177,39 @@ class Logger implements LoggerInterface
             ["\n", PHP_EOL],
             [
                 'headers' => implode("\n", [
-                    'From: '.($this->fromEmail ?: "noreply@$host"),
-                    'X-Mailer: Error Debugger',
+                    'From: '.($this->fromEmail ?: 'noreply@'.$host),
+                    'X-Mailer: '.Config::get('email.mailer', 'Debugger Mail'),
                     'Content-Type: text/plain; charset=UTF-8',
                     'Content-Transfer-Encoding: 8bit',
                 ])."\n",
-                'subject' => "PHP: An error occurred on the server $host",
-                'body'    => $this->formatMessage($message)."\n\nsource: ".Helpers::getSource(),
+                'subject' => 'PHP: An error occurred on the server '.$host,
+                'body'    => $this->formatMessage($message).PHP_EOL.PHP_EOL.'source: '.Helpers::getSource(),
             ]
         );
 
         mail($email, $parts['subject'], $parts['body'], $parts['headers']);
+    }
+
+    /**
+     * Smtp mailer.
+     *
+     * @param mixed $message
+     * @param mixed $email
+     */
+    public function smtpMailer($message, $email)
+    {
+        $host = preg_replace(
+            '#[^\w.-]+#',
+            '',
+            isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : php_uname('n')
+        );
+
+        $mailer = new Mail();
+        $message = str_replace(["\r\n", "\n"], ["\n", PHP_EOL], $this->formatMessage($message));
+        $mailer->from($this->fromEmail ?: 'noreply@'.$host)
+            ->to(Config::get('debugger.email'))
+            ->subject('PHP: An error occurred on the server'.$host)
+            ->text($message.PHP_EOL.PHP_EOL."source: ".Helpers::getSource())
+            ->send();
     }
 }

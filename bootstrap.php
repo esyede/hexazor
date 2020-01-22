@@ -15,7 +15,7 @@ use System\Core\Config;
 use System\Debugger\Debugger;
 use System\Loader\Autoloader;
 
-Config::init();
+Config::initialize();
 
 if (is_null(Config::get('app.base_url', null))) {
     if (!is_cli()) {
