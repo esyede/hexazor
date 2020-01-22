@@ -6,10 +6,11 @@ defined('DS') or exit('No direct script access allowed.');
 
 use System\Console\Command;
 use System\Debugger\Debugger;
+use System\Support\Str;
 
 class DbSeed extends Command
 {
-    protected $signature = 'db:seed {force?}';
+    protected $signature = 'db:seed {--class=DatabaseSeeder} {--force}';
     protected $description = 'Seed the database with records';
 
     /**
@@ -19,19 +20,18 @@ class DbSeed extends Command
      */
     public function handle()
     {
-        if (!$this->hasOption('force')) {
-            if ($this->hasOption('class')) {
-                $this->plain('Seeding: '.$this->option('class'));
-                $this->newline();
-            } else {
-                if (!$this->confirmToProceed()) {
-                    return;
-                }
+        if (!is_object($this->getSeeder())) {
+            return false;
+        }
+
+        if (!$this->getOption('force')) {
+            if (!$this->confirmation($this->description.'?')) {
+                return false;
             }
         }
 
         $this->getSeeder()->run();
-        $this->plain('Database seeding completed.');
+        $this->writeline('Operation finished.');
     }
 
     /**
@@ -41,26 +41,17 @@ class DbSeed extends Command
      */
     protected function getSeeder()
     {
-        $class = filled($this->option('class')) ? $this->option('class') : 'DatabaseSeeder';
+        $class = $this->getOption('class');
 
         if (!is_file(database_path('seeds/'.$class.'.php'))) {
-            $this->plain('Seeder class not found: '.$class);
-            exit();
+            $this->newline();
+            $this->writeline('Seeder class not found: '.$class);
+            return false;
         }
 
         require_once database_path('seeds/'.$class.'.php');
         $class = new $class();
 
         return $class;
-    }
-
-    /**
-     * Konfirmasi untu melnjutkan operasi.
-     *
-     * @return void
-     */
-    protected function confirmToProceed()
-    {
-        return $this->confirm($this->description.'?');
     }
 }

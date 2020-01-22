@@ -8,25 +8,21 @@ use System\Console\Command;
 use System\Libraries\Storage\Storage;
 use System\Support\Str;
 
-abstract class GeneralFile extends Command
+class GeneralFile extends Command
 {
-    protected $storage;
     protected $type;
 
-    /**
-     * Buat instance kelas baru.
-     */
-    public function __construct()
-    {
-        $this->storage = new Storage();
-    }
+    protected static $storage;
 
     /**
      * Ambil path file stub.
      *
      * @return string
      */
-    abstract protected function getStub();
+    protected function getStub()
+    {
+        // ..
+    }
 
     /**
      * Jalankan proses pembuatan file.
@@ -35,21 +31,28 @@ abstract class GeneralFile extends Command
      *
      * @return void
      */
-    public function handle($input)
+    public function handle()
     {
+        static::$storage = new Storage();
+
+        $input = $this->getArgument('name');
+
+        if (is_null($input)) {
+            $this->writeline('The [name] argument is mandatory.');
+            return false;
+        }
+
         $name = $this->qualifyClass($input);
         $path = $this->getPath($name);
 
-        if ((!$this->hasOption('force') || !$this->option('force')) && $this->alreadyExists($input)) {
-            $this->plain(Str::singular($this->type).' already exists!');
-
+        if (!$this->getOption('force') && $this->alreadyExists($input)) {
+            $this->writeline(Str::singular($this->type).' already exists!');
             return false;
         }
 
         $this->makeDirectory($path);
-        $this->storage->put($path, $this->sortImports($this->buildClass($name)));
-
-        $this->plain(Str::singular($this->type).' created successfully.');
+        static::$storage->put($path, $this->sortImports($this->buildClass($name)));
+        $this->writeline(Str::singular($this->type).' created successfully.');
     }
 
     /**
@@ -62,7 +65,6 @@ abstract class GeneralFile extends Command
     protected function qualifyClass($name)
     {
         $name = ltrim($name, '\\/');
-
         $rootNamespace = $this->rootNamespace();
 
         if (Str::startsWith($name, $rootNamespace)) {
@@ -90,7 +92,7 @@ abstract class GeneralFile extends Command
 
     protected function alreadyExists($rawName)
     {
-        return $this->storage->exists($this->getPath($this->qualifyClass($rawName)));
+        return static::$storage->exists($this->getPath($this->qualifyClass($rawName)));
     }
 
     /**
@@ -103,7 +105,6 @@ abstract class GeneralFile extends Command
     protected function getPath($name)
     {
         $name = Str::replaceFirst($this->rootNamespace(), '', $name);
-
         return app_path(str_replace('\\', '/', $name).'.php');
     }
 
@@ -117,7 +118,7 @@ abstract class GeneralFile extends Command
     protected function makeDirectory($path)
     {
         if (!is_dir(dirname($path))) {
-            $this->storage->makeDirectory(dirname($path), 0777, true);
+            static::$storage->makeDirectory(dirname($path), 0777, true);
         }
 
         return $path;
@@ -132,8 +133,7 @@ abstract class GeneralFile extends Command
      */
     protected function buildClass($name)
     {
-        $stub = $this->storage->get($this->getStub());
-
+        $stub = static::$storage->get($this->getStub());
         return $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
     }
 
@@ -179,7 +179,6 @@ abstract class GeneralFile extends Command
     protected function replaceClass($stub, $name)
     {
         $class = str_replace($this->getNamespace($name).'\\', '', $name);
-
         return str_replace('DummyClass', $class, $stub);
     }
 
@@ -194,7 +193,6 @@ abstract class GeneralFile extends Command
     {
         if (preg_match('/(?P<imports>(?:use [^;]+;$\n?)+)/m', $stub, $match)) {
             $imports = explode(PHP_EOL, trim($match['imports']));
-
             sort($imports);
 
             return str_replace(trim($match['imports']), implode(PHP_EOL, $imports), $stub);

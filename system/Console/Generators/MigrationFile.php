@@ -20,6 +20,7 @@ class MigrationFile extends Command
      */
     public function __construct()
     {
+        parent::__construct();
         $this->storage = new Storage();
         $this->migrationPath = database_path('migrations/');
     }
@@ -82,7 +83,7 @@ class MigrationFile extends Command
         }
 
         if (class_exists($className = $this->getClassName($name))) {
-            $this->plain("A {$className} class already exists.");
+            $this->writeline("A {$className} class already exists.");
             exit();
         }
     }

@@ -1,14 +1,24 @@
 <?php
 
-namespace System\Console\Commands\Make;
+namespace System\Console\Commands;
+
+defined('DS') or exit('No direct script access allowed.');
 
 use System\Console\Generators\GeneralFile;
 
 class MakeListener extends GeneralFile
 {
-    protected $signature = 'make:listener {name}';
+    protected $signature = 'make:listener {:name}';
     protected $description = 'Create a new listener class';
     protected $type = 'Listener';
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Ambil path file stub.

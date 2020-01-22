@@ -1,14 +1,24 @@
 <?php
 
-namespace System\Console\Commands\Make;
+namespace System\Console\Commands;
+
+defined('DS') or exit('No direct script access allowed.');
 
 use System\Console\Generators\GeneralFile;
 
 class MakeMiddleware extends GeneralFile
 {
-    protected $signature = 'make:middleware {name}';
+    protected $signature = 'make:middleware {:name}';
     protected $description = 'Create a new middleware class';
     protected $type = 'Middleware';
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Ambil path file stub.

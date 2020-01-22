@@ -1,14 +1,24 @@
 <?php
 
-namespace System\Console\Commands\Make;
+namespace System\Console\Commands;
+
+defined('DS') or exit('No direct script access allowed.');
 
 use System\Console\Generators\GeneralFile;
 
-class MakeModel extends GeneralFile
+class MakeController extends GeneralFile
 {
-    protected $signature = 'make:model {name}';
-    protected $description = 'Create a new model class';
-    protected $type = 'Model';
+    protected $signature = 'make:controller {:name}';
+    protected $description = 'Create a new controller class';
+    protected $type = 'Controller';
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Ambil path file stub.
@@ -17,7 +27,7 @@ class MakeModel extends GeneralFile
      */
     protected function getStub()
     {
-        return system_path('Console/stubs/make/model.stub');
+        return system_path('Console/stubs/make/controller.stub');
     }
 
     /**
@@ -29,7 +39,7 @@ class MakeModel extends GeneralFile
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace;
+        return $rootNamespace.'\\Http\\Controllers';
     }
 
     /**

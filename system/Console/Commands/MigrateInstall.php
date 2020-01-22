@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Console\Commands\Migrate;
+namespace System\Console\Commands;
 
 defined('DS') or exit('No direct script access allowed.');
 
@@ -22,11 +22,10 @@ class MigrateInstall extends Command
         $migrator = new Migrator();
 
         if ($migrator->getRepos()->repositoryExists()) {
-            return $this->error('Migration repository already exists!');
+            $this->writeline('Migration repository already exists.');
         } else {
             $migrator->getRepos()->createRepos();
-
-            return $this->plain('Migration repository created successfully.');
+            $this->writeline('Migration repository created successfully.');
         }
     }
 }

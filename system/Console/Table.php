@@ -160,7 +160,7 @@ class Table
      */
     public function display()
     {
-        echo $this->getTable();
+        print $this->getTable();
     }
 
     /**

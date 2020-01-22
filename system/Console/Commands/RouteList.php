@@ -13,7 +13,7 @@ use System\Support\Str;
 class RouteList extends Command
 {
     protected $signature = 'route:list';
-    protected $description = 'List all defined routes';
+    protected $description = 'List all registered routes';
 
     /**
      * Tangani command ini.
@@ -23,18 +23,17 @@ class RouteList extends Command
     public function handle()
     {
         $routes = [];
-
         $this->getRouteDefinitions();
         $routes = Route::getRoutes();
-
         $table = new Table();
 
         if (empty($routes)) {
-            $this->error("Your application doesn't have any routes.");
-            $this->quit();
+            $this->write("Your application doesn't have any routes.");
+            $this->newline();
+            exit();
         }
 
-        $table
+        $table->addHeader('No.')
             ->addHeader('SSL')
             ->addHeader('Domain')
             ->addHeader('Method')
@@ -42,17 +41,15 @@ class RouteList extends Command
             ->addHeader('Name')
             ->addHeader('Action')
             ->addHeader('Middleware');
+        $number = 1;
 
         foreach ($routes as $route) {
             $ssl = isset($route['ssl']) && (true === $route['ssl']) ? 'true' : 'false';
-
             $domain = isset($route['domain']) ? $route['domain'] : '';
-
             $uri = $route['uri'];
 
             $methods = is_array($route['method']) ? $route['method'] : [$route['method']];
-            $methods = implode(', ', $methods);
-
+            $methods = implode('|', $methods);
             $action = ($route['callback'] instanceof Closure)
                 ? 'Closure'
                 : Str::replaceFirst('App\\Http\\Controllers\\', '', $route['callback']);
@@ -68,6 +65,7 @@ class RouteList extends Command
             }
 
             $table->addRow()
+                ->addColumn($number.'.')
                 ->addColumn($ssl)
                 ->addColumn($domain)
                 ->addColumn($methods)
@@ -75,13 +73,15 @@ class RouteList extends Command
                 ->addColumn($name)
                 ->addColumn($action)
                 ->addColumn($middlewares);
+
+            $number++;
         }
 
-        $table->display();
+        $this->write($table->getTable());
 
-        $this->plain('*) Middlewares that called from inside controller classes will not be listed.');
+        $this->writeline('*) Middlewares that called from inside controller classes will not be listed.');
         $this->newline();
-        $this->quit();
+        exit();
     }
 
     /**

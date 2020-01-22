@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Console\Commands\Migrate;
+namespace System\Console\Commands;
 
 defined('DS') or exit('No direct script access allowed.');
 
@@ -22,17 +22,16 @@ class MigrateRollback extends Command
         $migrator = new Migrator();
 
         if (!$migrator->getRepos()->repositoryExists()) {
-            $this->plain('Migration repository does not exists: '.$migrator->getMigrationTable());
-
-            return;
+            $repository = $migrator->getMigrationTable();
+            $this->writeline('Migration repository does not exists: '.$repository);
+            return false;
         }
 
         $migrator->rollback();
-
         $notes = $migrator->getNotes();
 
         foreach ($notes as $note) {
-            $this->plain($note);
+            $this->writeline($note);
         }
     }
 }

@@ -1,25 +1,35 @@
 <?php
 
-namespace System\Console\Commands\Make;
+namespace System\Console\Commands;
+
+defined('DS') or exit('No direct script access allowed.');
 
 use System\Console\Generators\GeneralFile;
 
 class MakeSeeder extends GeneralFile
 {
-    protected $signature = 'make:seeder {name}';
+    protected $signature = 'make:seeder {:name}';
     protected $description = 'Create a new seeder class';
     protected $type = 'Seeder';
 
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+    
     /**
      * Tangani command ini.
      *
      * @return void
      */
-    public function handle($input)
+    public function handle()
     {
         $this->ensureDatabaseSeederClassExists();
         $this->ensureUsersTableSeederClassExists();
-        parent::handle($input);
+        parent::handle();
     }
 
     /**

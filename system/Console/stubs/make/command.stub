@@ -9,7 +9,7 @@ use System\Console\Command;
 class DummyClass extends Command
 {
     protected $signature = 'CommandSignature';
-    protected $description = 'Ini adalah deskripsi dari CommandSignature command.';
+    protected $description = 'Description of CommandSignature command';
 
     /**
      * Handle command ini.
@@ -18,6 +18,6 @@ class DummyClass extends Command
      */
     public function handle()
     {
-        return $this->plain('Hai! terimakasih telah memanggilku, namaku CommandSignature');
+        $this->writeline('Hi there! my name is CommandSignature');
     }
 }

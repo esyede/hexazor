@@ -4,60 +4,98 @@ namespace System\Console;
 
 defined('DS') or exit('No direct script access allowed.');
 
-use Exception;
-
-abstract class Command
+class Command
 {
-    protected $console;
+    use Traits\Ask;
+    use Traits\Writer;
+
+    private $command;
+    private $arguments;
+    private $options;
+
     protected $signature;
     protected $description;
 
-    /**
-     * Ambil signature command.
-     *
-     * @return string
-     */
+
+    public function __construct()
+    {
+        $parsedSignature = Helper::parseSignature($this->signature);
+        $this->command = $parsedSignature[0];
+        $this->arguments = $parsedSignature[1];
+        $this->options = $parsedSignature[2];
+    }
+
+
+    public function update(array $arguments = null, array $options = null)
+    {
+        if ($arguments) {
+            $keys = array_keys($this->arguments);
+
+            for ($index = 0; $index < count($keys); $index++) {
+                $this->arguments[$keys[$index]] = $arguments[$index];
+            }
+        }
+
+        if ($options) {
+            foreach ($options as $option => $value) {
+                $this->options[$option] = $value;
+            }
+        }
+    }
+
+
+    public function handle()
+    {
+        return;
+    }
+
+
     public function getSignature()
     {
         return $this->signature;
     }
 
-    /**
-     * Ambil deskripsi command.
-     *
-     * @return string
-     */
+
+    public function getCommand()
+    {
+        return $this->command;
+    }
+
+
     public function getDescription()
     {
         return $this->description;
     }
 
-    /**
-     * Definisikan objek kelas ini.
-     */
-    public function defineApp(Console $console)
+
+    protected function getArgument($name)
     {
-        if (!$this->console) {
-            $this->console = $console;
+        if (isset($this->arguments[':'.$name])) {
+            return $this->arguments[':'.$name];
         }
+
+        return null;
     }
 
-    /**
-     * Panggil method secara dimanis.
-     *
-     * @param string $method
-     * @param mixed  $args
-     *
-     * @return bool
-     */
-    public function __call($method, $args)
+
+    public function getArguments()
     {
-        if ($this->console && method_exists($this->console, $method)) {
-            return call_user_func_array([$this->console, $method], $args);
+        return $this->arguments;
+    }
+
+    
+    protected function getOption($name)
+    {
+        if (isset($this->options['--'.$name])) {
+            return $this->options['--'.$name];
         }
 
-        $class = get_class($this);
+        return null;
+    }
 
-        throw new Exception("Call to undefined method: {$class}::{$method}()");
+
+    public function getOptions()
+    {
+        return $this->options;
     }
 }

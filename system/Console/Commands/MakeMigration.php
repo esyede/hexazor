@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Console\Commands\Make;
+namespace System\Console\Commands;
 
 defined('DS') or exit('No direct script access allowed.');
 
@@ -8,19 +8,34 @@ use System\Console\Generators\MigrationFile;
 
 class MakeMigration extends MigrationFile
 {
-    protected $signature = 'make:migration {name}';
+    protected $signature = 'make:migration {:name} {--table}';
     protected $description = 'Create a new migration class';
     protected $creator;
 
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+    
     /**
      * Tangani command ini.
      *
      * @return void
      */
-    public function handle($name)
+    public function handle()
     {
-        $table = $this->option('table');
-        $create = $this->option('create');
+        $name =$this->getArgument('name');
+
+        if (is_null($name)) {
+            $this->writeline('The [name] argument is mandatory.');
+            return false;
+        }
+
+        $table = $this->getOption('table');
+        $create = $this->getOption('create');
 
         if (is_null($table) && is_string($create)) {
             $table = $create;
@@ -43,7 +58,7 @@ class MakeMigration extends MigrationFile
     {
         $path = $this->getMigrationPath();
         $file = pathinfo($this->create($name, $table, $create), PATHINFO_FILENAME);
-        $this->plain("Created Migration: $file");
+        $this->writeline("Created Migration: $file");
     }
 
     /**

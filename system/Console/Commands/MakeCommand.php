@@ -1,14 +1,25 @@
 <?php
 
-namespace System\Console\Commands\Make;
+namespace System\Console\Commands;
+
+defined('DS') or exit('No direct script access allowed.');
 
 use System\Console\Generators\GeneralFile;
+use System\Support\Str;
 
 class MakeCommand extends GeneralFile
 {
-    protected $signature = 'make:command {name}';
+    protected $signature = 'make:command {:name}';
     protected $description = 'Create a new console command';
     protected $type = 'Command';
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Ambil path file stub.
@@ -41,8 +52,10 @@ class MakeCommand extends GeneralFile
      */
     protected function buildClass($name)
     {
+        $signature = Str::replaceFirst('App\\Console\\Commands\\', '', $name);
+        $signature = Str::kebab($signature);
         $replace = [
-            'CommandSignature' => 'custom:'.$this->generateRandomWord(),
+            'CommandSignature' => 'custom:'.$signature,
         ];
 
         return str_replace(
@@ -50,31 +63,5 @@ class MakeCommand extends GeneralFile
             array_values($replace),
             parent::buildClass($name)
         );
-    }
-
-    /**
-     * Buat kata acak untuk mengisi signature command.
-     *
-     * @param int $length
-     *
-     * @return string
-     */
-    protected function generateRandomWord($length = 6)
-    {
-        $word = '';
-        $vowels = ['a', 'e', 'i', 'o', 'u'];
-        $consonants = [
-            'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm',
-            'n', 'p', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z',
-        ];
-
-        $max = $length / 2;
-
-        for ($i = 1; $i <= $max; $i++) {
-            $word .= $consonants[rand(0, 19)];
-            $word .= $vowels[rand(0, 4)];
-        }
-
-        return $word;
     }
 }
