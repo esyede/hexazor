@@ -111,7 +111,7 @@ class Schema
             $grammar = static::grammar($connection);
 
             if (method_exists($grammar, $method = $command->type)) {
-                $statements = $grammar->$method($table, $command);
+                $statements = $grammar->{$method}($table, $command);
                 $statements = (array) $statements;
 
                 foreach ($statements as $statement) {
@@ -137,11 +137,11 @@ class Schema
 
         foreach ($table->columns as $column) {
             foreach ($keys as $key) {
-                if (isset($column->$key)) {
-                    if ($column->$key === true) {
-                        $table->$key($column->name);
+                if (isset($column->{$key})) {
+                    if ($column->{$key} === true) {
+                        $table->{$key}($column->name);
                     } else {
-                        $table->$key($column->name, $column->$key);
+                        $table->{$key}($column->name, $column->{$key});
                     }
                 }
             }

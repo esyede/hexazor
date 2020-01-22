@@ -98,8 +98,8 @@ class BelongsTo extends Relationship
         $children = (array) $children;
 
         foreach ($children as $child) {
-            if (array_key_exists($child->$foreign, $dictionary)) {
-                $child->relationships[$relationship] = $dictionary[$child->$foreign];
+            if (array_key_exists($child->{$foreign}, $dictionary)) {
+                $child->relationships[$relationship] = $dictionary[$child->{$foreign}];
             }
         }
     }

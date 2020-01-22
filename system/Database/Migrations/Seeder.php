@@ -4,10 +4,14 @@ namespace System\Database\Migrations;
 
 defined('DS') or exit('No direct script access allowed.');
 
-use System\Console\Console;
+use System\Console\Traits\Ask;
+use System\Console\Traits\Writer;
 
 class Seeder
 {
+    use Ask;
+    use Writer;
+
     public static $console;
 
     /**
@@ -29,20 +33,14 @@ class Seeder
      */
     public function call($class)
     {
-        if (!(static::$console instanceof Console)) {
-            static::$console = new Console();
+        if (is_object($object = $this->resolve($class))) {
+            $this->writeline("Seeding: {$class}");
+            $time = microtime(true);
+            $object->run();
+            $time = round(microtime(true) - $time, 2);
+            $this->writeline("Seeded : {$class}   {$time}s");
+            $this->newline();
         }
-
-        static::$console->plain("Seeding: {$class}");
-
-        $time = microtime(true);
-
-        $this->resolve($class)->run();
-
-        $time = round(microtime(true) - $time, 2);
-
-        static::$console->plain("Seeded : {$class}   {$time}s");
-        static::$console->newline();
     }
 
     /**
@@ -55,11 +53,13 @@ class Seeder
     protected function resolve($class)
     {
         if (!is_file(database_path('seeds/'.$class.'.php'))) {
-            return $this->plain('Seeder class not found: '.$class);
+            $this->writeline('Seeding: '.$class);
+            $this->writeline('Halted : '.$class.' [seeder not found]');
+            $this->newline();
+            return false;
         }
 
         require_once database_path('seeds/'.$class.'.php');
-
         return new $class();
     }
 }

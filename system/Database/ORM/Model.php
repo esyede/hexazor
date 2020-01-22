@@ -54,10 +54,10 @@ abstract class Model
 
             if (is_array(static::$fillable)) {
                 if (in_array($key, static::$fillable)) {
-                    $this->$key = $value;
+                    $this->{$key} = $value;
                 }
             } else {
-                $this->$key = $value;
+                $this->{$key} = $value;
             }
         }
 
@@ -445,7 +445,7 @@ abstract class Model
         $attrKeys = array_keys($this->attributes);
         foreach ($attrKeys as $attribute) {
             if (!in_array($attribute, static::$hidden)) {
-                $attributes[$attribute] = $this->$attribute;
+                $attributes[$attribute] = $this->{$attribute};
             }
         }
 
@@ -485,7 +485,7 @@ abstract class Model
 
             return $this->{"get{$key}"}();
         } elseif (method_exists($this, $key)) {
-            return $this->relationships[$key] = $this->$key()->results();
+            return $this->relationships[$key] = $this->{$key}()->results();
         }
 
         $key = Str::studly($key);

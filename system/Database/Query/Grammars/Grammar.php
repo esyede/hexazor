@@ -38,7 +38,7 @@ class Grammar extends BaseGrammar
     final protected function components($query)
     {
         foreach ($this->components as $component) {
-            if (!is_null($query->$component)) {
+            if (!is_null($query->{$component})) {
                 $sql[$component] = call_user_func([$this, $component], $query);
             }
         }

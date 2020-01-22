@@ -63,7 +63,7 @@ class MySQL extends Grammar
             $sql = $this->wrap($column).' '.$this->type($column);
             $elements = ['unsigned', 'nullable', 'defaults', 'incrementer'];
             foreach ($elements as $element) {
-                $sql .= $this->$element($table, $column);
+                $sql .= $this->{$element}($table, $column);
             }
 
             $columns[] = $sql;

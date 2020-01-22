@@ -40,7 +40,7 @@ class HasMany extends HasOneOrMany
             }
 
             $foreign = $this->foreignKey();
-            $model->$foreign = $this->base->getKey();
+            $model->{$foreign} = $this->base->getKey();
             $id = $model->getKey();
 
             $model->exists = (!is_null($id) && in_array($id, $current));
@@ -80,7 +80,7 @@ class HasMany extends HasOneOrMany
 
         $dictionary = [];
         foreach ($children as $child) {
-            $dictionary[$child->$foreign][] = $child;
+            $dictionary[$child->{$foreign}][] = $child;
         }
 
         $parents = (array) $parents;

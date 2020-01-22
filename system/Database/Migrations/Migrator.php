@@ -63,8 +63,7 @@ class Migrator
         $migrations = $this->repos->getLast();
 
         if (0 == count($migrations)) {
-            $this->note('Nothing to rollback.');
-
+            $this->note('Done. Nothing to rollback.');
             return count($migrations);
         }
 
@@ -79,13 +78,9 @@ class Migrator
     protected function runDown($migration)
     {
         $file = $migration->migration;
-
         $instance = $this->resolve($file);
-
         $instance->down();
-
         $this->repos->delete($migration);
-
         $this->note("Rolled back: $file");
     }
 
@@ -116,7 +111,6 @@ class Migrator
     public function resolve($file)
     {
         $path = database_path('migrations/'.$file).'.php';
-
         $this->storage->requireOnce($path);
 
         $file = implode('_', array_slice(explode('_', $file), 4));

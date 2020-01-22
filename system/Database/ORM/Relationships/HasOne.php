@@ -45,7 +45,7 @@ class HasOne extends HasOneOrMany
 
         $dictionary = [];
         foreach ($children as $child) {
-            $dictionary[$child->$foreign] = $child;
+            $dictionary[$child->{$foreign}] = $child;
         }
 
         $parents = (array) $parents;

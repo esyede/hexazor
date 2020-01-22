@@ -137,7 +137,7 @@ class Query
      */
     protected function load(&$results, $relationship, $constraints)
     {
-        $query = $this->model->$relationship();
+        $query = $this->model->{$relationship}();
         $query->model->eagerloads = $this->nestedEagerloads($relationship);
         $query->table->resetWhere();
         $query->eagerlyConstrain($results);

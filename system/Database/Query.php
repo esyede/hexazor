@@ -576,12 +576,12 @@ class Query
         $columns = (is_null($key)) ? [$column] : [$column, $key];
         $results = $this->get($columns);
         $values = array_map(function ($row) use ($column) {
-            return $row->$column;
+            return $row->{$column};
         }, $results);
 
         if (!is_null($key) && count($results)) {
             return array_combine(array_map(function ($row) use ($key) {
-                return $row->$key;
+                return $row->{$key};
             }, $results), $values);
         }
 
