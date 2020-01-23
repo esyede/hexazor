@@ -95,6 +95,19 @@ if (!function_exists('event')) {
     }
 }
 
+if (!function_exists('faker')) {
+    function faker($locale = null)
+    {
+        static $_faker__factory = null;
+
+        if (is_null($_faker__factory)) {
+            $_faker__factory = System\Support\Faker\Factory::create($locale);
+        }
+
+        return $_faker__factory;
+    }
+}
+
 // ---------------------------------------------------------------------
 // Languages
 // ---------------------------------------------------------------------
