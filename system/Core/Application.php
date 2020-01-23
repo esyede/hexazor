@@ -15,7 +15,7 @@ use System\Console\Console;
 class Application
 {
     const PACKAGE = 'Hexazor';
-    const VERSION = '0.9.3';
+    const VERSION = '0.9.4';
 
     /**
      * Constructor.
