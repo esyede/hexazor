@@ -36,7 +36,7 @@ $count = count($profiler);
 	<?php else: ?>
 		<?php for ($i = 0; $i < count($profiler); $i++): ?>
 			<tr>
-		 		<td><?php echo ($i+1).'.'; ?></td>
+		 		<td><?php echo($i+1).'.'; ?></td>
 				<td><pre><?php Dumper::dump($profiler[$i]['sql'], ['truncate' => 0]) ?></pre></td>
 				<td><?php Dumper::dump($profiler[$i]['bindings'], ['truncate' => 0]) ?></td>
 				<td style="color: #850"><?php echo $profiler[$i]['time'] ?></td>
