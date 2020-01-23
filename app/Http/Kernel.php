@@ -43,7 +43,6 @@ class Kernel
      */
     public static function boot()
     {
-        View::share(['test1' => 'dummy foobar']);
-        View::share('test2', 'dummy');
+        // ...
     }
 }

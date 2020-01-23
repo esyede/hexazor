@@ -13,7 +13,7 @@ use System\Support\Collection;
 class Help extends Command
 {
     protected $signature = 'help {:command}';
-    protected $description = 'Show help screen';
+    protected $description = 'Show help screen for command';
 
     public function handle()
     {
@@ -62,7 +62,7 @@ class Help extends Command
             $this->writeline('-');
         } else {
             foreach ($options as $key => $value) {
-                $this->writeline($key.' '.$value);
+                $this->writeline($key.' '.(is_null($value) ? '(optional)' : '(default: '.$value.')'));
             }
         }
         $this->newline(2);
@@ -75,16 +75,23 @@ class Help extends Command
         $this->newline();
 
         $table = new Table();
-        $table->addHeader('No.')
+        $table
+            ->addHeader('No.')
             ->addHeader('Command')
             ->addHeader('Description');
         $number = 1;
 
         foreach ($commands as $command) {
             $command = new $command;
+            $commandName = $command->getCommand();
+
+            if ($commandName === 'help') {
+                $commandName = 'help <command>';
+            }
+
             $table->addRow()
                 ->addColumn($number.'.')
-                ->addColumn('php '.Console::getFilename().' '.$command->getCommand())
+                ->addColumn('php '.Console::getFilename().' '.$commandName)
                 ->addColumn($command->getDescription());
             $number++;
         }

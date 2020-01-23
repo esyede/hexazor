@@ -8,5 +8,5 @@ use System\Core\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    // inherit..
+    // ...
 }

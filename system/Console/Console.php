@@ -45,7 +45,7 @@ class Console
         }
 
         if (!in_array($command, array_keys(static::$commands))) {
-            $message = 'Command not found: '.$command.PHP_EOL;
+            $message = "Sorry, i don't understand this command: '{$command}'".PHP_EOL;
             print is_cli() ? $message : '<pre>'.$message.'</pre>';
             return false;
         }
@@ -98,7 +98,7 @@ class Console
         $arguments = is_array($arguments) ? $arguments : [$arguments];
 
         if (!isset(static::$commands[$command])) {
-            $message = 'Command not found: '.$command.PHP_EOL;
+            $message = "Sorry, i don't understand this command: '{$command}'".PHP_EOL;
             print is_cli() ? $message : '<pre>'.$message.'</pre>';
             return false;
         }

@@ -20,7 +20,9 @@ class InspireCommand extends Command
     public function handle()
     {
         $quotes = $this->getQuotes();
+        
         $quotes = Collection::make($quotes)->random();
+        
         $this->writeline($quotes);
     }
 
