@@ -5,10 +5,12 @@ namespace System\Console\Commands;
 defined('DS') or exit('No direct script access allowed.');
 
 use System\Console\Generators\GeneralFile;
+use System\Console\Console;
+use System\Support\Str;
 
 class MakeModel extends GeneralFile
 {
-    protected $signature = 'make:model {:name}';
+    protected $signature = 'make:model {:name} {--migration} {--seeder}';
     protected $description = 'Create a new model class';
     protected $type = 'Model';
 
@@ -18,6 +20,24 @@ class MakeModel extends GeneralFile
     public function __construct()
     {
         parent::__construct();
+    }
+
+
+    public function handle()
+    {
+        parent::handle();
+        
+        $name = $this->getArgument('name');
+        
+        if ($this->getOption('migration')) {
+            $name = strtolower(Str::plural($name));
+            Console::call('make:migration', 'create_'.$name.'_table', ['--create' => $name]);
+        }
+
+        if ($this->getOption('seeder')) {
+            $name = Str::title(Str::plural($name));
+            Console::call('make:seeder', $name.'TableSeeder', null);
+        }
     }
     
     /**
