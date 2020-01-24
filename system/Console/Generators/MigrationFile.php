@@ -11,9 +11,10 @@ use System\Support\Str;
 
 class MigrationFile extends Command
 {
-    protected $storage;
     protected $migrationPath;
     protected $postCreate = [];
+
+    protected static $storage = null;
 
     /**
      * Constructor.
@@ -21,7 +22,11 @@ class MigrationFile extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->storage = new Storage();
+        
+        if (is_null(static::$storage)) {
+            static::$storage = new Storage();
+        }
+
         $this->migrationPath = database_path('migrations/');
     }
 
@@ -42,7 +47,7 @@ class MigrationFile extends Command
         $this->ensureMigrationPathExists();
         $this->ensureMigrationDoesntAlreadyExist($name);
 
-        $this->storage->put($path, $this->populateStub($name, $stub, $table));
+        static::$storage->put($path, $this->populateStub($name, $stub, $table));
         $this->firePostCreateHooks();
 
         return $path;
@@ -64,7 +69,7 @@ class MigrationFile extends Command
             $stub = $create ? 'create.stub' : 'update.stub';
         }
 
-        return $this->storage->get($this->getStubPath().$stub);
+        return static::$storage->get($this->getStubPath().$stub);
     }
 
     /**
@@ -76,10 +81,10 @@ class MigrationFile extends Command
      */
     protected function ensureMigrationDoesntAlreadyExist($name)
     {
-        $files = $this->storage->glob($this->migrationPath.'*.php');
+        $files = static::$storage->glob($this->migrationPath.'*.php');
 
         foreach ($files as $file) {
-            $this->storage->requireOnce($file);
+            static::$storage->requireOnce($file);
         }
 
         if (class_exists($className = $this->getClassName($name))) {
@@ -96,7 +101,7 @@ class MigrationFile extends Command
     protected function ensureMigrationPathExists()
     {
         if (!is_dir($this->migrationPath)) {
-            $this->storage->makeDirectory($this->migrationPath, 0777, true);
+            static::$storage->makeDirectory($this->migrationPath, 0777, true);
         }
     }
 
@@ -139,8 +144,10 @@ class MigrationFile extends Command
      */
     protected function firePostCreateHooks()
     {
-        foreach ($this->postCreate as $callback) {
-            call_user_func($callback);
+        if (!blank($this->postCreate)) {
+            foreach ($this->postCreate as $callback) {
+                call_user_func($callback);
+            }
         }
     }
 
@@ -153,7 +160,7 @@ class MigrationFile extends Command
      */
     public function afterCreate(Closure $callback)
     {
-        $this->postCreate[] = $callback;
+        $this->postCreate = array_merge($this->postCreate, $callback);
     }
 
     /**
@@ -195,6 +202,6 @@ class MigrationFile extends Command
      */
     public function getStorage()
     {
-        return $this->storage;
+        return static::$storage;
     }
 }

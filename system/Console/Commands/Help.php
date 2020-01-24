@@ -26,7 +26,10 @@ class Help extends Command
 
             $usage = 'php '.Console::getFileName().' '.$command->getSignature();
             $description = $command->getDescription();
-            $arguments = (array) $command->getArguments();
+            $arguments = array_keys((array) $command->getArguments());
+            $arguments = array_map(function ($argument) {
+                return ltrim($argument, ':');
+            }, $arguments);
             $options = $command->getOptions();
 
             $this->showCommandDetails($usage, $description, $arguments, $options);
@@ -41,7 +44,7 @@ class Help extends Command
     protected function showCommandDetails($usage, $description, array $arguments, array $options)
     {
         $this->newline();
-        $usage = str_replace(['{', '}'], ['[', ']'], $usage);
+        $usage = str_replace(['{:', '{--', '}'], ['[', '[--', ']'], $usage);
         $this->writeline('Usage:');
         $this->writeline($usage);
         $this->newline();

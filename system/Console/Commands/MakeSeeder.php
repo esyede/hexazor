@@ -28,7 +28,6 @@ class MakeSeeder extends GeneralFile
     public function handle()
     {
         $this->ensureDatabaseSeederClassExists();
-        $this->ensureUsersTableSeederClassExists();
         parent::handle();
     }
 
@@ -45,20 +44,7 @@ class MakeSeeder extends GeneralFile
             $stub = system_path('Console/stubs/make/database_seeder.stub');
             $stub = file_get_contents($stub);
 
-            return false !== file_put_contents($file, $stub, LOCK_EX);
-        }
-    }
-
-
-    protected function ensureUsersTableSeederClassExists()
-    {
-        $file = $this->getPath('UsersTableSeeder');
-
-        if (!is_file($file)) {
-            $stub = system_path('Console/stubs/make/users_table_seeder.stub');
-            $stub = file_get_contents($stub);
-
-            return false !== file_put_contents($file, $stub, LOCK_EX);
+            return (false !== @file_put_contents($file, $stub, LOCK_EX));
         }
     }
 

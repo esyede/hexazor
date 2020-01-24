@@ -27,17 +27,14 @@ class KeyGenerate extends Command
 
         if (false !== preg_match($pattern, $subject)) {
             $subject = preg_replace($pattern, $replacement, $subject);
-            if (false === file_put_contents($path, $subject, LOCK_EX)) {
-                $this->write('Failed to set application key.');
-                $this->newline();
+            if (false === @file_put_contents($path, $subject, LOCK_EX)) {
+                $this->writeline('Failed to set application key.');
                 exit();
             } else {
-                $this->write("Application key set successfully.");
-                $this->newline();
+                $this->writeline("Application key set successfully.");
             }
         } else {
-            $this->write('Failed to set application key.');
-            $this->newline();
+            $this->writeline('Failed to set application key.');
             exit();
         }
     }

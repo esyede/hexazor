@@ -12,7 +12,7 @@ class GeneralFile extends Command
 {
     protected $type;
 
-    protected static $storage;
+    protected static $storage = null;
 
     /**
      * Ambil path file stub.
@@ -27,27 +27,27 @@ class GeneralFile extends Command
     /**
      * Jalankan proses pembuatan file.
      *
-     * @param string $input
-     *
      * @return void
      */
     public function handle()
     {
-        static::$storage = new Storage();
-
-        $input = $this->getArgument('name');
-
-        if (is_null($input)) {
-            $this->writeline('The [name] argument is mandatory.');
-            return false;
+        if (is_null(static::$storage)) {
+            static::$storage = new Storage();
         }
 
-        $name = $this->qualifyClass($input);
+        $name = $this->getArgument('name');
+
+        if (is_null($name)) {
+            $this->writeline('The [name] argument is mandatory.');
+            exit();
+        }
+
+        $name = $this->qualifyClass($name);
         $path = $this->getPath($name);
 
-        if (!$this->getOption('force') && $this->alreadyExists($input)) {
+        if (!$this->getOption('force') && $this->alreadyExists($name)) {
             $this->writeline(Str::singular($this->type).' already exists!');
-            return false;
+            exit();
         }
 
         $this->makeDirectory($path);
@@ -90,6 +90,13 @@ class GeneralFile extends Command
         return $rootNamespace;
     }
 
+    /**
+     * Cek apakah kelas sudah ada atau belum.
+     *
+     * @param  string $rawName
+     *
+     * @return bool
+     */
     protected function alreadyExists($rawName)
     {
         return static::$storage->exists($this->getPath($this->qualifyClass($rawName)));

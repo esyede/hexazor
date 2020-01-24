@@ -701,7 +701,7 @@ class Request
     }
 
     /**
-     * Cek apakah requaest diminta via ip proxy.
+     * Cek apakah request diminta via ip proxy.
      *
      * @return bool
      */
