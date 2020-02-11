@@ -224,7 +224,7 @@ class Paginator
         $pages = [];
 
         for ($page = $start; $page <= $end; $page++) {
-            if ($this->page == $page) {
+            if ($this->page === $page) {
                 $pages[] = '<li class="active"><a href="#">'.$page.'</a></li>'.PHP_EOL;
             } else {
                 $pages[] = $this->link($page, $page, null);

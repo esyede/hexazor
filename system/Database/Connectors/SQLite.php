@@ -21,7 +21,7 @@ class SQLite extends Connector
     {
         $options = $this->options($config);
 
-        if (':memory:' == $config['database']) {
+        if (':memory:' === $config['database']) {
             return new PDO('sqlite::memory:', null, null, $options);
         }
 
@@ -39,7 +39,7 @@ class SQLite extends Connector
 
         unset($storage);
 
-        $path .= "{$dbname}.sqlite";
+        $path .= $dbname.'.sqlite';
 
         return new PDO('sqlite:'.$path, null, null, $options);
     }

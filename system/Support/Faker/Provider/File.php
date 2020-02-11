@@ -503,7 +503,7 @@ class File extends Base
             );
         }
 
-        if ($sourceDirectory == $targetDirectory) {
+        if ($sourceDirectory === $targetDirectory) {
             throw new InvalidArgumentException('Source and target directories must differ.');
         }
 

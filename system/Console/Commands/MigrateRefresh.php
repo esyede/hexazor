@@ -49,10 +49,8 @@ class MigrateRefresh extends Command
      */
     protected function runSeeder()
     {
-        $class = filled($this->getOption('seeder'))
-            ? Str::studly($this->getOption('seeder'))
-            : 'DatabaseSeeder';
-
-        Console::call('db:seed', null, ['--class' => $class, '--force' => true]);
+        $seeder = $this->getOption('seeder');
+        $seeder = filled($seeder) ? $seeder : 'DatabaseSeeder';
+        Console::call('db:seed', null, ['--class' => $seeder, '--force' => true]);
     }
 }

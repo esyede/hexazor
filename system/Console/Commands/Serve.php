@@ -19,10 +19,8 @@ class Serve extends Command
         $port = (is_numeric($port) && $port >= 20 && $port <= 65535) ? $port : 8000;
         $command = escapeshellcmd('php -S localhost:'.$port.' -t .');
 
-        $this->write("Hexazor development server started: <http://localhost:{$port}>");
-        $this->newline();
-        $this->write('Press Ctrl-C to quit.');
-        $this->newline();
+        $this->writeline("Hexazor development server started: <http://localhost:{$port}>");
+        $this->writeline('Press Ctrl-C to quit.');
 
         passthru($command);
     }

@@ -262,10 +262,10 @@ class Route
      */
     public static function route($method, $pattern, $callback)
     {
-        if ('/' == $pattern) {
+        if ('/' === $pattern) {
             $pattern = static::$baseroute.trim($pattern, '/');
         } else {
-            if ('/' == static::$baseroute) {
+            if ('/' === static::$baseroute) {
                 $pattern = static::$baseroute.trim($pattern, '/');
             } else {
                 $pattern = static::$baseroute.$pattern;
@@ -333,6 +333,7 @@ class Route
     public static function run()
     {
         $matched = 0;
+        
         foreach (static::$routes as $key => $route) {
             if (preg_match($route['pattern'], static::getCurrentUri(), $params)) {
                 $domainCheck = static::checkDomain($route);
@@ -565,10 +566,10 @@ class Route
             $method = $_SERVER['REQUEST_METHOD'];
         }
 
-        if ('HEAD' == $method) {
+        if ('HEAD' === $method) {
             ob_start();
             $method = 'GET';
-        } elseif ('POST' == $method) {
+        } elseif ('POST' === $method) {
             $headers = static::getRequestHeaders();
             if (isset($headers['X-HTTP-Method-Override'])
             && in_array($headers['X-HTTP-Method-Override'], ['PUT', 'DELETE', 'PATCH'])) {
@@ -748,7 +749,7 @@ class Route
     {
         $pattern = null;
         foreach (static::$routes as $route) {
-            if (array_key_exists('name', $route) && $route['name'] == $name) {
+            if (array_key_exists('name', $route) && $route['name'] === $name) {
                 $pattern = static::resolveRoutePattern($route['uri'], $params);
                 $pattern = implode('/', $pattern);
                 break;

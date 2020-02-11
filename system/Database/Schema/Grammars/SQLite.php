@@ -25,7 +25,7 @@ class SQLite extends Grammar
         $primary = null;
 
         foreach ($table->commands as $key => $value) {
-            if ('primary' == $value->type) {
+            if ('primary' === $value->type) {
                 $primary = $value;
                 break;
             }
@@ -71,9 +71,11 @@ class SQLite extends Grammar
     protected function columns(Table $table)
     {
         $columns = [];
+        
         foreach ($table->columns as $column) {
             $sql = $this->wrap($column).' '.$this->type($column);
             $elements = ['nullable', 'defaults', 'incrementer'];
+        
             foreach ($elements as $element) {
                 $sql .= $this->{$element}($table, $column);
             }
@@ -122,7 +124,7 @@ class SQLite extends Grammar
      */
     protected function incrementer(Table $table, Magic $column)
     {
-        if ('integer' == $column->type && $column->increment) {
+        if ('integer' === $column->type && $column->increment) {
             return ' PRIMARY KEY AUTOINCREMENT';
         }
     }

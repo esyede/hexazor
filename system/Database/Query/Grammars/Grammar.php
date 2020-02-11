@@ -119,8 +119,8 @@ class Grammar extends BaseGrammar
     {
         foreach ($query->joins as $join) {
             $table = $this->wrapTable($join->table);
-
             $clauses = [];
+            
             foreach ($join->clauses as $clause) {
                 extract($clause);
                 $column1 = $this->wrap($column1);

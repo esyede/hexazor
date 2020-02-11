@@ -165,7 +165,7 @@ class BlueScreen
             $s = str_replace(["\r", "\n"], ['', ''], $s);
             preg_match_all('#<[^>]+>#', $s, $tags);
 
-            if ($n == $line) {
+            if ($n === $line) {
                 $out .= sprintf(
                     "<span class='highlight'>%{$numWidth}s:    %s\n</span>%s",
                     $n,

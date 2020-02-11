@@ -42,7 +42,7 @@ class MigrateReset extends Command
                 $this->writeline($note);
             }
 
-            if (0 == $count) {
+            if (0 === $count) {
                 break;
             }
         }

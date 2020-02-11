@@ -33,6 +33,7 @@ class HasMany extends HasOneOrMany
 
         foreach ($models as $attributes) {
             $class = get_class($this->model);
+            
             if ($attributes instanceof $class) {
                 $model = $attributes;
             } else {
@@ -79,6 +80,7 @@ class HasMany extends HasOneOrMany
         $foreign = $this->foreignKey();
 
         $dictionary = [];
+        
         foreach ($children as $child) {
             $dictionary[$child->{$foreign}][] = $child;
         }

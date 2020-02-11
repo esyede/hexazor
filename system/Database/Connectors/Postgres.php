@@ -26,20 +26,20 @@ class Postgres extends Connector
     {
         extract($config);
         $host_dsn = isset($host) ? 'host='.$host.';' : '';
-        $dsn = "pgsql:{$host_dsn}dbname={$database}";
+        $dsn = 'pgsql:'.$host_dsn.'dbname='.$database;
 
         if (isset($config['port'])) {
-            $dsn .= ";port={$config['port']}";
+            $dsn .= ';port='.$config['port'];
         }
 
         $connection = new PDO($dsn, $username, $password, $this->options($config));
 
         if (isset($config['charset'])) {
-            $connection->prepare("SET NAMES '{$config['charset']}'")->execute();
+            $connection->prepare("SET NAMES '".$config['charset']."'")->execute();
         }
 
         if (isset($config['schema'])) {
-            $connection->prepare("SET search_path TO {$config['schema']}")->execute();
+            $connection->prepare('SET search_path TO '.$config['schema'])->execute();
         }
 
         return $connection;

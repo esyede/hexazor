@@ -70,8 +70,8 @@ class View
 
             // custom directive
             if (isset(self::$directives[$match[1]])) {
-                if ((isset($match[3]) && '(' == $match[3][0])
-                && ')' == $match[3][count($match[3]) - 1]) {
+                if ((isset($match[3]) && '(' === $match[3][0])
+                && ')' === $match[3][count($match[3]) - 1]) {
                     $match[3] = substr($match[3], 1, -1);
                 }
 
@@ -229,7 +229,7 @@ class View
     protected function compileJson($value)
     {
         $default = JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT;
-        if (isset($value) && '(' == $value[0]) {
+        if (isset($value) && '(' === $value[0]) {
             $value = substr($value, 1, -1);
         }
 
@@ -578,7 +578,7 @@ class View
      */
     protected function compileExtends($value)
     {
-        if (isset($value) && '(' == $value[0]) {
+        if (isset($value) && '(' === $value[0]) {
             $value = substr($value, 1, -1);
         }
 
@@ -594,7 +594,7 @@ class View
      */
     protected function compileInclude($value)
     {
-        if (isset($value) && '(' == $value[0]) {
+        if (isset($value) && '(' === $value[0]) {
             $value = substr($value, 1, -1);
         }
 

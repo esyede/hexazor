@@ -34,11 +34,11 @@ class Seeder
     public function call($class)
     {
         if (is_object($object = $this->resolve($class))) {
-            $this->writeline("Seeding: {$class}");
+            $this->writeline('Seeding: '.$class);
             $time = microtime(true);
             $object->run();
             $time = round(microtime(true) - $time, 2);
-            $this->writeline("Seeded : {$class}   {$time}s");
+            $this->writeline('Seeded : '.$class.'   '.$time.'s');
             $this->newline();
         }
     }

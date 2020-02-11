@@ -49,7 +49,6 @@ abstract class Facade
         if (!isset(static::$created[$accessor])) {
             if (!class_exists($provider)) {
                 throw new RuntimeException('Unable to resolve facade class: '.$accessor);
-                exit();
             }
 
             static::$created[$accessor] = new $provider();

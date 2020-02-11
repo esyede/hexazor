@@ -56,7 +56,7 @@ class Console
         for ($index = 2; $index < count($argv); $index++) {
             list($key, $value) = Helper::parse($argv[$index]);
 
-            if (Helper::determineTypeOfWord($argv[$index]) == Helper::IS_OPTION) {
+            if (Helper::determineTypeOfWord($argv[$index]) === Helper::IS_OPTION) {
                 if (!$value) {
                     $options[$key] = true;
                 } else {
@@ -78,7 +78,7 @@ class Console
         $files = scandir($directory);
 
         foreach ($files as $file) {
-            if ($file == '.' || $file == '..') {
+            if ($file === '.' || $file === '..') {
                 continue;
             }
 

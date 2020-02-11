@@ -37,7 +37,7 @@ class Env
      */
     public static function put($key, $val)
     {
-        if (false == self::getLoader()->overloader) {
+        if (false === self::getLoader()->overloader) {
             if (self::get($key)) {
                 return;
             }
@@ -178,7 +178,7 @@ class Env
             default:
                 $begining = substr($variable, 0, 1);
                 if (in_array($begining, ['\'', '"'])
-                && $begining == substr($variable, -1, 1)) {
+                && $begining === substr($variable, -1, 1)) {
                     return substr($variable, 1, -1);
                 }
 

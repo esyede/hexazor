@@ -228,7 +228,7 @@ class Form
         $dropdown = '';
         if (!empty($options)) {
             foreach ($options as $key => $val) {
-                if (!is_null($selected) && $selected == $key) {
+                if (!is_null($selected) && $selected === $key) {
                     $dropdown .= '<option value="'.$key.'" selected>'.$val.'</option>';
                 } else {
                     $dropdown .= '<option value="'.$key.'">'.$val.'</option>';

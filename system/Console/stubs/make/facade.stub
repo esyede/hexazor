@@ -2,10 +2,17 @@
 
 namespace DummyNamespace;
 
+defined('DS') or exit('No direct script access allowed.');
+
 use System\Facades\Facade;
 
 class DummyClass extends Facade
 {
+    /**
+     * Nama accessor untuk facade
+     *
+     * @return string
+     */
     protected static function getFacadeAccessor()
     {
         return 'DummyTarget';

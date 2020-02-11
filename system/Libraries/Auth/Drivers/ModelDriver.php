@@ -21,7 +21,7 @@ class ModelDriver extends Driver
     {
         if (false !== filter_var($token, FILTER_VALIDATE_INT)) {
             return $this->model()->find($token);
-        } elseif (is_object($token) && Config::get('auth.model') == get_class($token)) {
+        } elseif (is_object($token) && Config::get('auth.model') === get_class($token)) {
             return $token;
         }
     }

@@ -199,7 +199,7 @@ abstract class Model
     {
         if (is_null($foreign)) {
             list(, $caller) = debug_backtrace(false);
-            $foreign = "{$caller['function']}_id";
+            $foreign = $caller['function'].'_id';
         }
 
         return new Relationships\BelongsTo($this, $model, $foreign);
@@ -257,11 +257,12 @@ abstract class Model
 
         if ($this->exists) {
             $query = $this->query()->where(static::$key, '=', $this->getKey());
-            $result = 1 === $query->update($this->getDirty());
+            $result = (1 === $query->update($this->getDirty()));
         } else {
             $id = $this->query()->insertGetId($this->attributes, $this->key());
             $this->setKey($id);
-            $this->exists = $result = is_numeric($this->getKey());
+            $result = is_numeric($this->getKey());
+            $this->exists = $result;
         }
 
         $this->original = $this->attributes;
@@ -371,8 +372,7 @@ abstract class Model
         $dirty = [];
 
         foreach ($this->attributes as $key => $value) {
-            if (!array_key_exists($key, $this->original)
-            || $value != $this->original[$key]) {
+            if (!array_key_exists($key, $this->original) || $value != $this->original[$key]) {
                 $dirty[$key] = $value;
             }
         }
@@ -441,8 +441,9 @@ abstract class Model
      */
     public function toArray()
     {
-        $attributes = [];
         $attrKeys = array_keys($this->attributes);
+        $attributes = [];
+        
         foreach ($attrKeys as $attribute) {
             if (!in_array($attribute, static::$hidden)) {
                 $attributes[$attribute] = $this->{$attribute};
@@ -458,6 +459,7 @@ abstract class Model
                 $attributes[$name] = $models->toArray();
             } elseif (is_array($models)) {
                 $attributes[$name] = [];
+                
                 foreach ($models as $id => $model) {
                     $attributes[$name][$id] = $model->toArray();
                 }
@@ -501,8 +503,8 @@ abstract class Model
      */
     public function __set($key, $value)
     {
-        $key = Str::studly($key);
-        $this->{"set{$key}"}($value);
+        $method = 'set'.Str::studly($key);
+        $this->{$method}($value);
     }
 
     /**

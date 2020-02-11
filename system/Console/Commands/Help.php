@@ -21,8 +21,13 @@ class Help extends Command
         $silent = Console::isSilentMode();
         Console::setSilentMode(false);
 
-        if ($command = $this->getArgument('command')) { // help command
-            $command = new $commands[$command];
+        if ($command = $this->getArgument('command')) {
+            if (!in_array($command, array_keys($commands))) {
+                $this->writeline("Call to unregistered command: '{$command}'");
+                exit();
+            }
+
+            $command = new $commands[$command]();
 
             $usage = 'php '.Console::getFileName().' '.$command->getSignature();
             $description = $command->getDescription();
@@ -32,16 +37,16 @@ class Help extends Command
             }, $arguments);
             $options = $command->getOptions();
 
-            $this->showCommandDetails($usage, $description, $arguments, $options);
+            $this->showUsage($usage, $description, $arguments, $options);
         } else {
-            $this->showCommandListing($commands);
+            $this->showListing($commands);
         }
 
         Console::setSilentMode($silent);
     }
 
 
-    protected function showCommandDetails($usage, $description, array $arguments, array $options)
+    protected function showUsage($usage, $description, array $arguments, array $options)
     {
         $this->newline();
         $usage = str_replace(['{:', '{--', '}'], ['[', '[--', ']'], $usage);
@@ -72,7 +77,7 @@ class Help extends Command
     }
 
 
-    public function showCommandListing(array $commands)
+    public function showListing(array $commands)
     {
         $this->writeline('Welcome to '.Application::PACKAGE.' Console v'.Application::VERSION);
         $this->newline();
@@ -85,7 +90,7 @@ class Help extends Command
         $number = 1;
 
         foreach ($commands as $command) {
-            $command = new $command;
+            $command = new $command();
             $commandName = $command->getCommand();
 
             if ($commandName === 'help') {
@@ -94,7 +99,7 @@ class Help extends Command
 
             $table->addRow()
                 ->addColumn($number.'.')
-                ->addColumn('php '.Console::getFilename().' '.$commandName)
+                ->addColumn($commandName)
                 ->addColumn($command->getDescription());
             $number++;
         }

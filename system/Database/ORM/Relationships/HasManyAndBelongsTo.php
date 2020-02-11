@@ -79,7 +79,6 @@ class HasManyAndBelongsTo extends Relationship
         }
 
         $attributes = (array) $attributes;
-
         $joining = array_merge($this->joinRecord($id), $attributes);
 
         return $this->insertJoining($joining);
@@ -295,6 +294,7 @@ class HasManyAndBelongsTo extends Relationship
         $children = (array) $children;
 
         $dictionary = [];
+        
         foreach ($children as $child) {
             $dictionary[$child->pivot->{$foreign}][] = $child;
         }
@@ -319,6 +319,7 @@ class HasManyAndBelongsTo extends Relationship
 
         foreach ($results as &$result) {
             $pivot = new Pivot($this->joining, $this->model->connection());
+            
             foreach ($result->attributes as $key => $value) {
                 if (0 === strpos($key, 'pivot_')) {
                     $pivot->{substr($key, 6)} = $value;

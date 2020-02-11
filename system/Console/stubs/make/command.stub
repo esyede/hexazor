@@ -12,7 +12,7 @@ class DummyClass extends Command
     protected $description = 'Description of CommandSignature command';
 
     /**
-     * Handle command ini.
+     * Handle 'CommandSignature' command.
      *
      * @return string
      */

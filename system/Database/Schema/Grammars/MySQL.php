@@ -59,9 +59,11 @@ class MySQL extends Grammar
     protected function columns(Table $table)
     {
         $columns = [];
+        
         foreach ($table->columns as $column) {
             $sql = $this->wrap($column).' '.$this->type($column);
             $elements = ['unsigned', 'nullable', 'defaults', 'incrementer'];
+        
             foreach ($elements as $element) {
                 $sql .= $this->{$element}($table, $column);
             }
@@ -82,7 +84,7 @@ class MySQL extends Grammar
      */
     protected function unsigned(Table $table, Magic $column)
     {
-        if ('integer' == $column->type && ($column->unsigned || $column->increment)) {
+        if ('integer' === $column->type && ($column->unsigned || $column->increment)) {
             return ' UNSIGNED';
         }
     }
@@ -125,7 +127,7 @@ class MySQL extends Grammar
      */
     protected function incrementer(Table $table, Magic $column)
     {
-        if ('integer' == $column->type && $column->increment) {
+        if ('integer' === $column->type && $column->increment) {
             return ' AUTO_INCREMENT PRIMARY KEY';
         }
     }

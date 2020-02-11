@@ -34,7 +34,7 @@ class Migrator
 
     public function runMigrationList($migrations)
     {
-        if (0 == count($migrations)) {
+        if (0 === count($migrations)) {
             $this->note('Nothing to migrate.');
 
             return;
@@ -54,7 +54,7 @@ class Migrator
         $migration->up();
         $this->repos->log($file, $batch);
 
-        $this->note("Migrated: $file");
+        $this->note('Migrated: '.$file);
     }
 
     public function rollback()
@@ -68,7 +68,7 @@ class Migrator
         }
 
         foreach ($migrations as $migration) {
-            $migration = (object) $migration;
+            $migration = is_object($migration) ? $migration : (object) $migration;
             $this->runDown($migration);
         }
 
@@ -80,8 +80,9 @@ class Migrator
         $file = $migration->migration;
         $instance = $this->resolve($file);
         $instance->down();
+        
         $this->repos->delete($migration);
-        $this->note("Rolled back: $file");
+        $this->note('Rolled back: '.$file);
     }
 
     public function getMigrationFiles($path)
@@ -93,7 +94,7 @@ class Migrator
         }
 
         $files = array_map(function ($file) {
-            return str_replace('.php', '', basename($file));
+            return Str::replaceLast('.php', '', basename($file));
         }, $files);
 
         sort($files);

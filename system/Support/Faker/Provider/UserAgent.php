@@ -68,7 +68,7 @@ class UserAgent extends Base
     {
         $saf = mt_rand(531, 535).'.'.mt_rand(1, 50).'.'.mt_rand(1, 7);
 
-        if (mt_rand(0, 1) == 0) {
+        if (mt_rand(0, 1) === 0) {
             $ver = mt_rand(4, 5).'.'.mt_rand(0, 1);
         } else {
             $ver = mt_rand(4, 5).'.0.'.mt_rand(1, 5);

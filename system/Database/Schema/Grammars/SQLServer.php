@@ -55,9 +55,11 @@ class SQLServer extends Grammar
     protected function columns(Table $table)
     {
         $columns = [];
+        
         foreach ($table->columns as $column) {
             $sql = $this->wrap($column).' '.$this->type($column);
             $elements = ['incrementer', 'nullable', 'defaults'];
+        
             foreach ($elements as $element) {
                 $sql .= $this->{$element}($table, $column);
             }
@@ -106,7 +108,7 @@ class SQLServer extends Grammar
      */
     protected function incrementer(Table $table, Magic $column)
     {
-        if ('integer' == $column->type && $column->increment) {
+        if ('integer' === $column->type && $column->increment) {
             return ' IDENTITY PRIMARY KEY';
         }
     }
@@ -258,12 +260,10 @@ class SQLServer extends Grammar
      */
     public function dropFulltext(Table $table, Magic $command)
     {
-        $sql = [
+        return [
             'DROP FULLTEXT INDEX '.$command->name,
             'DROP FULLTEXT CATALOG '.$command->catalog,
         ];
-
-        return $sql;
     }
 
     /**

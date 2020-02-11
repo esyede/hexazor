@@ -198,18 +198,15 @@ class Logger implements LoggerInterface
      */
     public function smtpMailer($message, $email)
     {
-        $host = preg_replace(
-            '#[^\w.-]+#',
-            '',
-            isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : php_uname('n')
-        );
+        $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : php_uname('n');
+        $host = preg_replace('#[^\w.-]+#', '', $host);
 
         $mailer = new Mail();
         $message = str_replace(["\r\n", "\n"], ["\n", PHP_EOL], $this->formatMessage($message));
         $mailer->from($this->fromEmail ?: 'noreply@'.$host)
             ->to(Config::get('debugger.email'))
-            ->subject('PHP: An error occurred on the server'.$host)
-            ->text($message.PHP_EOL.PHP_EOL."source: ".Helpers::getSource())
+            ->subject('PHP: An error occurred on the server '.$host)
+            ->text($message.PHP_EOL.PHP_EOL.'source: '.Helpers::getSource())
             ->send();
     }
 }

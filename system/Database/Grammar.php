@@ -63,7 +63,7 @@ abstract class Grammar
         $segments = explode('.', $value);
 
         foreach ($segments as $key => $value) {
-            if (0 == $key && count($segments) > 1) {
+            if (0 === $key && count($segments) > 1) {
                 $wrapped[] = $this->wrapTable($value);
             } else {
                 $wrapped[] = $this->wrapValue($value);

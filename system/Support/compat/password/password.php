@@ -97,7 +97,7 @@ namespace {
                 if (PasswordCompat\binary\_strlen($salt) < $required_salt_len) {
                     trigger_error(sprintf("password_hash(): Provided salt is too short: %d expecting %d", PasswordCompat\binary\_strlen($salt), $required_salt_len), E_USER_WARNING);
                     return null;
-                } elseif (0 == preg_match('#^[a-zA-Z0-9./]+$#D', $salt)) {
+                } elseif (0 === preg_match('#^[a-zA-Z0-9./]+$#D', $salt)) {
                     $salt_req_encoding = true;
                 }
             } else {
@@ -189,7 +189,7 @@ namespace {
                 'algoName' => 'unknown',
                 'options' => array(),
             );
-            if (PasswordCompat\binary\_substr($hash, 0, 4) == '$2y$' && PasswordCompat\binary\_strlen($hash) == 60) {
+            if (PasswordCompat\binary\_substr($hash, 0, 4) === '$2y$' && PasswordCompat\binary\_strlen($hash) === 60) {
                 $return['algo'] = PASSWORD_BCRYPT;
                 $return['algoName'] = 'bcrypt';
                 list($cost) = sscanf($hash, "$2y$%d$");
@@ -313,7 +313,7 @@ namespace PasswordCompat\binary {
                 if (function_exists('crypt')) {
                     $hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
                     $test = crypt("password", $hash);
-                    $pass = $test == $hash;
+                    $pass = $test === $hash;
                 } else {
                     $pass = false;
                 }

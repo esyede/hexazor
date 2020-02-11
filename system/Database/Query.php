@@ -801,7 +801,7 @@ class Query
         }
 
         if (in_array($method, ['count', 'min', 'max', 'avg', 'sum'])) {
-            if (0 == count($parameters)) {
+            if (0 === count($parameters)) {
                 $parameters[0] = '*';
             }
 

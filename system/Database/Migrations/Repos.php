@@ -23,7 +23,7 @@ class Repos
 
     public function getLast()
     {
-        $query = $this->table()->where('batch', '=', $this->getLastBatchNumber());
+        $query = $this->table()->whereBatch($this->getLastBatchNumber());
 
         return $query->orderBy('migration', 'desc')->get();
     }
@@ -36,7 +36,7 @@ class Repos
 
     public function delete($migration)
     {
-        $this->table()->where('migration', '=', $migration->migration)->delete();
+        $this->table()->whereMigration($migration->migration)->delete();
     }
 
     public function getNextBatchNumber()
@@ -51,13 +51,11 @@ class Repos
 
     public function createRepos()
     {
-        if (!Schema::hasTable($this->table)) {
-            Schema::create($this->table, function ($table) {
-                $table->increments('id');
-                $table->string('migration');
-                $table->integer('batch');
-            });
-        }
+        Schema::createIfNotExists($this->table, function ($table) {
+            $table->increments('id');
+            $table->string('migration');
+            $table->integer('batch');
+        });
     }
 
     public function repositoryExists()

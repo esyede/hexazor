@@ -34,7 +34,7 @@ abstract class Connector
      */
     protected function options($config)
     {
-        $options = (isset($config['options'])) ? $config['options'] : [];
+        $options = isset($config['options']) ? $config['options'] : [];
 
         return $options + $this->options;
     }

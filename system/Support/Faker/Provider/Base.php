@@ -175,13 +175,13 @@ class Base
         reset($array);
         
         while (list($key, $value) = each($array)) {
-            if ($i == 0) {
+            if ($i === 0) {
                 $j = 0;
             } else {
                 $j = mt_rand(0, $i);
             }
         
-            if ($j == $i) {
+            if ($j === $i) {
                 $shuffledArray[]= $value;
             } else {
                 $shuffledArray[]= $shuffledArray[$j];

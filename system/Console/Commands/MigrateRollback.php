@@ -24,7 +24,7 @@ class MigrateRollback extends Command
         if (!$migrator->getRepos()->repositoryExists()) {
             $repository = $migrator->getMigrationTable();
             $this->writeline('Migration repository does not exists: '.$repository);
-            return false;
+            exit();
         }
 
         $migrator->rollback();

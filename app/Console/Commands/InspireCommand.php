@@ -9,20 +9,20 @@ use System\Support\Collection;
 
 class InspireCommand extends Command
 {
-    protected $signature = 'inspire';
+    protected $signature = 'custom:inspire';
     protected $description = 'Display an inspiring quote';
 
     /**
-     * Handle 'inspire' command.
+     * Handle 'custom:inspire' command.
      *
      * @return string
      */
     public function handle()
     {
         $quotes = $this->getQuotes();
-        
+
         $quotes = Collection::make($quotes)->random();
-        
+
         $this->writeline($quotes);
     }
 

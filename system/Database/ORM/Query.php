@@ -112,6 +112,7 @@ class Query
 
         if (count($results) > 0) {
             $eagerloadedModels = $this->getEagerloadedModels();
+            
             foreach ($eagerloadedModels as $relationship => $constraints) {
                 if (Str::contains($relationship, '.')) {
                     continue;
@@ -164,9 +165,9 @@ class Query
         $eagerloadedModels = $this->getEagerloadedModels();
 
         $nested = [];
-        foreach ($eagerloadedModels as $include => $constraints) {
-            if (Str::startsWith($include, $relationship.'.')) {
-                $nested[substr($include, strlen($relationship.'.'))] = $constraints;
+        foreach ($eagerloadedModels as $eagerloaded => $constraints) {
+            if (Str::startsWith($eagerloaded, $relationship.'.')) {
+                $nested[substr($eagerloaded, strlen($relationship.'.'))] = $constraints;
             }
         }
 
@@ -181,6 +182,7 @@ class Query
     protected function getEagerloadedModels()
     {
         $eagerloads = [];
+        
         foreach ($this->model->eagerloads as $relationship => $constraints) {
             if (is_numeric($relationship)) {
                 list($relationship, $constraints) = [$constraints, null];
@@ -223,6 +225,7 @@ class Query
     public function __call($method, $parameters)
     {
         $result = call_user_func_array([$this->table, $method], $parameters);
+        
         if (in_array($method, $this->passthru)) {
             return $result;
         }

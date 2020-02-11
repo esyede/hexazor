@@ -25,12 +25,12 @@ class SQLServer extends Connector
     public function connect($config)
     {
         extract($config);
-        $port = (isset($port)) ? ','.$port : '';
+        $port = isset($port) ? ','.$port : '';
 
         if (in_array('dblib', PDO::getAvailableDrivers())) {
-            $dsn = "dblib:host={$host}{$port};dbname={$database}";
+            $dsn = 'dblib:host='.$host.$port.';dbname='.$database;
         } else {
-            $dsn = "sqlsrv:Server={$host}{$port};Database={$database}";
+            $dsn = 'sqlsrv:Server='.$host.$port.';Database='.$database;
         }
 
         return new PDO($dsn, $username, $password, $this->options($config));

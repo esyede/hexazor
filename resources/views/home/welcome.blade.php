@@ -1,4 +1,4 @@
-@extends('welcome.layout')
+@extends('home.layouts.default')
 
 @section('content')
 	<div class="flex-center position-ref full-height">

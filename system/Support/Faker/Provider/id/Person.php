@@ -264,7 +264,7 @@ class Person extends BasePerson
             $gender = $this->generator->randomElement(array(self::GENDER_MALE, self::GENDER_FEMALE));
         }
 
-        if ($gender == self::GENDER_FEMALE) {
+        if ($gender === self::GENDER_FEMALE) {
             $nik .= $birthDate->format('d') + 40;
         } else {
             $nik .= $birthDate->format('d');

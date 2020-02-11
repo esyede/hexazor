@@ -636,7 +636,7 @@ if (!function_exists('mb_chr')) {
 if (!function_exists('mb_ord')) {
     function mb_ord($s, $encoding = null)
     {
-        if (null == $encoding) {
+        if (null === $encoding) {
             $s = mb_convert_encoding($s, 'UTF-8');
         } elseif ('UTF-8' !== $encoding) {
             $s = mb_convert_encoding($s, 'UTF-8', $encoding);

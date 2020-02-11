@@ -212,7 +212,7 @@ class Html
     private static function listing($type, $list, $attributes = [])
     {
         $html = '';
-        if (0 == count($list)) {
+        if (0 === count($list)) {
             return $html;
         }
 
@@ -242,7 +242,7 @@ class Html
     public static function dl($list, $attributes = [])
     {
         $html = '';
-        if (0 == count($list)) {
+        if (0 === count($list)) {
             return $html;
         }
 

@@ -94,8 +94,8 @@ abstract class Relationship extends Query
     public function keys($results)
     {
         $results = (array) $results;
-
         $keys = [];
+        
         foreach ($results as $result) {
             $keys[] = $result->getKey();
         }

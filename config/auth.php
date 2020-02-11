@@ -10,8 +10,10 @@ return [
     |
     | Hexazor menggunakan sistem berbasis driver yang fleksibel untuk menangani
     | otentikasi. Anda bebas mendaftarkan driver Anda sendiri menggunakan
-    | method Auth::extend(). Tentu saja, beberapa driver sudah disediakan
-    | untuk menangani otentikasi dasar secara sederhana dan mudah.
+    | method Auth::extend().
+    |
+    | Tentu saja, beberapa driver sudah disediakan untuk menangani
+    | otentikasi dasar secara sederhana dan mudah.
     |
     | Pilihan driver: 'default', 'model'.
     |

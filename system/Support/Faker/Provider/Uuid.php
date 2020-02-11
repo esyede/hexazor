@@ -18,7 +18,7 @@ class Uuid extends Base
         $csLo = $byte[9];
         $csHi = $byte[8] & 0x3f | (1 << 7);
 
-        if (pack('L', 0x6162797A) == pack('N', 0x6162797A)) {
+        if (pack('L', 0x6162797A) === pack('N', 0x6162797A)) {
             $tLo = (($tLo & 0x000000ff) << 24) | (($tLo & 0x0000ff00) << 8)
                 | (($tLo & 0x00ff0000) >> 8) | (($tLo & 0xff000000) >> 24);
             $tMi = (($tMi & 0x00ff) << 8) | (($tMi & 0xff00) >> 8);

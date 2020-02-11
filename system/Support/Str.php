@@ -243,7 +243,7 @@ class Str
         }
 
         foreach ($patterns as $pattern) {
-            if ($pattern == $value) {
+            if ($pattern === $value) {
                 return true;
             }
 
@@ -461,7 +461,7 @@ class Str
      */
     public static function replaceFirst($search, $replace, $subject)
     {
-        if ('' == $search) {
+        if ('' === $search) {
             return $subject;
         }
 

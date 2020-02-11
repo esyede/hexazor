@@ -53,9 +53,11 @@ class Postgres extends Grammar
     protected function columns(Table $table)
     {
         $columns = [];
+        
         foreach ($table->columns as $column) {
             $sql = $this->wrap($column).' '.$this->type($column);
             $elements = ['incrementer', 'nullable', 'defaults'];
+        
             foreach ($elements as $element) {
                 $sql .= $this->{$element}($table, $column);
             }
@@ -104,7 +106,7 @@ class Postgres extends Grammar
      */
     protected function incrementer(Table $table, Magic $column)
     {
-        if ('integer' == $column->type && $column->increment) {
+        if ('integer' === $column->type && $column->increment) {
             return ' PRIMARY KEY';
         }
     }

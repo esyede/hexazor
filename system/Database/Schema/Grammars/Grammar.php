@@ -94,7 +94,9 @@ abstract class Grammar extends BaseGrammar
      */
     protected function type(Magic $column)
     {
-        return $this->{'type'.Str::studly($column->type)}($column);
+        $columnType = 'type'.Str::studly($column->type);
+
+        return $this->{$columnType}($column);
     }
 
     /**

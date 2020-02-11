@@ -4,6 +4,7 @@ namespace System\Database;
 
 defined('DS') or exit('No direct script access allowed.');
 
+use DateTime;
 use Exception;
 use PDO;
 use System\Core\Config;
@@ -131,11 +132,11 @@ class Connection
         list($statement, $result) = $this->execute($sql, $bindings);
 
         if (0 === stripos($sql, 'select') || 0 === stripos($sql, 'show')) {
-            return $this->fetch($statement, Config::get('database.fetch'));
+            return $this->fetch($statement, Config::get('database.fetch_style'));
         } elseif (0 === stripos($sql, 'update') || 0 === stripos($sql, 'delete')) {
             return $statement->rowCount();
         } elseif (0 === stripos($sql, 'insert') && false !== stripos($sql, 'returning')) {
-            return $this->fetch($statement, Config::get('database.fetch'));
+            return $this->fetch($statement, Config::get('database.fetch_style'));
         }
 
         return $result;
@@ -162,7 +163,7 @@ class Connection
         $datetime = $this->grammar()->datetime;
 
         for ($i = 0; $i < $bindingsCount; $i++) {
-            if ($bindings[$i] instanceof \DateTime) {
+            if ($bindings[$i] instanceof DateTime) {
                 $bindings[$i] = $bindings[$i]->format($datetime);
             }
         }
@@ -175,7 +176,7 @@ class Connection
             throw new DBException($sql, $bindings, $exception);
         }
 
-        if (Config::get('database.profile')) {
+        if (Config::get('database.enable_profiler')) {
             $this->log($sql, $bindings, $start);
         }
 

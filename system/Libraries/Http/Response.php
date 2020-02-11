@@ -188,7 +188,7 @@ class Response
             $this->headers['Expires'] = gmdate('D, d M Y H:i:s', $expires).' GMT';
             $this->headers['Cache-Control'] = 'max-age='.($expires - time());
 
-            if (isset($this->headers['Pragma']) && 'no-cache' == $this->headers['Pragma']) {
+            if (isset($this->headers['Pragma']) && 'no-cache' === $this->headers['Pragma']) {
                 unset($this->headers['Pragma']);
             }
         }

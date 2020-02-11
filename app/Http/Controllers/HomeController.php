@@ -13,6 +13,6 @@ class HomeController extends Controller
     {
         $greeting = 'You have arrived.';
 
-        return View::make('welcome', compact('greeting'));
+        return View::make('home.welcome', compact('greeting'));
     }
 }

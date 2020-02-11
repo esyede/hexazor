@@ -354,7 +354,7 @@ class Mail
         $this->logs['QUIT'] = $this->sendCommand('QUIT');
         fclose($this->socket);
 
-        return self::OK == substr($this->logs['DATA'][2], 0, 3);
+        return self::OK === substr($this->logs['DATA'][2], 0, 3);
     }
 
     /**
@@ -391,7 +391,7 @@ class Mail
         $response = '';
         while (false !== ($line = fgets($this->socket, 515))) {
             $response .= trim($line)."\n";
-            if (' ' == substr($line, 3, 1)) {
+            if (' ' === substr($line, 3, 1)) {
                 break;
             }
         }

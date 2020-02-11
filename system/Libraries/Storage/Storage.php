@@ -284,7 +284,7 @@ class Storage
         }
 
         return array_filter($glob, function ($file) {
-            return 'file' == filetype($file);
+            return 'file' === filetype($file);
         });
     }
 
@@ -330,7 +330,7 @@ class Storage
         $directories = [];
 
         foreach ($iterator as $item) {
-            if ($item->isFile() || '.' == $item || '..' == $item) {
+            if ($item->isFile() || '.' === $item || '..' === $item) {
                 continue;
             }
 

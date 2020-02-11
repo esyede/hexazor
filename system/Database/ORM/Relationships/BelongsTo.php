@@ -63,15 +63,15 @@ class BelongsTo extends Relationship
     public function eagerlyConstrain($results)
     {
         $results = (array) $results;
-
         $keys = [];
+
         foreach ($results as $result) {
             if (!is_null($key = $result->{$this->foreignKey()})) {
                 $keys[] = $key;
             }
         }
 
-        if (0 == count($keys)) {
+        if (0 === count($keys)) {
             $keys = [0];
         }
 
@@ -89,8 +89,8 @@ class BelongsTo extends Relationship
     {
         $parents = (array) $parents;
         $foreign = $this->foreignKey();
-
         $dictionary = [];
+        
         foreach ($parents as $parent) {
             $dictionary[$parent->getKey()] = $parent;
         }

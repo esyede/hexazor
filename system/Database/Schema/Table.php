@@ -368,7 +368,7 @@ class Table
         $this->commands = (array) $this->commands;
 
         foreach ($this->commands as $key => $value) {
-            if ('create' == $value->type) {
+            if ('create' === $value->type) {
                 return true;
             }
         }

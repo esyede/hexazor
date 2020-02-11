@@ -668,7 +668,7 @@ class Request
         }
 
         if (null !== $this->server('HTTP_X_FORWARDED_PROTO')
-        && 'https' == $this->server('HTTP_X_FORWARDED_PROTO')) {
+        && 'https' === $this->server('HTTP_X_FORWARDED_PROTO')) {
             return true;
         }
 
@@ -708,7 +708,7 @@ class Request
     public function isReferral()
     {
         if (null !== $this->server('HTTP_REFERER')
-        || '' == $this->server('HTTP_REFERER')) {
+        || '' === $this->server('HTTP_REFERER')) {
             return false;
         }
 

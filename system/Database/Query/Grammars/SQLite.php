@@ -41,13 +41,13 @@ class SQLite extends Grammar
             $values = [$values];
         }
 
-        if (1 == count($values)) {
+        if (1 === count($values)) {
             return parent::insert($query, $values[0]);
         }
 
         $names = $this->columnize(array_keys($values[0]));
-
         $columns = [];
+        
         foreach (array_keys($values[0]) as $column) {
             $columns[] = '? AS '.$this->wrap($column);
         }

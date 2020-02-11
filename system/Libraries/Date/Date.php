@@ -721,12 +721,12 @@ class Date
      */
     public function isEqual()
     {
-        if (0 == $this->comparisonArray['y'] &&
-            0 == $this->comparisonArray['m'] &&
-            0 == $this->comparisonArray['d'] &&
-            0 == $this->comparisonArray['h'] &&
-            0 == $this->comparisonArray['i'] &&
-            0 == $this->comparisonArray['s']) {
+        if (0 === $this->comparisonArray['y'] &&
+            0 === $this->comparisonArray['m'] &&
+            0 === $this->comparisonArray['d'] &&
+            0 === $this->comparisonArray['h'] &&
+            0 === $this->comparisonArray['i'] &&
+            0 === $this->comparisonArray['s']) {
             return 1;
         }
 
@@ -855,7 +855,7 @@ class Date
      */
     private function controlTimestamp()
     {
-        if ('' == $this->timestamp) {
+        if ('' === $this->timestamp) {
             $this->now();
         }
     }
@@ -913,7 +913,7 @@ class Date
                     $year--;
                 }
 
-                $leapYear = 0 == $year % 400 || (0 != $year % 100 && 0 == $year % 4);
+                $leapYear = 0 === $year % 400 || (0 !== $year % 100 && 0 === $year % 4);
                 $days = $leapYear ? $daysInMonthLeap[$month] : $daysInMonth[$month];
 
                 $result['d'] += $days;
@@ -921,7 +921,7 @@ class Date
             }
         } else {
             while ($result['d'] < 0) {
-                $leapYear = 0 == $year % 400 || (0 != $year % 100 && 0 == $year % 4);
+                $leapYear = 0 === $year % 400 || (0 !== $year % 100 && 0 === $year % 4);
                 $days = $leapYear ? $daysInMonthLeap[$month] : $daysInMonth[$month];
 
                 $result['d'] += $days;

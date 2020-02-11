@@ -8,8 +8,8 @@ class Pivot extends Model
 {
     public static $timestamps = true;
 
-    protected $pivotTable;
-    protected $pivotConnection;
+    protected $table;
+    protected $connection;
 
     /**
      * Buat instance pivot table baru.
@@ -19,8 +19,8 @@ class Pivot extends Model
      */
     public function __construct($table, $connection = null)
     {
-        $this->pivotTable = $table;
-        $this->pivotConnection = $connection;
+        $this->table = $table;
+        $this->connection = $connection;
 
         parent::__construct([], true);
     }
@@ -32,7 +32,7 @@ class Pivot extends Model
      */
     public function table()
     {
-        return $this->pivotTable;
+        return $this->table;
     }
 
     /**
@@ -42,6 +42,6 @@ class Pivot extends Model
      */
     public function connection()
     {
-        return $this->pivotConnection;
+        return $this->connection;
     }
 }

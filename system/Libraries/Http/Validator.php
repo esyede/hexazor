@@ -118,7 +118,7 @@ class Validator
             }
         }
 
-        return 0 == count($this->errors->messages);
+        return 0 === count($this->errors->messages);
     }
 
     /**
@@ -203,7 +203,7 @@ class Validator
             return false;
         } elseif (!is_null(Request::files($attribute, null))
         && is_array($value)
-        && '' == $value['tmp_name']) {
+        && '' === $value['tmp_name']) {
             return false;
         }
 
@@ -255,7 +255,7 @@ class Validator
     protected function validateAccepted($attribute, $value)
     {
         return $this->validateRequired($attribute, $value)
-            && ('yes' == $value || '1' == $value || 'on' == $value);
+            && ('yes' === $value || '1' === $value || 'on' === $value);
     }
 
     /**
@@ -272,7 +272,7 @@ class Validator
         $other = $parameters[0];
 
         return array_key_exists($other, $this->attributes)
-            && $value == $this->attributes[$other];
+            && $value === $this->attributes[$other];
     }
 
     /**
@@ -329,7 +329,7 @@ class Validator
      */
     protected function validateSize($attribute, $value, array $parameters)
     {
-        return $this->size($attribute, $value) == $parameters[0];
+        return $this->size($attribute, $value) === $parameters[0];
     }
 
     /**
@@ -444,7 +444,7 @@ class Validator
             $query->where($id, '<>', $parameters[2]);
         }
 
-        return 0 == $query->count();
+        return 0 === $query->count();
     }
 
     /**
@@ -530,7 +530,7 @@ class Validator
 
     protected function validateMimes($attribute, $value, $parameters)
     {
-        if (!is_array($value) || '' == array_get($value, 'tmp_name', '')) {
+        if (!is_array($value) || '' === array_get($value, 'tmp_name', '')) {
             return true;
         }
 
@@ -633,7 +633,7 @@ class Validator
      */
     protected function validateCount($attribute, $value, array $parameters)
     {
-        return is_array($value) && count($value) == $parameters[0];
+        return is_array($value) && count($value) === $parameters[0];
     }
 
     /**

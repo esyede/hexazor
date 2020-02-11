@@ -9,14 +9,16 @@ return [
     |--------------------------------------------------------------------------
     |
     | Secara default, seluruh query SQL, binding, dan waktu eksekusi query
-    | akan dicatat oleh Hexazor. Anda dapat melihatnya menggunakan method
-    | DB::profile(). Tetapi, di beberapa situasi, Anda kadang ingin mematikan
+    | akan dicatat oleh Hexazor. Anda dapat melihatnya pada debug bar ataupun
+    | menggunakan method DB::profile().
+    |
+    | Tetapi, di beberapa situasi, Anda kadang ingin mematikan
     | fitur pencatatan ini, misalya saat Anda menjalankan query database yang
     | kompleks dan berat. Anda bisa melakukannya melalui opsi ini.
     |
     */
 
-    'profile' => true,
+    'enable_profiler' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -38,12 +40,14 @@ return [
     |
     | Secara default, hasil query database akan direturn sebagai instance dari
     | object stdClass; akan tetapi, jika Anda lebih suka mereturn array
-    | ketimbang object, bisa saja. Melalui opsi ini Anda bisa mengontrol
-    | fetch style PDO dari query database yang dijalankan oleh aplikasi Anda.
+    | ketimbang object, bisa saja.
+    |
+    | Melalui opsi ini Anda bisa mengontrol fetch style PDO dari query database
+    | yang dijalankan oleh aplikasi Anda.
     |
     */
 
-    'fetch' => PDO::FETCH_CLASS,
+    'fetch_style' => PDO::FETCH_CLASS,
 
     /*
     |--------------------------------------------------------------------------

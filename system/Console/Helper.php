@@ -45,10 +45,10 @@ class Helper
         foreach ($signature as $word) {
             $type = self::determineTypeOfWord($word);
 
-            if ($type == self::IS_OPTION) {
+            if ($type === self::IS_OPTION) {
                 list($key, $defaultValue) = self::parse($word);
                 $options[$key] = $defaultValue;
-            } elseif ($type == self::IS_ARGUMENT) {
+            } elseif ($type === self::IS_ARGUMENT) {
                 list($key, $defaultValue) = self::parse($word);
                 $arguments[$key] = $defaultValue;
             }
@@ -69,10 +69,12 @@ class Helper
     public static function parse($word)
     {
         $word = ltrim(rtrim(trim($word), '}'), '{');
+        $separatorPosition = strpos($word, '=');
 
-        if ($separatorPosition = strpos($word, '=')) {
+        if ($separatorPosition) {
             $key = substr($word, 0, $separatorPosition);
             $defaultValue = substr($word, $separatorPosition + 1);
+
             return [$key, $defaultValue];
         }
 
@@ -84,9 +86,9 @@ class Helper
     {
         $word = ltrim(rtrim(trim($word), '}'), '{');
 
-        if (substr($word, 0, 2) == '--') {
+        if (substr($word, 0, 2) === '--') {
             return self::IS_OPTION;
-        } elseif (substr($word, 0, 1) == ':') {
+        } elseif (substr($word, 0, 1) === ':') {
             return self::IS_ARGUMENT;
         }
 

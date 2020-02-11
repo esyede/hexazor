@@ -80,6 +80,7 @@ class Table
     public function addColumn($content, $column = null, $row = null)
     {
         $row = (null === $row) ? $this->rowIndex : $row;
+        
         if (null === $column) {
             $column = isset($this->data[$row]) ? count($this->data[$row]) : 0;
         }
@@ -213,6 +214,7 @@ class Table
     private function getBorderLine()
     {
         $output = '';
+        
         if (isset($this->data[0])) {
             $columnCount = count($this->data[0]);
         } elseif (isset($this->data[self::HEADER_INDEX])) {
@@ -264,7 +266,7 @@ class Table
         $output .= $this->strPadUnicode($cell, $width + $delta, $row ? ' ' : '-');
         $output .= $padding;
 
-        if ($row && $index == count($row) - 1 && $this->border) {
+        if ($row && $index === count($row) - 1 && $this->border) {
             $output .= $row ? '|' : '+';
         }
 
@@ -311,7 +313,7 @@ class Table
         $strLen = mb_strlen($str, 'UTF-8');
         $padStrLen = mb_strlen($padString, 'UTF-8');
 
-        if (!$strLen && (STR_PAD_RIGHT == $direction || STR_PAD_LEFT == $direction)) {
+        if (!$strLen && (STR_PAD_RIGHT === $direction || STR_PAD_LEFT === $direction)) {
             $strLen = 1;
         }
 
@@ -322,13 +324,13 @@ class Table
         $result = null;
         $repeat = ceil($strLen - $padStrLen + $padLength);
 
-        if (STR_PAD_RIGHT == $direction) {
+        if (STR_PAD_RIGHT === $direction) {
             $result = $str.str_repeat($padString, $repeat);
             $result = mb_substr($result, 0, $padLength, 'UTF-8');
-        } elseif (STR_PAD_LEFT == $direction) {
+        } elseif (STR_PAD_LEFT === $direction) {
             $result = str_repeat($padString, $repeat).$str;
             $result = mb_substr($result, -$padLength, null, 'UTF-8');
-        } elseif (STR_PAD_BOTH == $direction) {
+        } elseif (STR_PAD_BOTH === $direction) {
             $length = ($padLength - $strLen) / 2;
             $repeat = ceil($length / $padStrLen);
             $result = mb_substr(str_repeat($padString, $repeat), 0, floor($length), 'UTF-8').
