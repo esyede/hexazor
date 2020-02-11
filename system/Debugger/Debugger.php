@@ -172,7 +172,15 @@ class Debugger
         }
 
         $error = error_get_last();
-        $errList = [
+
+        // PHP 7.4+ BC-break workaround:
+        // error_get_last() always returning NULL, causing PHP Notice.
+        if (PHP_VERSION_ID >= 70400 && blank($error)) {
+            restore_error_handler();
+            $error = error_get_last();
+        }
+        
+        $errorTypes = [
             E_ERROR,
             E_CORE_ERROR,
             E_COMPILE_ERROR,
@@ -181,7 +189,7 @@ class Debugger
             E_USER_ERROR,
         ];
 
-        if (in_array($error['type'], $errList, true)) {
+        if (in_array($error['type'], $errorTypes, true)) {
             self::exceptionHandler(
                 Helpers::fixStack(
                     new \ErrorException(
@@ -446,7 +454,7 @@ class Debugger
             $info->cpuUsage = self::$cpuUsage;
             self::$bar->addPanel(new DefaultBarPanel('errors'), 'Debugger:errors');
             
-            if (Config::get('database.profile')) {
+            if (Config::get('database.enable_profiler')) {
                 self::$bar->addPanel(new DefaultBarPanel('db'), 'db');
             }
         }
